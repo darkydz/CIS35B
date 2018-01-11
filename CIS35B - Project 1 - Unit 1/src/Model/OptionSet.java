@@ -2,8 +2,8 @@ package Model;
 
 public class OptionSet 
 {
-	Option opt [];
-	String name;
+	private Option opt [];
+	private String name;
 	OptionSet()
 	{
 
@@ -18,8 +18,8 @@ public class OptionSet
 	
 	private class Option 
 	{
-		String name;
-		float price;
+		private String name;
+		private float price;
 		Option (){}
 		Option (String n, float p)
 		{
