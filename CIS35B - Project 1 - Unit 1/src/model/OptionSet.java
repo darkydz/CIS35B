@@ -6,9 +6,14 @@ public class OptionSet
 	private String name;
 	OptionSet()
 	{
-
+		
 	}
 	
+	/**
+	 * constructor
+	 * @param n name of the OptionSet
+	 * @param size size of Option array
+	 */
 	OptionSet(String n, int size)
 	{
 		name = n;
@@ -19,23 +24,25 @@ public class OptionSet
 	private class Option 
 	{
 		private String name;
-		private float price;
+		private int price;
 		Option (){}
-		Option (String n, float p)
+		Option (String n, int p)
 		{
 			name = n;
 			price = p;
 		}
 		
-		String get_name()
+		String getName()
 		{
 			return name;
 		}
 		
-		float get_price()
+		int getPrice()
 		{
 			return price;
 		}
 	}
+	
+	
 
 }
