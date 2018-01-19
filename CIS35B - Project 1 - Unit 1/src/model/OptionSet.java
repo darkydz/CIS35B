@@ -1,48 +1,68 @@
 package model;
 
-public class OptionSet 
+import java.io.Serializable;
+
+public class OptionSet implements Serializable
 {
 	private Option opt [];
 	private String name;
-	OptionSet()
-	{
-		
-	}
 	
-	/**
-	 * constructor
-	 * @param n name of the OptionSet
-	 * @param size size of Option array
-	 */
-	OptionSet(String n, int size)
+	public OptionSet(String setName, String options[])
 	{
-		name = n;
-		for (int i=0; i < size; i++)
-			opt[i] = new Option();
+		name = setName;
+		opt = new Option[options.length];
+		for (int i=0; i < options.length; i++)
+		{
+			String opName = options[i].split("=")[0];
+			int opPrice = Integer.parseInt(options[i].split("=")[1]);
+//			System.out.println(i);
+			opt[i] = new Option(opName, opPrice);
+		}
 	}
+
 	
-	private class Option 
+	class Option 
 	{
-		private String name;
+		private String optionName;
 		private int price;
-		Option (){}
-		Option (String n, int p)
+		
+		public Option (String n, int p)
 		{
-			name = n;
+			optionName = n;
+//			System.out.println(optionName);
 			price = p;
+//			System.out.println(price);
 		}
 		
-		String getName()
+		public Option() {
+			// TODO Auto-generated constructor stub
+		}
+
+		public String getName()
 		{
-			return name;
+			return optionName;
 		}
 		
-		int getPrice()
+		public int getPrice()
 		{
 			return price;
 		}
+		
 	}
 	
+	public String getName()
+	{
+		return name;
+	}
 	
-
+	public int getSize()
+	{
+		return opt.length;
+	}
+	
+	public Option getOption(int i)
+	{
+		return opt[i];
+	}
+	
 }
