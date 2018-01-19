@@ -4,7 +4,7 @@ import java.io.*;
 import model.*;
 
 public class FileIO {
-	public Auto readAutoFile(String filename)
+	public Auto buildAutoObject(String filename)
 	{
 		try 
 		{
@@ -20,7 +20,7 @@ public class FileIO {
 			{
 				optionSetStrings[i]=br.readLine();
 			}
-			
+			br.close();
 			Auto autoObject = new Auto(name,baseprice,optionSetStrings);
 //			autoObject.displayInfo();
 			
