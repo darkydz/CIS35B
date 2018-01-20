@@ -14,13 +14,14 @@ public class FileIO {
 			String name = line.split(";")[0];
 			int baseprice = Integer.parseInt(line.split(";")[1]);
 			int opSetSize = Integer.parseInt(line.split(";")[2]);
+			Auto autoObject = new Auto(name,baseprice,opSetSize);
 			
 			String optionSetStrings[] = new String[opSetSize];
 			for (int i=0;i<opSetSize;i++)
 			{
-				optionSetStrings[i]=br.readLine();
+//				optionSetStrings[i]=br.readLine();
+				
 			}
-			Auto autoObject = new Auto(name,baseprice,opSetSize);
 //			Auto autoObject = new Auto(name,baseprice,optionSetStrings);
 //			autoObject.displayInfo();
 			br.close();
