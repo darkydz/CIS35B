@@ -6,36 +6,27 @@ public class OptionSet implements Serializable
 {
 	private Option opt [];
 	private String name;
-	
-	public OptionSet(String setName, String options[])
+	public OptionSet(String setName, int setSize)
 	{
 		name = setName;
-		opt = new Option[options.length];
-		for (int i=0; i < options.length; i++)
-		{
-			String opName = options[i].split("=")[0];
-			int opPrice = Integer.parseInt(options[i].split("=")[1]);
-//			System.out.println(i);
-			opt[i] = new Option(opName, opPrice);
-		}
+		opt = new Option[setSize];
 	}
-
-	
+		
 	class Option 
 	{
 		private String optionName;
 		private int price;
 		
+		public Option ()
+		{
+			optionName = "";	
+			price = 0;
+		}
+		
 		public Option (String n, int p)
 		{
 			optionName = n;
-//			System.out.println(optionName);
 			price = p;
-//			System.out.println(price);
-		}
-		
-		public Option() {
-			// TODO Auto-generated constructor stub
 		}
 
 		public String getName()
@@ -46,6 +37,16 @@ public class OptionSet implements Serializable
 		public int getPrice()
 		{
 			return price;
+		}
+		
+		public void setName(String n)
+		{
+			optionName = n;
+		}
+		
+		public void setPrice(int p)
+		{
+			price = p;
 		}
 		
 	}
@@ -65,4 +66,13 @@ public class OptionSet implements Serializable
 		return opt[i];
 	}
 	
+	public void setName(String n)
+	{
+		name = n;
+	}
+	
+	public void setOption(int i, String opName, int opPrice)
+	{
+		opt[i] = new Option(opName, opPrice);
+	}
 }

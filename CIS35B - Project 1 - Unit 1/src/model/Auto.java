@@ -25,25 +25,6 @@ public class Auto implements Serializable
 	}
 	
 	/**
-	 * Constructor
-	 * @param n name of model
-	 * @param p base price of model
-	 * @param size size of OptionSet array 
-	 */
-	public Auto(String n, int p, String sets[])
-	{
-		name = n;
-		baseprice = p;
-		opset = new OptionSet[sets.length];
-		for(int i=0;i<sets.length;i++)
-		{
-			String setName = sets[i].split(":")[0];
-			String options[] = sets[i].split(":")[1].split(",");
-			opset[i] = new OptionSet(setName, options);
-		}
-	}
-	
-	/**
 	 * Return name of this car model
 	 */
 	public String getName()
@@ -86,9 +67,9 @@ public class Auto implements Serializable
 		return -1;
 	}
 	
-	public boolean setOptionSet(String opsetName, String options[])
+	public boolean setOptionSet(int i, String opsetName, int opSetSize)
 	{
-		
+		opset[i] = new OptionSet(opsetName, opSetSize);
 		return true;
 	}
 	
@@ -100,26 +81,25 @@ public class Auto implements Serializable
 		sb.append("\nBase Price: ");
 		sb.append(baseprice);
 		sb.append("\nOptions: ");
-//		for (int i = 0; i<opset.length; i++)
-//		{
-//			OptionSet curOpSet = opset[i]; 
-//			sb.append("\n- ");
-//			sb.append(curOpSet.getName());
-//			sb.append(":");
-//			for (int j = 0; j < curOpSet.getSize(); j++)
-//			{
-//				sb.append("\n\t");
-////				sb.append(j);
-////				sb.append(".");
-//				sb.append("+ ");
-//				sb.append(opset[i].getOption(j).getName());
-//				sb.append(" : ");
-//				sb.append(opset[i].getOption(j).getPrice());
-//				
-//			}
-//		}
+		for (int i = 0; i<opset.length; i++)
+		{
+			OptionSet curOpSet = opset[i]; 
+			sb.append("\n- ");
+			sb.append(curOpSet.getName());
+			sb.append(":");
+			for (int j = 0; j < curOpSet.getSize(); j++)
+			{
+				sb.append("\n\t");
+				sb.append("+ ");
+				sb.append(opset[i].getOption(j).getName());
+				sb.append(" : ");
+				sb.append(opset[i].getOption(j).getPrice());
+				
+			}
+		}
 		
 		System.out.println(sb.toString());
+		
 	}
 	
 }
