@@ -6,20 +6,18 @@ import model.*;
 
 public class FileIO {
 	/**
-	 * @param filename
-	 * @return
+	 * @param filename: input file that contains Auto model data 
+	 * @return a new Auto object 
 	 */
 	public Auto buildAutoObject(String filename) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
-			String line = "";
+			String line = ""; 
 			line = br.readLine();
-//			System.out.println(line);
 			String name = line.split(":")[0];
 			int price = Integer.parseInt(line.split(":")[1]);
 			int size = Integer.parseInt(line.split(":")[2]);
 			Auto autoObject = new Auto(name, price, size);
-
 			for (int i = 0; i < size; i++) {
 				line = br.readLine();
 				name = line.split(":")[0];
@@ -32,7 +30,6 @@ public class FileIO {
 					autoObject.getOptionSets(i).setOption(j, name, price);
 				}
 			}
-
 			br.close();
 			return autoObject;
 		} catch (IOException e) {
@@ -42,8 +39,8 @@ public class FileIO {
 	}
 
 	/**
-	 * @param autoObject
-	 * @param filename
+	 * @param autoObject: Auto object to be serialized
+	 * @param filename: destination serialized file
 	 */
 	public void serializeAuto(Auto autoObject, String filename) {
 		try {
@@ -56,8 +53,9 @@ public class FileIO {
 	}
 
 	/**
-	 * @param filename
-	 * @return
+	 * Take a serialized Auto file and read into an Auto object 
+	 * @param filename: the serialized file
+	 * @return Auto object
 	 */
 	public Auto deserializeAuto(String filename) {
 		try {
