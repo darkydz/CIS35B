@@ -10,20 +10,27 @@ public class FileIO {
 		{
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = "";
-			line=br.readLine();
+			line = br.readLine();
 			String name = line.split(";")[0];
 			int baseprice = Integer.parseInt(line.split(";")[1]);
-			int size = Integer.parseInt(line.split(";")[2]);
+			int opSetSize = Integer.parseInt(line.split(";")[2]);
+			Auto autoObject = new Auto(name,baseprice,opSetSize);
 			
-			String optionSetStrings[] = new String[size];
-			for (int i=0;i<size;i++)
+			for (int i=0;i<opSetSize;i++)
 			{
-				optionSetStrings[i]=br.readLine();
+				line = br.readLine();
+				String opSetName = line.split(":")[0];
+				String options[] = line.split(":")[1].split(",");
+				autoObject.setOptionSet(i,opSetName, options.length);
+				for (int j = 0; j < options.length; j++)
+				{
+					String optName = options[j].split("=")[0];
+					int optPrice = Integer.parseInt(options[j].split("=")[1]);
+					autoObject.getOptionSets(i).setOption(j, optName, optPrice);
+				}
 			}
+
 			br.close();
-			Auto autoObject = new Auto(name,baseprice,optionSetStrings);
-//			autoObject.displayInfo();
-			
 			return autoObject;
 		}
 		catch (IOException e)

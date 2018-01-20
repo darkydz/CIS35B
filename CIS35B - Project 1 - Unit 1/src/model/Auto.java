@@ -17,28 +17,11 @@ public class Auto implements Serializable
 	/**
 	 * default constructor
 	 */
-	public Auto(String n, int p)
+	public Auto(String n, int p, int size)
 	{
 		name = n;
 		baseprice = p;
-	}
-	/**
-	 * Constructor
-	 * @param n name of model
-	 * @param p base price of model
-	 * @param size size of OptionSet array 
-	 */
-	public Auto(String n, int p, String sets[])
-	{
-		name = n;
-		baseprice = p;
-		opset = new OptionSet[sets.length];
-		for(int i=0;i<sets.length;i++)
-		{
-			String setName = sets[i].split(":")[0];
-			String options[] = sets[i].split(":")[1].split(",");
-			opset[i] = new OptionSet(setName, options);
-		}
+		opset = new OptionSet[size];
 	}
 	
 	/**
@@ -84,9 +67,9 @@ public class Auto implements Serializable
 		return -1;
 	}
 	
-	public boolean setOptionSet(String opsetName, String options[])
+	public boolean setOptionSet(int i, String opsetName, int opSetSize)
 	{
-		
+		opset[i] = new OptionSet(opsetName, opSetSize);
 		return true;
 	}
 	
@@ -107,8 +90,6 @@ public class Auto implements Serializable
 			for (int j = 0; j < curOpSet.getSize(); j++)
 			{
 				sb.append("\n\t");
-//				sb.append(j);
-//				sb.append(".");
 				sb.append("+ ");
 				sb.append(opset[i].getOption(j).getName());
 				sb.append(" : ");
@@ -118,6 +99,7 @@ public class Auto implements Serializable
 		}
 		
 		System.out.println(sb.toString());
+		
 	}
 	
 }
