@@ -6,6 +6,10 @@ public class OptionSet implements Serializable {
 	private Option opt[];
 	private String name;
 
+	/**
+	 * @param setName
+	 * @param setSize
+	 */
 	public OptionSet(String setName, int setSize) {
 		name = setName;
 		opt = new Option[setSize];
@@ -43,22 +47,40 @@ public class OptionSet implements Serializable {
 
 	}
 
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getSize() {
 		return opt.length;
 	}
 
+	/**
+	 * @param i
+	 * @return
+	 */
 	public Option getOption(int i) {
 		return opt[i];
 	}
 
+	/**
+	 * @param n
+	 */
 	public void setName(String n) {
 		name = n;
 	}
 
+	/**
+	 * @param i
+	 * @param opName
+	 * @param opPrice
+	 */
 	public void setOption(int i, String opName, int opPrice) {
 		opt[i] = new Option(opName, opPrice);
 	}

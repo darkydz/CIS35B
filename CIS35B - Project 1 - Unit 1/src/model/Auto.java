@@ -17,6 +17,11 @@ public class Auto implements Serializable {
 	/**
 	 * default constructor
 	 */
+	/**
+	 * @param n
+	 * @param p
+	 * @param size
+	 */
 	public Auto(String n, int p, int size) {
 		name = n;
 		baseprice = p;
@@ -26,12 +31,18 @@ public class Auto implements Serializable {
 	/**
 	 * Return name of this car model
 	 */
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
 	 * Return base price of model
+	 */
+	/**
+	 * @return
 	 */
 	public int getBasePrice() {
 		return baseprice;
@@ -40,18 +51,32 @@ public class Auto implements Serializable {
 	/**
 	 * Return an OptionSet by index
 	 */
+	/**
+	 * @param i
+	 * @return
+	 */
 	public OptionSet getOptionSets(int i) {
 		return opset[i];
 	}
 
+	/**
+	 * @param n
+	 */
 	public void setName(String n) {
 		name = n;
 	}
 
+	/**
+	 * @param p
+	 */
 	public void setBasePrice(int p) {
 		baseprice = p;
 	}
 
+	/**
+	 * @param opsetName
+	 * @return
+	 */
 	public int findOptionSet(String opsetName) {
 		for (int i = 0; i < opset.length; i++) {
 			if (opset[i].getName().equals(opsetName))
@@ -60,11 +85,20 @@ public class Auto implements Serializable {
 		return -1;
 	}
 
+	/**
+	 * @param i
+	 * @param opsetName
+	 * @param opSetSize
+	 * @return
+	 */
 	public boolean setOptionSet(int i, String opsetName, int opSetSize) {
 		opset[i] = new OptionSet(opsetName, opSetSize);
 		return true;
 	}
 
+	/**
+	 * 
+	 */
 	public void displayInfo() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Name: ");

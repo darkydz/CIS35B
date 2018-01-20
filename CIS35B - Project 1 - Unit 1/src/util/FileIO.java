@@ -5,6 +5,10 @@ import java.io.*;
 import model.*;
 
 public class FileIO {
+	/**
+	 * @param filename
+	 * @return
+	 */
 	public Auto buildAutoObject(String filename) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -35,6 +39,10 @@ public class FileIO {
 		return null;
 	}
 
+	/**
+	 * @param autoObject
+	 * @param filename
+	 */
 	public void serializeAuto(Auto autoObject, String filename) {
 		try {
 			ObjectOutputStream ost = new ObjectOutputStream(new FileOutputStream(filename));
@@ -45,6 +53,10 @@ public class FileIO {
 		}
 	}
 
+	/**
+	 * @param filename
+	 * @return
+	 */
 	public Auto deserializeAuto(String filename) {
 		try {
 			ObjectInputStream ist = new ObjectInputStream(new FileInputStream(filename));
