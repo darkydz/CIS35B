@@ -13,17 +13,17 @@ public class FileIO {
 			line=br.readLine();
 			String name = line.split(";")[0];
 			int baseprice = Integer.parseInt(line.split(";")[1]);
-			int size = Integer.parseInt(line.split(";")[2]);
+			int opSetSize = Integer.parseInt(line.split(";")[2]);
 			
-			String optionSetStrings[] = new String[size];
-			for (int i=0;i<size;i++)
+			String optionSetStrings[] = new String[opSetSize];
+			for (int i=0;i<opSetSize;i++)
 			{
 				optionSetStrings[i]=br.readLine();
 			}
-			br.close();
-			Auto autoObject = new Auto(name,baseprice,optionSetStrings);
+			Auto autoObject = new Auto(name,baseprice,opSetSize);
+//			Auto autoObject = new Auto(name,baseprice,optionSetStrings);
 //			autoObject.displayInfo();
-			
+			br.close();
 			return autoObject;
 		}
 		catch (IOException e)

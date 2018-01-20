@@ -17,11 +17,13 @@ public class Auto implements Serializable
 	/**
 	 * default constructor
 	 */
-	public Auto(String n, int p)
+	public Auto(String n, int p, int size)
 	{
 		name = n;
 		baseprice = p;
+		opset = new OptionSet[size];
 	}
+	
 	/**
 	 * Constructor
 	 * @param n name of model
@@ -98,24 +100,24 @@ public class Auto implements Serializable
 		sb.append("\nBase Price: ");
 		sb.append(baseprice);
 		sb.append("\nOptions: ");
-		for (int i = 0; i<opset.length; i++)
-		{
-			OptionSet curOpSet = opset[i]; 
-			sb.append("\n- ");
-			sb.append(curOpSet.getName());
-			sb.append(":");
-			for (int j = 0; j < curOpSet.getSize(); j++)
-			{
-				sb.append("\n\t");
-//				sb.append(j);
-//				sb.append(".");
-				sb.append("+ ");
-				sb.append(opset[i].getOption(j).getName());
-				sb.append(" : ");
-				sb.append(opset[i].getOption(j).getPrice());
-				
-			}
-		}
+//		for (int i = 0; i<opset.length; i++)
+//		{
+//			OptionSet curOpSet = opset[i]; 
+//			sb.append("\n- ");
+//			sb.append(curOpSet.getName());
+//			sb.append(":");
+//			for (int j = 0; j < curOpSet.getSize(); j++)
+//			{
+//				sb.append("\n\t");
+////				sb.append(j);
+////				sb.append(".");
+//				sb.append("+ ");
+//				sb.append(opset[i].getOption(j).getName());
+//				sb.append(" : ");
+//				sb.append(opset[i].getOption(j).getPrice());
+//				
+//			}
+//		}
 		
 		System.out.println(sb.toString());
 	}
