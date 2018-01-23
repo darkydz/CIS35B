@@ -14,24 +14,27 @@ public class FileIO {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = ""; 
 			line = br.readLine();
-			String name = line.split(":")[0];
-			int price = Integer.parseInt(line.split(":")[1]);
-			int size = Integer.parseInt(line.split(":")[2]);
-			Auto autoObject = new Auto(name, price, size);
-			for (int i = 0; i < size; i++) {
-				line = br.readLine();
-				name = line.split(":")[0];
-				int setSize = Integer.parseInt(line.split(":")[1]);
-				autoObject.setOptionSet(i, name, setSize);
-				for (int j = 0; j < setSize; j++) {
+			if (line != null)
+			{
+				String name = line.split(":")[0];
+				int price = Integer.parseInt(line.split(":")[1]);
+				int size = Integer.parseInt(line.split(":")[2]);
+				Auto autoObject = new Auto(name, price, size);
+				for (int i = 0; i < size; i++) {
 					line = br.readLine();
 					name = line.split(":")[0];
-					price = Integer.parseInt(line.split(":")[1]);
-					autoObject.getOptionSets(i).setOption(j, name, price);
-				}
+					int setSize = Integer.parseInt(line.split(":")[1]);
+					autoObject.setOptionSet(i, name, setSize);
+					for (int j = 0; j < setSize; j++) {
+						line = br.readLine();
+						name = line.split(":")[0];
+						price = Integer.parseInt(line.split(":")[1]);
+						autoObject.getOptionSets(i).setOption(j, name, price); //change to not call OptionSet methods directly in FileIO
+					}
+				}	
+				return autoObject;
 			}
 			br.close();
-			return autoObject;
 		} catch (IOException e) {
 			System.out.println("Error: " + e.toString());
 		}
