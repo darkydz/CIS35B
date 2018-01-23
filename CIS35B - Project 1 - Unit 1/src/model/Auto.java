@@ -2,8 +2,6 @@ package model;
 
 import java.io.Serializable;
 
-import model.OptionSet.Option;
-
 /**
  * 
  * @author Anh
@@ -48,10 +46,9 @@ public class Auto implements Serializable {
 
 	/**
 	 * @param i: index of OptionSet
-	 * @return OptionSet at index i
+	 * @return OptionSet at index i. If index is not exists, return NULL
 	 */
 	public OptionSet getOptionSets(int i) {
-//		needs to validate index in the future
 		return opset[i];
 	}
 
@@ -76,7 +73,20 @@ public class Auto implements Serializable {
 	 * @param opSetSize: new OptionSet size
 	 */
 	public void setOptionSet(int i, String opsetName, int opSetSize) {
-		opset[i] = new OptionSet(opsetName, opSetSize);
+		if (opset[i] != null)
+			opset[i] = new OptionSet(opsetName, opSetSize);
+	}
+	
+	/**
+	 * Set an Option for the OptionSet
+	 * @param i index of OptionSet
+	 * @param j index of Option
+	 * @param newOptionName
+	 * @param newPrice
+	 */
+	public void setOption(int i, int j, String opName, int opPrice) {
+		if (opset[i] != null)
+			opset[i].setOption(j, opName, opPrice);		
 	}
 	
 	/**
@@ -121,30 +131,18 @@ public class Auto implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Display Auto's data
 	 */
-	public void displayInfo() {
-		StringBuffer sb = new StringBuffer();
+	public void print() {
+		StringBuilder sb = new StringBuilder();
 		sb.append("Name: ");
 		sb.append(name);
 		sb.append("\nBase Price: ");
 		sb.append(baseprice);
 		sb.append("\nOptions: ");
 		for (int i = 0; i < opset.length; i++) {
-			OptionSet curOpSet = opset[i];
-			sb.append("\n- ");
-			sb.append(curOpSet.getName());
-			sb.append(":");
-			for (int j = 0; j < curOpSet.getSize(); j++) {
-				sb.append("\n\t");
-				sb.append("+ ");
-				sb.append(opset[i].getOption(j).getName());
-				sb.append(" : ");
-				sb.append(opset[i].getOption(j).getPrice());
-
-			}
+			sb.append(opset[i].print());
 		}
 		System.out.println(sb.toString());
 	}
-
 }

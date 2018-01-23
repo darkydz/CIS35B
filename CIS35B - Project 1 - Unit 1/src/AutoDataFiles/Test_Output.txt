@@ -1,0 +1,155 @@
+1. Test Working FordZTW
+A. Display new Auto:
+---------------------
+Name: Focus Wagon ZTW
+Base Price: 18445
+Options: 
+- Color:
+	+ Fort Knox Gold Clearcoat Metallic : 0
+	+ Liquid Grey Clearcoat Metallic : 0
+	+ Infra-Red Clearcoat : 0
+	+ Grabber Green Clearcoat Metallic : 0
+	+ Sangria Red Clearcoat Metallic : 0
+	+ French Blue Clearcoat Metallic : 0
+	+ Twilight Blue Clearcoat Metallic : 0
+	+ CD Silver Clearcoat Metallic : 0
+	+ Pitch Black Clearcoat : 0
+	+ Cloud 9 White Clearcoat : 0
+- Transmission:
+	+ Automatic : 0
+	+ Manual : -815
+- Brakes/Traction Control:
+	+ Standard : 0
+	+ ABS : 400
+	+ ABS with Advance Trac : 1625
+- Side Impact Air Bags:
+	+ Not present : 0
+	+ Present : 350
+- Power Moonroof:
+	+ Not present : 0
+	+ Present : 595
+============================
+B. Display deserialized Auto:
+-----------------------------
+Name: Focus Wagon ZTW
+Base Price: 18445
+Options: 
+- Color:
+	+ Fort Knox Gold Clearcoat Metallic : 0
+	+ Liquid Grey Clearcoat Metallic : 0
+	+ Infra-Red Clearcoat : 0
+	+ Grabber Green Clearcoat Metallic : 0
+	+ Sangria Red Clearcoat Metallic : 0
+	+ French Blue Clearcoat Metallic : 0
+	+ Twilight Blue Clearcoat Metallic : 0
+	+ CD Silver Clearcoat Metallic : 0
+	+ Pitch Black Clearcoat : 0
+	+ Cloud 9 White Clearcoat : 0
+- Transmission:
+	+ Automatic : 0
+	+ Manual : -815
+- Brakes/Traction Control:
+	+ Standard : 0
+	+ ABS : 400
+	+ ABS with Advance Trac : 1625
+- Side Impact Air Bags:
+	+ Not present : 0
+	+ Present : 350
+- Power Moonroof:
+	+ Not present : 0
+	+ Present : 595
+
+
+
+2. Test Working ToyotaCamry
+A. Display new Auto:
+---------------------
+Name: Camry Sport
+Base Price: 21555
+Options: 
+- Color:
+	+ Twilight Blue Clearcoat Metallic : 0
+	+ CD Silver Clearcoat Metallic : 100
+	+ Pitch Black Clearcoat : 200
+	+ Cloud 9 White Clearcoat : 0
+- Transmission:
+	+ Automatic : 0
+	+ Manual : -815
+	+ Automatic V6 : 2000
+- Brakes/Traction Control:
+	+ Standard : 0
+	+ ABS : 400
+	+ ABS with Advance Trac : 1999
+- Sound:
+	+ Bluetooth : 0
+	+ Bluetooth + Bose 7.1 Speakers : 3000
+	+ No Bluetooth : -200
+- Power Moonroof:
+	+ Not present : 0
+	+ Present : 999
+============================
+B. Display deserialized Auto:
+-----------------------------
+Name: Camry Sport
+Base Price: 21555
+Options: 
+- Color:
+	+ Twilight Blue Clearcoat Metallic : 0
+	+ CD Silver Clearcoat Metallic : 100
+	+ Pitch Black Clearcoat : 200
+	+ Cloud 9 White Clearcoat : 0
+- Transmission:
+	+ Automatic : 0
+	+ Manual : -815
+	+ Automatic V6 : 2000
+- Brakes/Traction Control:
+	+ Standard : 0
+	+ ABS : 400
+	+ ABS with Advance Trac : 1999
+- Sound:
+	+ Bluetooth : 0
+	+ Bluetooth + Bose 7.1 Speakers : 3000
+	+ No Bluetooth : -200
+- Power Moonroof:
+	+ Not present : 0
+	+ Present : 999
+
+
+
+3. Test Empty File
+Error! Input file not formatted correctly!
+
+
+
+4. Test Missing Base Price
+Error! Input file not formatted correctly!
+
+
+
+5. Test Missing Option
+Error! Input file not formatted correctly!
+
+
+
+6. Test Missing Option Name
+Error! Input file not formatted correctly!
+
+
+
+7. Test Missing Option Price
+Error! Input file not formatted correctly!
+
+
+
+8. Test Missing OptionSet Data
+Error! Input file not formatted correctly!
+
+
+
+9. Test Missing OptionSet Data 2
+Error! Input file not formatted correctly!
+
+
+
+10. Test Missing OptionSet Size
+Error! Input file not formatted correctly!

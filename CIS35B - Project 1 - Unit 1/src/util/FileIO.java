@@ -14,7 +14,7 @@ public class FileIO {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = ""; 
 			line = br.readLine();
-			if (line != null)
+			if (line != null && line.split(":").length == 3 && !line.split(":")[0].isEmpty() && !line.split(":")[1].isEmpty() && !line.split(":")[2].isEmpty())
 			{
 				String name = line.split(":")[0];
 				int price = Integer.parseInt(line.split(":")[1]);
@@ -22,16 +22,33 @@ public class FileIO {
 				Auto autoObject = new Auto(name, price, size);
 				for (int i = 0; i < size; i++) {
 					line = br.readLine();
-					name = line.split(":")[0];
-					int setSize = Integer.parseInt(line.split(":")[1]);
-					autoObject.setOptionSet(i, name, setSize);
-					for (int j = 0; j < setSize; j++) {
-						line = br.readLine();
+					if (line != null && line.split(":").length == 2 && !line.split(":")[0].isEmpty() && !line.split(":")[1].isEmpty())
+					{
 						name = line.split(":")[0];
-						price = Integer.parseInt(line.split(":")[1]);
-						autoObject.getOptionSets(i).setOption(j, name, price); //change to not call OptionSet methods directly in FileIO
+						int setSize = Integer.parseInt(line.split(":")[1]);
+						autoObject.setOptionSet(i, name, setSize);
+						for (int j = 0; j < setSize; j++) {
+							line = br.readLine();
+							if (line != null && line.split(":").length == 2 && !line.split(":")[0].isEmpty() && !line.split(":")[1].isEmpty())
+							{
+								name = line.split(":")[0];
+								price = Integer.parseInt(line.split(":")[1]);
+								autoObject.setOption(i,j,name,price);
+							}
+							else
+							{
+								br.close();
+								return null;
+							}
+						}
+					}
+					else
+					{
+						br.close();
+						return null;
 					}
 				}	
+				br.close();
 				return autoObject;
 			}
 			br.close();
@@ -56,8 +73,10 @@ public class FileIO {
 	}
 
 	/**
-	 * Take a serialized Auto file and read into an Auto object 
-	 * @param filename: the serialized file
+	 * Take a serialized Auto file and read into an Auto object
+	 * 
+	 * @param filename:
+	 *            the serialized file
 	 * @return Auto object
 	 */
 	public Auto deserializeAuto(String filename) {

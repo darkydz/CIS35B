@@ -20,7 +20,7 @@ public class OptionSet implements Serializable {
 		opt = new Option[setSize];
 	}
 
-	class Option implements Serializable {
+	private class Option implements Serializable {
 		private String optionName;
 		private int price;
 		
@@ -42,14 +42,14 @@ public class OptionSet implements Serializable {
 		/**
 		 * @return name of Option
 		 */
-		public String getName() {
+		protected String getName() {
 			return optionName;
 		}
 
 		/**
 		 * @return price of Option
 		 */
-		public int getPrice() {
+		protected int getPrice() {
 			return price;
 		}
 
@@ -57,7 +57,7 @@ public class OptionSet implements Serializable {
 		 * Change name of Option
 		 * @param n: new name of Option 
 		 */
-		public void setName(String n) {
+		protected void setName(String n) {
 			optionName = n;
 		}
 		
@@ -65,37 +65,45 @@ public class OptionSet implements Serializable {
 		 * Change price of Option
 		 * @param p: new price of Option
 		 */
-		public void setPrice(int p) {
+		protected void setPrice(int p) {
 			price = p;
+		}
+		
+		/**
+		 * 
+		 * @return formatted String of Option
+		 */
+		protected String print()
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append("\n\t\t");
+			sb.append("+ ");
+			sb.append(this.getName());
+			sb.append(" : ");
+			sb.append(this.getPrice());
+			return sb.toString();
 		}
 	}
 
 	/**
 	 * @return name of OptionSet
 	 */
-	public String getName() {
+	protected String getName() {
 		return name;
 	}
 
 	/**
-	 * @return size of OptionSet (Option count of OptionSet)
-	 */
-	public int getSize() {
-		return opt.length;
-	}
-
-	/**
 	 * @param i: index of Option in OptionSet
-	 * @return Option at index i
+	 * @return Option at index i. If index i not exists, return NULL
 	 */
-	public Option getOption(int i) {
+	protected Option getOption(int i) {
 		return opt[i];
 	}
 
 	/**
 	 * @param n: new name of OptionSet 
 	 */
-	public void setName(String n) {
+	protected void setName(String n) {
 		name = n;
 	}
 
@@ -105,8 +113,9 @@ public class OptionSet implements Serializable {
 	 * @param opName: name of Option
 	 * @param opPrice: price of Option
 	 */
-	public void setOption(int i, String opName, int opPrice) {
-		opt[i] = new Option(opName, opPrice);
+	protected void setOption(int i, String opName, int opPrice) {
+		if (opt[i]!=null)
+			opt[i] = new Option(opName, opPrice);
 	}
 	
 	/**
@@ -114,7 +123,7 @@ public class OptionSet implements Serializable {
 	 * @param opName: existing Option name 
 	 * @return current index, if Option exists. Otherwise, -1 
 	 */
-	public int findOption(String opName) {
+	protected int findOption(String opName) {
 		for (int i=0; i<opt.length; i++){
 			if (opt[i].getName().equals(opName)) return i;
 		}
@@ -128,7 +137,7 @@ public class OptionSet implements Serializable {
 	 * @param newPrice: new Option price
 	 * @return the index if exists. Otherwise, -1
 	 */
-	public int updateOption(String opName, String newName, int newPrice)
+	protected int updateOption(String opName, String newName, int newPrice)
 	{
 		int index = findOption(opName); 
 		if (index != -1) {
@@ -142,11 +151,27 @@ public class OptionSet implements Serializable {
 	 * @param i: index of OptionSet
 	 * @return the index if exists. Otherwise, -1
 	 */
-	public int deleteOption(int i) {
-		if (i < opt.length) {
+	protected int deleteOption(int i) {
+		if (opt[i]!= null) {
 			opt[i] = new Option();
 			return i;
 		}
 		else return -1;
+	}
+	
+	/**
+	 * 
+	 * @return formatted String of OptionSet
+	 */
+	protected String print()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n\t- ");
+		sb.append(this.getName());
+		sb.append(":");
+		for (int i = 0; i < opt.length; i++) {
+			sb.append(opt[i].print());
+		}
+		return sb.toString();
 	}
 }
