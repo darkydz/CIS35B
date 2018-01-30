@@ -1,6 +1,7 @@
 package driver;
 
 import adapter.*;
+import exception.*;
 import model.*;
 import util.*;
 
@@ -9,13 +10,16 @@ public class Driver {
 	 * @param args
 	 */
 	public static void main(String args[]) {
+		String modelName = "FordZTW";
 		CreateAuto a1 = new BuildAuto();
-		a1.buildAuto("");
-		a1.printAuto();
+		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
+//		a1.printAuto(modelName);
 		UpdateAuto a2 = new BuildAuto();
-		a2.updateOptionSetName();
-		a2.updateOptionPrice();
-		
+		a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
+		a2.updateOptionPrice(modelName, "Color", "Infra-Red Clearcoat", 1000);
+		a1.printAuto(modelName);
+		AutoException ae = new AutoException();
+		ae.append_log("test");
 //		FileIO io = new FileIO();
 //		System.out.println("1. Test Working FordZTW");
 //		String modelName = "FordZTW";

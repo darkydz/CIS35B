@@ -1,13 +1,16 @@
 package model;
 
-public class Automobile extends Auto {
+public class Automobile extends Automotive {
 	public Automobile()
 	{
 		super();
 	}
 	
-	public Automobile(String n, int p, int size)
+	public Automobile(String n, float p, int size)
 	{
 		super(n, p, size);
 	}
+
+
+	
 }

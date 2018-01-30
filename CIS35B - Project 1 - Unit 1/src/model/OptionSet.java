@@ -22,7 +22,7 @@ public class OptionSet implements Serializable {
 
 	private class Option implements Serializable {
 		private String optionName;
-		private int price;
+		private float price;
 		
 		public Option() {
 			optionName = "";
@@ -34,7 +34,7 @@ public class OptionSet implements Serializable {
 		 * @param n: name of Option
 		 * @param p: price of Option
 		 */
-		public Option(String n, int p) {
+		public Option(String n, float p) {
 			optionName = n;
 			price = p;
 		}
@@ -49,7 +49,7 @@ public class OptionSet implements Serializable {
 		/**
 		 * @return price of Option
 		 */
-		protected int getPrice() {
+		protected float getPrice() {
 			return price;
 		}
 
@@ -65,7 +65,7 @@ public class OptionSet implements Serializable {
 		 * Change price of Option
 		 * @param p: new price of Option
 		 */
-		protected void setPrice(int p) {
+		protected void setPrice(float p) {
 			price = p;
 		}
 		
@@ -113,8 +113,9 @@ public class OptionSet implements Serializable {
 	 * @param opName: name of Option
 	 * @param opPrice: price of Option
 	 */
-	protected void setOption(int i, String opName, int opPrice) {
-		if (opt[i]!=null)
+	protected void setOption(int i, String opName, float opPrice) {
+//		if (opt[i]!=null)
+		if (i < opt.length)
 			opt[i] = new Option(opName, opPrice);
 	}
 	
@@ -137,7 +138,7 @@ public class OptionSet implements Serializable {
 	 * @param newPrice: new Option price
 	 * @return the index if exists. Otherwise, -1
 	 */
-	protected int updateOption(String opName, String newName, int newPrice)
+	protected int updateOption(String opName, String newName, float newPrice)
 	{
 		int index = findOption(opName); 
 		if (index != -1) {
@@ -173,5 +174,9 @@ public class OptionSet implements Serializable {
 			sb.append(opt[i].print());
 		}
 		return sb.toString();
+	}
+
+	public void updateOptionPrice(String option, float newprice) {
+		opt[findOption(option)].setPrice(newprice);
 	}
 }
