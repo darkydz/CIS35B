@@ -1,5 +1,6 @@
 package adapter;
 
+import exception.AutoException;
 import model.Automobile;
 import util.FileIO;
 
@@ -17,14 +18,22 @@ public abstract class ProxyAutomobile {
 
 	public void buildAuto(String filename) {
 		FileIO io = new FileIO();
-		System.out.println("1. Test Working FordZTW");
-		String modelName = "FordZTW";
-		a1 = io.buildAutomobileObject("src/AutoDataFiles/" + modelName + ".txt");
+		try {
+			a1 = io.buildAutomobileObject(filename);
+		} catch (AutoException e) {
+			// TODO Auto-generated catch block
+			e.fix(e.getErrorNumber());
+		}
 		
 	}
 
 	public void printAuto(String modelName) {
 		// TODO Auto-generated method stub
 		a1.print();
+	}
+	
+	public void fix (int errno) {
+		AutoException ae = new AutoException(errno);
+		ae.fix(errno);
 	}
 }

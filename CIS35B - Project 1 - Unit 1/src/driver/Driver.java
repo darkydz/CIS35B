@@ -10,7 +10,7 @@ public class Driver {
 	 * @param args
 	 */
 	public static void main(String args[]) {
-		String modelName = "FordZTW";
+		String modelName = "WrongModelInfoFormat";
 		CreateAuto a1 = new BuildAuto();
 		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
 //		a1.printAuto(modelName);
@@ -18,8 +18,8 @@ public class Driver {
 		a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
 		a2.updateOptionPrice(modelName, "Color", "Infra-Red Clearcoat", 1000);
 		a1.printAuto(modelName);
-		AutoException ae = new AutoException();
-		ae.append_log("test");
+		FixAuto a3 = new BuildAuto();
+		
 //		FileIO io = new FileIO();
 //		System.out.println("1. Test Working FordZTW");
 //		String modelName = "FordZTW";
