@@ -2,6 +2,7 @@ package util;
 
 import java.io.*;
 
+import exception.AutoException;
 import model.*;
 
 public class FileIO {
@@ -9,7 +10,8 @@ public class FileIO {
 	 * @param filename: input file that contains Auto model data 
 	 * @return a new Auto object 
 	 */
-	public Automotive buildAutoObject(String filename) {
+	public Automotive buildAutoObject(String filename)
+	{
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = ""; 
@@ -58,7 +60,8 @@ public class FileIO {
 		return null;
 	}
 	
-	public Automobile buildAutomobileObject(String filename) {
+	public Automobile buildAutomobileObject(String filename) //throws AutoException 
+	{
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = ""; 
