@@ -1,5 +1,7 @@
 package exception;
 
+import java.util.Scanner;
+
 import adapter.BuildAuto;
 import adapter.CreateAuto;
 import adapter.ProxyAutomobile;
@@ -9,22 +11,38 @@ import util.FileIO;
 public class Fix101to200Util {
 	public void fix(int errno) {
 		String msg = "";
-		String defaultFile = "src/AutoDataFiles/FordZTW.txt";
+		String newFile = "src/AutoDataFiles/";
 		AutoException ae = new AutoException();
 		switch (errno) {
 		case 101:
-			msg = "File Not Found! Default file is selected \"" + defaultFile +"\"";
+			newFile += "FordZTW.txt";
+			msg = "File Not Found! Default file is selected \"" + newFile + "\"";
 			System.out.println(msg);
 			ae.append_log(msg);
 			CreateAuto a101 = new BuildAuto();
-			a101.buildAuto(defaultFile);
+			a101.buildAuto(newFile);
 			break;
 		case 102:
-			msg = "File Is Empty! Default file is selected \"" + defaultFile +"\"";
-			System.out.println(msg);
+			Scanner scanner = new Scanner(System.in);
+			msg = "File Is Empty! Please enter the new File name:";
+			System.out.print(msg);
 			ae.append_log(msg);
-			CreateAuto a102 = new BuildAuto();
-			a102.buildAuto(defaultFile);
+			String input = scanner.nextLine();
+			if (input == null || input.isEmpty()) {
+				msg = "Looks like you don't want to cooperate. Program is now closing...";
+				System.out.println(msg);
+				ae.append_log(msg);
+				System.exit(0);
+			}
+
+			else {
+				newFile += input;
+				msg = "Start processing new File \"" + newFile + "\"";
+				System.out.println(msg);
+				ae.append_log(msg);
+				CreateAuto a102 = new BuildAuto();
+				a102.buildAuto(newFile);
+			}
 			break;
 		case 103:
 			msg = "!!!Wrong Model info: Model info requires the following format \"[name]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
