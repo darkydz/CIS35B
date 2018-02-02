@@ -9,7 +9,7 @@ public class FileIO {
 	/**
 	 * @param filename:
 	 *            input file that contains Auto model data
-	 * @return a new Auto object
+	 * @return a new Automotive object
 	 */
 	public Automotive buildAutoObject(String filename) {
 		try {
@@ -56,6 +56,11 @@ public class FileIO {
 		return null;
 	}
 
+	/**
+	 * @param filename:
+	 *            input file that contains Automobile model data
+	 * @return a new Automobile object
+	 */
 	public Automobile buildAutomobileObject(String filename) throws AutoException {
 		// AutoException ae = new AutoException();
 		BufferedReader br = null;
@@ -64,17 +69,17 @@ public class FileIO {
 			String line = "";
 			line = br.readLine();
 
-			if (line == null)//file empty
+			if (line == null)// file empty
 				throw new AutoException(102);
-			if (line.split(":").length != 3)//wrong model info format
-				throw new AutoException(103);
-			if (line.split(":")[0].isEmpty())//model name missing
-				throw new AutoException(104);
-			if (line.split(":")[1].isEmpty())//model base price missing
-				throw new AutoException(105);
-			if (line.split(":")[2].isEmpty())//OptionSet size missing
-				throw new AutoException(106);
-			
+			if (line.split(":").length != 3)// wrong model info format
+				throw new AutoException(3);
+			if (line.split(":")[0].isEmpty())// model name missing
+				throw new AutoException(4);
+			if (line.split(":")[1].isEmpty())// model base price missing
+				throw new AutoException(5);
+			if (line.split(":")[2].isEmpty())// OptionSet size missing
+				throw new AutoException(6);
+
 			String name = line.split(":")[0];
 			float price = Float.parseFloat(line.split(":")[1]);
 			int size = Integer.parseInt(line.split(":")[2]);
@@ -82,28 +87,28 @@ public class FileIO {
 			for (int i = 0; i < size; i++) {
 				line = br.readLine();
 
-				if (line == null)//missing OptionSet info
-					throw new AutoException(107);
-				if (line.split(":").length != 2)//wrong OptionSet info format
-					throw new AutoException(108);
-				if (line.split(":")[0].isEmpty())//OptionSet name missing
-					throw new AutoException(109);
-				if (line.split(":")[1].isEmpty())//Option size missing
-					throw new AutoException(110);
+				if (line == null)// missing OptionSet info
+					throw new AutoException(7);
+				if (line.split(":").length != 2)// wrong OptionSet info format
+					throw new AutoException(8);
+				if (line.split(":")[0].isEmpty())// OptionSet name missing
+					throw new AutoException(9);
+				if (line.split(":")[1].isEmpty())// Option size missing
+					throw new AutoException(10);
 
 				name = line.split(":")[0];
 				int setSize = Integer.parseInt(line.split(":")[1]);
 				autoObject.setOptionSet(i, name, setSize);
 				for (int j = 0; j < setSize; j++) {
 					line = br.readLine();
-					if (line == null)//missing Option info
-						throw new AutoException(111);
-					if (line.split(":").length != 2)//wrong Option info format
-						throw new AutoException(112);
-					if (line.split(":")[0].isEmpty())//Option name missing
-						throw new AutoException(113);
-					if (line.split(":")[1].isEmpty())//Option price missing
-						throw new AutoException(114);
+					if (line == null)// missing Option info
+						throw new AutoException(11);
+					if (line.split(":").length != 2)// wrong Option info format
+						throw new AutoException(12);
+					if (line.split(":")[0].isEmpty())// Option name missing
+						throw new AutoException(13);
+					if (line.split(":")[1].isEmpty())// Option price missing
+						throw new AutoException(14);
 
 					name = line.split(":")[0];
 					price = Float.parseFloat(line.split(":")[1]);
@@ -111,7 +116,8 @@ public class FileIO {
 				}
 			}
 			line = br.readLine();
-			if (line != null) throw new AutoException(115);//extra data found
+			if (line != null)
+				throw new AutoException(15);// extra data found
 			return autoObject;
 
 		} catch (FileNotFoundException e) {
@@ -130,7 +136,7 @@ public class FileIO {
 
 	/**
 	 * @param autoObject:
-	 *            Auto object to be serialized
+	 *            Automotive object to be serialized
 	 * @param filename:
 	 *            destination serialized file
 	 */
@@ -145,7 +151,7 @@ public class FileIO {
 	}
 
 	/**
-	 * Take a serialized Auto file and read into an Auto object
+	 * Take a serialized Automotive file and read into an Auto object
 	 * 
 	 * @param filename:
 	 *            the serialized file
