@@ -125,6 +125,7 @@ public class OptionSet implements Serializable {
 	 * Search for Option by its name
 	 * @param opName: existing Option name 
 	 * @return current index, if Option exists. Otherwise, -1 
+	 * @throws AutoException a fake error to downstream to trigger something else
 	 */
 	protected int findOption(String opName) throws AutoException{
 		for (int i=0; i<opt.length; i++){
@@ -139,7 +140,7 @@ public class OptionSet implements Serializable {
 	 * @param newName: new Option name
 	 * @param newPrice: new Option price
 	 * @return the index if exists. Otherwise, -1
-	 * @throws AutoException 
+	 * @throws AutoException pass exception to downstream
 	 */
 	protected int updateOption(String opName, String newName, float newPrice) throws AutoException
 	{
@@ -178,7 +179,13 @@ public class OptionSet implements Serializable {
 		}
 		return sb.toString();
 	}
-
+	
+	/**
+	 * 
+	 * @param option
+	 * @param newprice
+	 * @throws AutoException pass exception to downstream
+	 */
 	public void updateOptionPrice(String option, float newprice) throws AutoException {
 		opt[findOption(option)].setPrice(newprice);
 		

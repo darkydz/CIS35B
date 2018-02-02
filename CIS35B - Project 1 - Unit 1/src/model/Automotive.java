@@ -95,6 +95,7 @@ public class Automotive implements Serializable {
 	 * Search for OptionSet by its name
 	 * @param opsetName: name of OptionSet
 	 * @return current index, if OptionSet exists. Otherwise, -1
+	 * @throws AutoException will always throw 201 regardless of what error it catches from upstream
 	 */
 	public int findOptionSet(String opsetName) throws AutoException{
 		for (int i = 0; i < opset.length; i++) {
@@ -109,7 +110,7 @@ public class Automotive implements Serializable {
 	 * @param newName: new OptionSet name
 	 * @param newSize: new OptionSet size
 	 * @return the index if exists. Otherwise, -1
-	 * @throws AutoException 
+	 * @throws AutoException pass exception to downstream
 	 */
 	public int updateOptionSet(String opsetName, String newName, int newSize) throws AutoException
 	{
@@ -120,6 +121,12 @@ public class Automotive implements Serializable {
 		return index;
 	}
 	
+	/**
+	 * Self-explanatory
+	 * @param optionSetname
+	 * @param newName
+	 * @throws AutoException will always throw 201 regardless of what error it catches from upstream
+	 */
 	public void updateOptionSetName(String optionSetname, String newName) throws AutoException{
 		try {
 			opset[findOptionSet(optionSetname)].setName(newName);
@@ -128,6 +135,14 @@ public class Automotive implements Serializable {
 			throw new AutoException(201);
 		}
 	}
+	
+	/**
+	 * Self-explanatory
+	 * @param optionname
+	 * @param option
+	 * @param newprice
+	 * @throws AutoException will always throw 202 regardless of what error it catches from upstream
+	 */
 	public void updateOptionPrice(String optionname, String option, float newprice) throws AutoException {
 		try {
 			opset[findOptionSet(optionname)].updateOptionPrice(option,newprice);	
