@@ -100,7 +100,7 @@ public class Automotive implements Serializable {
 		for (int i = 0; i < opset.length; i++) {
 			if (opset[i].getName().equals(opsetName)) return i;
 		}
-		throw new AutoException(1);
+		throw new AutoException(201);
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public class Automotive implements Serializable {
 			opset[findOptionSet(optionSetname)].setName(newName);
 		}
 		catch (AutoException e) {
-			throw new AutoException(1);
+			throw new AutoException(201);
 		}
 	}
 	public void updateOptionPrice(String optionname, String option, float newprice) throws AutoException {
@@ -133,7 +133,7 @@ public class Automotive implements Serializable {
 			opset[findOptionSet(optionname)].updateOptionPrice(option,newprice);	
 		}
 		catch (AutoException e) {
-			throw new AutoException(2);
+			throw new AutoException(202);
 		}
 			
 	}

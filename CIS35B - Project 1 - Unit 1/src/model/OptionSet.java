@@ -130,7 +130,7 @@ public class OptionSet implements Serializable {
 		for (int i=0; i<opt.length; i++){
 			if (opt[i].getName().equals(opName)) return i;
 		}
-		throw new AutoException(2);
+		throw new AutoException(0); //0 not used yet this will be catched and re-throw another error anyway
 	}
 	
 	/**
