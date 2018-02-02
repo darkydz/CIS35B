@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 
+import exception.AutoException;
+
 /**
  * 
  * @author Anh
@@ -73,7 +75,6 @@ public class Automotive implements Serializable {
 	 * @param opSetSize: new OptionSet size
 	 */
 	public void setOptionSet(int i, String opsetName, int opSetSize) {
-//		if (opset[i] != null)
 		if (i < opset.length)
 			opset[i] = new OptionSet(opsetName, opSetSize);
 	}
@@ -95,11 +96,11 @@ public class Automotive implements Serializable {
 	 * @param opsetName: name of OptionSet
 	 * @return current index, if OptionSet exists. Otherwise, -1
 	 */
-	public int findOptionSet(String opsetName) {
+	public int findOptionSet(String opsetName) throws AutoException{
 		for (int i = 0; i < opset.length; i++) {
 			if (opset[i].getName().equals(opsetName)) return i;
 		}
-		return -1;
+		throw new AutoException(1);
 	}
 	
 	/**
@@ -108,8 +109,9 @@ public class Automotive implements Serializable {
 	 * @param newName: new OptionSet name
 	 * @param newSize: new OptionSet size
 	 * @return the index if exists. Otherwise, -1
+	 * @throws AutoException 
 	 */
-	public int updateOptionSet(String opsetName, String newName, int newSize)
+	public int updateOptionSet(String opsetName, String newName, int newSize) throws AutoException
 	{
 		int index = findOptionSet(opsetName); 
 		if (index != -1) {
@@ -118,11 +120,22 @@ public class Automotive implements Serializable {
 		return index;
 	}
 	
-	public void updateOptionSetName(String optionSetname, String newName) {
-		opset[findOptionSet(optionSetname)].setName(newName);
+	public void updateOptionSetName(String optionSetname, String newName) throws AutoException{
+		try {
+			opset[findOptionSet(optionSetname)].setName(newName);
+		}
+		catch (AutoException e) {
+			throw new AutoException(1);
+		}
 	}
-	public void updateOptionPrice(String optionname, String option, float newprice) {
-		opset[findOptionSet(optionname)].updateOptionPrice(option,newprice);		
+	public void updateOptionPrice(String optionname, String option, float newprice) throws AutoException {
+		try {
+			opset[findOptionSet(optionname)].updateOptionPrice(option,newprice);	
+		}
+		catch (AutoException e) {
+			throw new AutoException(2);
+		}
+			
 	}
 	/**
 	 * Delete an OptionSet at index i

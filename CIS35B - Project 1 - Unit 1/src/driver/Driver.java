@@ -10,17 +10,33 @@ public class Driver {
 	 * @param args
 	 */
 	public static void main(String args[]) {
-		String modelName = "EmptyFile";
-		CreateAuto a1 = new BuildAuto();
-//		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
-//		a1.printAuto(modelName);
-//		UpdateAuto a2 = new BuildAuto();
-//		a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
-//		a2.updateOptionPrice(modelName, "Color", "Infra-Red Clearcoat", 1000);
 		
-		FixAuto a3 = new BuildAuto();
-		a3.fix(102);
-		a1.printAuto(modelName);
+		String modelName = "ToyotaCamry";
+		CreateAuto a1 = new BuildAuto();
+		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
+//		a1.printAuto(modelName);
+		UpdateAuto a2 = new BuildAuto();
+		try {
+			a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
+		} catch (AutoException e) {
+			FixAuto a3 = new BuildAuto();
+			a3.fix(e.getErrorNumber());
+		}
+		finally {
+			a1.printAuto(modelName);
+		}
+		try {
+			a2.updateOptionPrice(modelName, "Side Impact Air Bags", "Infra-Red Clearcoat", 1000);
+		} catch (AutoException e) {
+			FixAuto a3 = new BuildAuto();
+			a3.fix(e.getErrorNumber());
+		}
+		finally {
+			a1.printAuto(modelName);
+		}
+//		FixAuto a3 = new BuildAuto();
+//		a3.fix(102);
+//		a1.printAuto(modelName);
 		
 //		FileIO io = new FileIO();
 //		System.out.println("1. Test Working FordZTW");

@@ -16,7 +16,7 @@ public class Fix101to200Util {
 		switch (errno) {
 		case 101:
 			newFile += "FordZTW.txt";
-			msg = "File Not Found! Default file is selected \"" + newFile + "\"";
+			msg = "File Not Found or File is Empty! Default file is selected \"" + newFile + "\"";
 			System.out.println(msg);
 			ae.append_log(msg);
 			CreateAuto a101 = new BuildAuto();
@@ -24,11 +24,11 @@ public class Fix101to200Util {
 			break;
 		case 102:
 			Scanner scanner = new Scanner(System.in);
-			msg = "File Is Empty! Please enter the new File name:";
+			msg = "File Not Found or File is Empty! Please enter the new File name:";
 			System.out.print(msg);
 			ae.append_log(msg);
 			String input = scanner.nextLine();
-			if (input == null || input.isEmpty()) {
+			if (input.trim().isEmpty()) {
 				msg = "Looks like you don't want to cooperate. Program is now closing...";
 				System.out.println(msg);
 				ae.append_log(msg);

@@ -2,6 +2,8 @@ package model;
 
 import java.io.Serializable;
 
+import exception.AutoException;
+
 public class OptionSet implements Serializable {
 	private Option opt[];
 	private String name;
@@ -124,11 +126,11 @@ public class OptionSet implements Serializable {
 	 * @param opName: existing Option name 
 	 * @return current index, if Option exists. Otherwise, -1 
 	 */
-	protected int findOption(String opName) {
+	protected int findOption(String opName) throws AutoException{
 		for (int i=0; i<opt.length; i++){
 			if (opt[i].getName().equals(opName)) return i;
 		}
-		return -1;
+		throw new AutoException(2);
 	}
 	
 	/**
@@ -137,8 +139,9 @@ public class OptionSet implements Serializable {
 	 * @param newName: new Option name
 	 * @param newPrice: new Option price
 	 * @return the index if exists. Otherwise, -1
+	 * @throws AutoException 
 	 */
-	protected int updateOption(String opName, String newName, float newPrice)
+	protected int updateOption(String opName, String newName, float newPrice) throws AutoException
 	{
 		int index = findOption(opName); 
 		if (index != -1) {
@@ -176,7 +179,8 @@ public class OptionSet implements Serializable {
 		return sb.toString();
 	}
 
-	public void updateOptionPrice(String option, float newprice) {
+	public void updateOptionPrice(String option, float newprice) throws AutoException {
 		opt[findOption(option)].setPrice(newprice);
+		
 	}
 }

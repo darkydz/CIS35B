@@ -116,7 +116,7 @@ public class FileIO {
 
 		} catch (FileNotFoundException e) {
 			// ae.fix(101);
-			throw new AutoException(101);
+			throw new AutoException(102);
 		} catch (IOException e) {
 			System.out.println("Error: " + e.toString());
 		} finally {

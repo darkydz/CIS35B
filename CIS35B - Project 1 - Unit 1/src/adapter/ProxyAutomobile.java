@@ -7,12 +7,12 @@ import util.FileIO;
 public abstract class ProxyAutomobile {
 	private static Automobile a1;
 	
-	public void updateOptionSetName(String Modelname, String OptionSetname, String newName) {
+	public void updateOptionSetName(String Modelname, String OptionSetname, String newName) throws AutoException {
 		a1.updateOptionSetName(OptionSetname, newName);
 	}
 
-	public void updateOptionPrice(String Modelname, String Optionname, String Option, float newprice){
-		a1.updateOptionPrice(Optionname, Option, newprice);
+	public void updateOptionPrice(String Modelname, String OptionSetname, String Option, float newprice) throws AutoException{
+		a1.updateOptionPrice(OptionSetname, Option, newprice);
 		
 	}
 
