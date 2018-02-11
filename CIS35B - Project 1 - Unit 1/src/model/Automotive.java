@@ -10,12 +10,16 @@ import exception.AutoException;
  *
  */
 public class Automotive implements Serializable {
-	private String name;
+	private String model;
+	private String make;
+	private int year;
 	private float baseprice;
 	private OptionSet opset[];
 	
 	public Automotive () {
-		name = "";
+		model = "";
+		make = "";
+		year = 2018;
 		baseprice = 0;
 		opset = new OptionSet[0];
 	}
@@ -26,8 +30,10 @@ public class Automotive implements Serializable {
 	 * @param p: base price of Auto
 	 * @param size: number of available Options of this Auto
 	 */
-	public Automotive(String n, float p, int size) {
-		name = n;
+	public Automotive(String mk, String md, int y, float p, int size) {
+		make = mk;
+		model = md;
+		year = y;
 		baseprice = p;
 		opset = new OptionSet[size];
 	}
@@ -36,7 +42,7 @@ public class Automotive implements Serializable {
 	 * @return name of Auto
 	 */
 	public String getName() {
-		return name;
+		return model;
 	}
 
 	/**
@@ -58,7 +64,7 @@ public class Automotive implements Serializable {
 	 * @param n: new name of Auto
 	 */
 	public void setName(String n) {
-		name = n;
+		model = n;
 	}
 
 	/**
@@ -171,7 +177,7 @@ public class Automotive implements Serializable {
 	public void print() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Name: ");
-		sb.append(name);
+		sb.append(model);
 		sb.append("\nBase Price: ");
 		sb.append(baseprice);
 		sb.append("\nOptions: ");

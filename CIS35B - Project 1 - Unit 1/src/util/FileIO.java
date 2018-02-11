@@ -8,56 +8,6 @@ import model.*;
 public class FileIO {
 	/**
 	 * @param filename:
-	 *            input file that contains Auto model data
-	 * @return a new Automotive object
-	 */
-	public Automotive buildAutoObject(String filename) {
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(filename));
-			String line = "";
-			line = br.readLine();
-			if (line != null && line.split(":").length == 3 && !line.split(":")[0].isEmpty()
-					&& !line.split(":")[1].isEmpty() && !line.split(":")[2].isEmpty()) {
-				String name = line.split(":")[0];
-				float price = Float.parseFloat(line.split(":")[1]);
-				int size = Integer.parseInt(line.split(":")[2]);
-				Automotive autoObject = new Automotive(name, price, size);
-				for (int i = 0; i < size; i++) {
-					line = br.readLine();
-					if (line != null && line.split(":").length == 2 && !line.split(":")[0].isEmpty()
-							&& !line.split(":")[1].isEmpty()) {
-						name = line.split(":")[0];
-						int setSize = Integer.parseInt(line.split(":")[1]);
-						autoObject.setOptionSet(i, name, setSize);
-						for (int j = 0; j < setSize; j++) {
-							line = br.readLine();
-							if (line != null && line.split(":").length == 2 && !line.split(":")[0].isEmpty()
-									&& !line.split(":")[1].isEmpty()) {
-								name = line.split(":")[0];
-								price = Float.parseFloat(line.split(":")[1]);
-								autoObject.setOption(i, j, name, price);
-							} else {
-								br.close();
-								return null;
-							}
-						}
-					} else {
-						br.close();
-						return null;
-					}
-				}
-				br.close();
-				return autoObject;
-			}
-			br.close();
-		} catch (IOException e) {
-			System.out.println("Error: " + e.toString());
-		}
-		return null;
-	}
-
-	/**
-	 * @param filename:
 	 *            input file that contains Automobile model data
 	 * @return a new Automobile object
 	 */
@@ -71,19 +21,25 @@ public class FileIO {
 
 			if (line == null)// file empty
 				throw new AutoException(102);
-			if (line.split(":").length != 3)// wrong model info format
+			if (line.split(":").length != 5)// wrong Auto info format
 				throw new AutoException(3);
-			if (line.split(":")[0].isEmpty())// model name missing
+			if (line.split(":")[0].isEmpty())// make name missing
+				throw new AutoException(16);
+			if (line.split(":")[1].isEmpty())// model name missing
 				throw new AutoException(4);
-			if (line.split(":")[1].isEmpty())// model base price missing
+			if (line.split(":")[2].isEmpty())// year missing
+				throw new AutoException(17);
+			if (line.split(":")[3].isEmpty())// base price missing
 				throw new AutoException(5);
-			if (line.split(":")[2].isEmpty())// OptionSet size missing
+			if (line.split(":")[4].isEmpty())// OptionSet size missing
 				throw new AutoException(6);
 
-			String name = line.split(":")[0];
-			float price = Float.parseFloat(line.split(":")[1]);
-			int size = Integer.parseInt(line.split(":")[2]);
-			Automobile autoObject = new Automobile(name, price, size);
+			String make = line.split(":")[0];
+			String model = line.split(":")[1];
+			int year = Integer.parseInt(line.split(":")[2]);
+			float price = Float.parseFloat(line.split(":")[3]);
+			int size = Integer.parseInt(line.split(":")[4]);
+			Automobile autoObject = new Automobile(make, model, year, price, size);
 			for (int i = 0; i < size; i++) {
 				line = br.readLine();
 
@@ -96,7 +52,7 @@ public class FileIO {
 				if (line.split(":")[1].isEmpty())// Option size missing
 					throw new AutoException(10);
 
-				name = line.split(":")[0];
+				String name = line.split(":")[0];
 				int setSize = Integer.parseInt(line.split(":")[1]);
 				autoObject.setOptionSet(i, name, setSize);
 				for (int j = 0; j < setSize; j++) {
@@ -110,7 +66,7 @@ public class FileIO {
 					if (line.split(":")[1].isEmpty())// Option price missing
 						throw new AutoException(14);
 
-					name = line.split(":")[0];
+					model = line.split(":")[0];
 					price = Float.parseFloat(line.split(":")[1]);
 					autoObject.setOption(i, j, name, price);
 				}
