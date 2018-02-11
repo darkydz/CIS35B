@@ -35,11 +35,11 @@ public class Driver {
 //			a1.printAuto(modelName);
 //		}
 //
-//		System.out.println("\n\n");
-//		System.out.println("2. Test Working ToyotaCamry");
-//		modelName = "ToyotaCamry";
-//		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
-//		a1.printAuto(modelName);
+		System.out.println("\n\n");
+		System.out.println("2. Test Working ToyotaCamry");
+		modelName = "ToyotaCamry";
+		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
+		a1.printAuto(modelName);
 //		try {
 //			a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
 //		} catch (AutoException e) {

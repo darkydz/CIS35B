@@ -108,6 +108,18 @@ public class Fix1to100Auto{
 			ae.append_log(msg);
 			// System.exit(0);
 			break;	
+		case 19:
+			msg = "!!!No Option found!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;
+		case 20:
+			msg = "!!!No Option selected yet!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;	
 		}
 	}
 }

@@ -68,6 +68,11 @@ public class Automotive implements Serializable {
 		return year;
 	}
 
+	public String getAutoID()
+	{
+		return make + model + String.valueOf(year);
+	}
+	
 	/**
 	 * @return base price of Auto
 	 */
@@ -85,34 +90,34 @@ public class Automotive implements Serializable {
 		else return null;
 	}
 	
-	public String getOptionChoice(String setName){
+	public String getOptionChoice(String setName) throws AutoException{
 		int index = 0;
 		try {
 			index = findOptionSet(setName);
 		} catch (AutoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.fix(e.getErrorNumber());
 		}
 		return opset.get(index).getOptionChoiceName();
 	}
 	
-	public float getOptionChoicePrice(String setName)
+	
+	/**
+	 * 
+	 * @param setName
+	 * @return
+	 * @throws AutoException pass Exception to downstream
+	 */
+	public float getOptionChoicePrice(String setName) throws AutoException
 	{
-		int index = 0;
-		try {
-			index = findOptionSet(setName);
-		} catch (AutoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return opset.get(index).getOptionChoicePrice();
+		return opset.get(findOptionSet(setName)).getOptionChoicePrice();
 	}
 	
 	/**
 	 * 
 	 * @return total of all option choices
+	 * @throws AutoException 
 	 */
-	public double getTotalPrice() {
+	public double getTotalPrice() throws AutoException {
 		double total = 0;
 		for (OptionSet s:opset) {
 			total += s.getOptionChoicePrice();
@@ -157,6 +162,14 @@ public class Automotive implements Serializable {
 			opset.get(i).setOption(j, opName, price);		
 	}
 	
+	public void setOptionChoice(String setName, String optionName) {
+		try {
+			opset.get(findOptionSet(setName)).setOptionChoice(optionName);
+		} catch (AutoException e) {
+			e.fix(e.getErrorNumber());
+		}
+	}
+	
 	/**
 	 * Search for OptionSet by its name
 	 * @param setName: name of OptionSet
@@ -170,22 +183,22 @@ public class Automotive implements Serializable {
 		throw new AutoException(18);
 	}
 	
-	/**
-	 * Find an OptionSet by its name and change its values if exists
-	 * @param setName: existing OptionSet name
-	 * @param newName: new OptionSet name
-	 * @param newSize: new OptionSet size
-	 * @return the index if exists. Otherwise, -1
-	 * @throws AutoException pass exception to downstream
-	 */
-	public int updateOptionSet(String setName, String newName, int newSize) throws AutoException
-	{
-		int index = findOptionSet(setName); 
-		if (index != -1) {
-			setOptionSet(index, newName, newSize);
-		}
-		return index;
-	}
+//	/**
+//	 * Find an OptionSet by its name and change its values if exists
+//	 * @param setName: existing OptionSet name
+//	 * @param newName: new OptionSet name
+//	 * @param newSize: new OptionSet size
+//	 * @return the index if exists. Otherwise, -1
+//	 * @throws AutoException pass exception to downstream
+//	 */
+//	public int updateOptionSet(String setName, String newName, int newSize) throws AutoException
+//	{
+//		int index = findOptionSet(setName); 
+//		if (index != -1) {
+//			setOptionSet(index, newName, newSize);
+//		}
+//		return index;
+//	}
 	
 	/**
 	 * Self-explanatory

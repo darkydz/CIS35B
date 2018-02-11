@@ -42,6 +42,7 @@ public abstract class ProxyAutomobile {
 		FileIO io = new FileIO();
 		try {
 			a1 = io.buildAutomobileObject(filename);
+			addAuto(a1);
 		} catch (AutoException e) {
 			e.fix(e.getErrorNumber());
 		}
@@ -64,17 +65,16 @@ public abstract class ProxyAutomobile {
 		ae.fix(errno);
 	}
 	
-	public double getTotal(String make, String model, int year) {
-		
+	public double getTotal(String autoID) throws AutoException {
 		return a1.getTotalPrice();
 	}
 	
-	public void setChoice(String setName, String optionName) {
-		
+	public void setChoice(String autoID, String setName, String optionName) {
+		getAuto(autoID).setOptionChoice(setName, optionName);
 	}
 	
 	public void addAuto(Automobile a) {
-		String autoID = a.getMake() + a.getModel() + a.getYear();
+		String autoID = a.getAutoID();
 		if (!autos.containsKey(autoID))
 			autos.put(autoID, a);
 	}

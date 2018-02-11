@@ -119,12 +119,16 @@ public class OptionSet implements Serializable {
 	 * 
 	 * @return name of option choice
 	 */
-	protected String getOptionChoiceName() {
-		return choice.getName();
+	protected String getOptionChoiceName() throws AutoException {
+		if (choice != null)
+			return choice.getName();
+		else throw new AutoException(20);
 	}
 	
-	protected float getOptionChoicePrice() {
-		return choice.getPrice();
+	protected float getOptionChoicePrice() throws AutoException {
+		if (choice != null)
+			return choice.getPrice();
+		else throw new AutoException(20);
 	}
 
 	/**
@@ -148,11 +152,15 @@ public class OptionSet implements Serializable {
 	
 	/**
 	 * Set selected option of this set
-	 * @param i index of Options
+	 * @param optionName
 	 */
-	protected void setOptionChoice(int i)
+	protected void setOptionChoice(String optionName)
 	{
-		choice = opt.get(i);
+		try {
+			choice = opt.get(findOption(optionName));
+		} catch (AutoException e) {
+			e.fix(e.getErrorNumber());
+		}
 	}
 	
 	/**
@@ -165,7 +173,7 @@ public class OptionSet implements Serializable {
 		for (int i=0; i<opt.size(); i++){
 			if (opt.get(i).getName().equals(opName)) return i;
 		}
-		throw new AutoException(0); //0 not used yet this will be catched and re-throw another error anyway
+		throw new AutoException(19);
 	}
 	
 	/**

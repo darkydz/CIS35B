@@ -1,6 +1,8 @@
 package adapter;
 
+import exception.AutoException;
+
 public interface AutoChoice {
-	public float getTotal();
-	public void setChoice(String setName, String optionName);
+	public double getTotal(String autoID) throws AutoException;
+	public void setChoice(String autoID, String setName, String optionName);
 }
