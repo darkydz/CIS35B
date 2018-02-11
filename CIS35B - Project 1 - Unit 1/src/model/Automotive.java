@@ -176,8 +176,12 @@ public class Automotive implements Serializable {
 	 */
 	public void print() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Name: ");
+		sb.append("Make: ");
+		sb.append(make);
+		sb.append("\nModel: ");
 		sb.append(model);
+		sb.append("\nYear: ");
+		sb.append(year);
 		sb.append("\nBase Price: ");
 		sb.append(baseprice);
 		sb.append("\nOptions: ");
