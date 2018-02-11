@@ -24,7 +24,7 @@ public class Fix201to300Adapter {
 			} else {
 				ae.append_log(input201);
 				if (input201.split(":").length != 2) {
-					ae.fix(1);
+					ae.fix(201);
 				} else {
 					UpdateAuto a1 = new BuildAuto();
 					try {
@@ -50,14 +50,14 @@ public class Fix201to300Adapter {
 			} else {
 				ae.append_log(input202);
 				if (input202.split(":").length != 3) {
-					ae.fix(2);
+					ae.fix(202);
 				} else {
 					UpdateAuto a1 = new BuildAuto();
 					try {
 						a1.updateOptionPrice("", input202.split(":")[0], input202.split(":")[1],
 								Float.parseFloat(input202.split(":")[2]));
 					} catch (NumberFormatException e) {
-						ae.fix(2);
+						ae.fix(202);
 					} catch (AutoException e) {
 						e.fix(e.getErrorNumber());
 					}

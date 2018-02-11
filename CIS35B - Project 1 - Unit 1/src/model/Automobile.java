@@ -10,7 +10,4 @@ public class Automobile extends Automotive {
 	{
 		super(mk, md, y, p, size);
 	}
-
-
-	
 }

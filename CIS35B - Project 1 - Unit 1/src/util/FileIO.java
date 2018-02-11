@@ -66,7 +66,7 @@ public class FileIO {
 					if (line.split(":")[1].isEmpty())// Option price missing
 						throw new AutoException(14);
 
-					model = line.split(":")[0];
+					name = line.split(":")[0];
 					price = Float.parseFloat(line.split(":")[1]);
 					autoObject.setOption(i, j, name, price);
 				}
