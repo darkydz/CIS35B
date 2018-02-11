@@ -13,13 +13,13 @@ public class Driver {
 		CreateAuto a1 = new BuildAuto();
 		UpdateAuto a2 = new BuildAuto();
 		FixAuto a3 = new BuildAuto();
-		String modelName = "";
+		String autoID = "";
 
 		System.out.println("\n\n");
-		System.out.println("1. Test Working FordZTW");
-		modelName = "FordZTW";
-		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
-		a1.printAuto(modelName);
+		System.out.println("1. Test Working Ford Focus Wagon ZTW 2017");
+		autoID = "Ford Focus Wagon ZTW 2017";
+		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
+		a1.printAuto(autoID);
 //		try {
 //			a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
 //		} catch (AutoException e) {
@@ -36,10 +36,10 @@ public class Driver {
 //		}
 //
 		System.out.println("\n\n");
-		System.out.println("2. Test Working ToyotaCamry");
-		modelName = "ToyotaCamry";
-		a1.buildAuto("src/AutoDataFiles/" + modelName + ".txt");
-		a1.printAuto(modelName);
+		System.out.println("2. Test Working Toyota Camry Sport 2018");
+		autoID = "Toyota Camry Sport 2018";
+		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
+		a1.printAuto(autoID);
 //		try {
 //			a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
 //		} catch (AutoException e) {
