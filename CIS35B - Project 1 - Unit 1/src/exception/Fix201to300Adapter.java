@@ -64,6 +64,11 @@ public class Fix201to300Adapter {
 				}
 			}
 			break;
+		case 203:
+			msg = "Auto cannot be found!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			break;
 		}
 	}
 }

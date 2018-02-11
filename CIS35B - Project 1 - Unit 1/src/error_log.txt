@@ -1,0 +1,11 @@
+Sat Feb 10 23:02:50 PST 2018 : Error#203
+Sat Feb 10 23:02:50 PST 2018 : Auto cannot be found!
+Sat Feb 10 23:07:02 PST 2018 : Error#102
+Sat Feb 10 23:07:02 PST 2018 : File Not Found or File is Empty! Please enter the new File name:
+Sat Feb 10 23:07:25 PST 2018 : Start processing new File "src/AutoDataFiles/ToyotaCamry"
+Sat Feb 10 23:07:25 PST 2018 : Error#102
+Sat Feb 10 23:07:25 PST 2018 : File Not Found or File is Empty! Please enter the new File name:
+Sat Feb 10 23:07:35 PST 2018 : Start processing new File "src/AutoDataFiles/ToyotaCamry.text"
+Sat Feb 10 23:07:35 PST 2018 : Error#102
+Sat Feb 10 23:07:35 PST 2018 : File Not Found or File is Empty! Please enter the new File name:
+Sat Feb 10 23:07:47 PST 2018 : Start processing new File "src/AutoDataFiles/ToyotaCamry.txt"

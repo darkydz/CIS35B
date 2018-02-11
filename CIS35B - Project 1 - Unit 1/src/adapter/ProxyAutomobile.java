@@ -8,7 +8,7 @@ import util.FileIO;
 
 public abstract class ProxyAutomobile {
 	private static Automobile a1;
-	private static LinkedHashMap<String,Automobile> autos;
+	private static LinkedHashMap<String,Automobile> autos = new LinkedHashMap<String, Automobile>();
 	
 	/**
 	 * Self-explanatory
@@ -51,9 +51,13 @@ public abstract class ProxyAutomobile {
 	/**
 	 * In the future, will take a model name to print its content. Right now, always print variable a1
 	 * @param modelName
+	 * @throws AutoException 
 	 */
-	public void printAuto(String modelName) {
-		a1.print();
+	public void printAuto(String autoID) {
+		Automobile a = getAuto(autoID); 
+		if ( a != null)
+			a.print();
+		else System.out.println("Auto cannot be found!");
 	}
 
 	/**
@@ -75,11 +79,11 @@ public abstract class ProxyAutomobile {
 	
 	public void addAuto(Automobile a) {
 		String autoID = a.getAutoID();
-		if (!autos.containsKey(autoID))
+		if (autos.isEmpty() || !autos.containsKey(autoID))
 			autos.put(autoID, a);
 	}
 	
-	public Automobile getAuto (String autoID) {
+	public Automobile getAuto(String autoID) {
 		return autos.get(autoID);
 	}
 }

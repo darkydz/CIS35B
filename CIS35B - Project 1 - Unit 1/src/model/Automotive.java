@@ -70,7 +70,7 @@ public class Automotive implements Serializable {
 
 	public String getAutoID()
 	{
-		return make + model + String.valueOf(year);
+		return make + " " + model + " " + String.valueOf(year);
 	}
 	
 	/**
