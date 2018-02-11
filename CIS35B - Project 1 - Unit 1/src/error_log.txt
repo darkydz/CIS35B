@@ -9,3 +9,5 @@ Sat Feb 10 23:07:35 PST 2018 : Start processing new File "src/AutoDataFiles/Toyo
 Sat Feb 10 23:07:35 PST 2018 : Error#102
 Sat Feb 10 23:07:35 PST 2018 : File Not Found or File is Empty! Please enter the new File name:
 Sat Feb 10 23:07:47 PST 2018 : Start processing new File "src/AutoDataFiles/ToyotaCamry.txt"
+Sat Feb 10 23:15:46 PST 2018 : Error#18
+Sat Feb 10 23:15:46 PST 2018 : !!!No OptionSet found!

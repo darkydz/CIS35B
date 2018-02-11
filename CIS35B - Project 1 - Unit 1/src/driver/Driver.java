@@ -13,6 +13,7 @@ public class Driver {
 		CreateAuto a1 = new BuildAuto();
 		UpdateAuto a2 = new BuildAuto();
 		FixAuto a3 = new BuildAuto();
+		AutoChoice a4  = new BuildAuto();
 		String autoID = "";
 
 		System.out.println("\n\n");
@@ -20,6 +21,17 @@ public class Driver {
 		autoID = "Ford Focus Wagon ZTW 2017";
 		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
 		a1.printAuto(autoID);
+		a4.setChoice(autoID, "Color", "French Blue Clearcoat Metallic");
+		a4.setChoice(autoID, "Transmission", "Manual");
+		a4.setChoice(autoID, "Brakes/Traction Control", "ABS");
+		a4.setChoice(autoID, "Side Impact Air Bags", "Present");
+		a4.setChoice(autoID, "Power Moonroof", "Present");
+		try {
+			System.out.println("$$$Total of " + autoID + " = " + a4.getTotal(autoID));
+		} catch (AutoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		try {
 //			a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
 //		} catch (AutoException e) {
@@ -35,11 +47,11 @@ public class Driver {
 //			a1.printAuto(modelName);
 //		}
 //
-		System.out.println("\n\n");
-		System.out.println("2. Test Working Toyota Camry Sport 2018");
-		autoID = "Toyota Camry Sport 2018";
-		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
-		a1.printAuto(autoID);
+//		System.out.println("\n\n");
+//		System.out.println("2. Test Working Toyota Camry Sport 2018");
+//		autoID = "Toyota Camry Sport 2018";
+//		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
+//		a1.printAuto(autoID);
 //		try {
 //			a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
 //		} catch (AutoException e) {
