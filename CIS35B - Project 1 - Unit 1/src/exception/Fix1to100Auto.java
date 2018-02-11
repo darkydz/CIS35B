@@ -101,6 +101,12 @@ public class Fix1to100Auto{
 			System.out.println(msg);
 			ae.append_log(msg);
 			// System.exit(0);
+			break;
+		case 18:
+			msg = "!!!No OptionSet found!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
 			break;	
 		}
 	}

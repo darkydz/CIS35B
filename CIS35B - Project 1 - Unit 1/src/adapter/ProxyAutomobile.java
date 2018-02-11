@@ -1,11 +1,14 @@
 package adapter;
 
+import java.util.LinkedHashMap;
+
 import exception.AutoException;
 import model.Automobile;
 import util.FileIO;
 
 public abstract class ProxyAutomobile {
 	private static Automobile a1;
+	private static LinkedHashMap<String,Automobile> autos;
 	
 	/**
 	 * Self-explanatory
@@ -59,5 +62,24 @@ public abstract class ProxyAutomobile {
 	public void fix(int errno) {
 		AutoException ae = new AutoException(errno);
 		ae.fix(errno);
+	}
+	
+	public double getTotal(String make, String model, int year) {
+		
+		return a1.getTotalPrice();
+	}
+	
+	public void setChoice(String setName, String optionName) {
+		
+	}
+	
+	public void addAuto(Automobile a) {
+		String autoID = a.getMake() + a.getModel() + a.getYear();
+		if (!autos.containsKey(autoID))
+			autos.put(autoID, a);
+	}
+	
+	public Automobile getAuto (String autoID) {
+		return autos.get(autoID);
 	}
 }

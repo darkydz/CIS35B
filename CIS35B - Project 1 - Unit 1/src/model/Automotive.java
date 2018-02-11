@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import exception.AutoException;
+import model.OptionSet.Option;
 
 /**
  * 
@@ -16,6 +17,7 @@ public class Automotive implements Serializable {
 	private int year;
 	private float baseprice;
 	private ArrayList<OptionSet> opset;
+	private ArrayList<Option> choice;
 	
 	public Automotive () {
 		model = "";
@@ -42,12 +44,28 @@ public class Automotive implements Serializable {
 			opset.add(new OptionSet());
 		}
 	}
-
+	
 	/**
-	 * @return name of Auto
+	 * 
+	 * @return make of Auto
 	 */
-	public String getName() {
+	public String getMake() {
+		return make;
+	}
+	
+	/**
+	 * @return model of Auto
+	 */
+	public String getModel() {
 		return model;
+	}
+	
+	/**
+	 * 
+	 * @return year of Auto
+	 */
+	public int getYear() {
+		return year;
 	}
 
 	/**
@@ -62,9 +80,46 @@ public class Automotive implements Serializable {
 	 * @return OptionSet at index i. If index is not exists, return NULL
 	 */
 	public OptionSet getOptionSets(int i) {
-		return opset.get(i);
+		if (i < opset.size())
+			return opset.get(i);
+		else return null;
 	}
-
+	
+	public String getOptionChoice(String setName){
+		int index = 0;
+		try {
+			index = findOptionSet(setName);
+		} catch (AutoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return opset.get(index).getOptionChoiceName();
+	}
+	
+	public float getOptionChoicePrice(String setName)
+	{
+		int index = 0;
+		try {
+			index = findOptionSet(setName);
+		} catch (AutoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return opset.get(index).getOptionChoicePrice();
+	}
+	
+	/**
+	 * 
+	 * @return total of all option choices
+	 */
+	public double getTotalPrice() {
+		double total = 0;
+		for (OptionSet s:opset) {
+			total += s.getOptionChoicePrice();
+		}
+		return total;
+	}
+	
 	/**
 	 * @param n: new name of Auto
 	 */
@@ -82,12 +137,12 @@ public class Automotive implements Serializable {
 	/**
 	 * Change OptionSet name and price at index i
 	 * @param i: index of the OptionSet array
-	 * @param opsetName: new OptionSet name
+	 * @param setName: new OptionSet name
 	 * @param opSetSize: new OptionSet size
 	 */
-	public void setOptionSet(int i, String opsetName, int opSetSize) {
+	public void setOptionSet(int i, String setName, int opSetSize) {
 		if (i < opset.size())
-			opset.set(i, new OptionSet(opsetName, opSetSize));
+			opset.set(i, new OptionSet(setName, opSetSize));
 	}
 	
 	/**
@@ -104,28 +159,28 @@ public class Automotive implements Serializable {
 	
 	/**
 	 * Search for OptionSet by its name
-	 * @param opsetName: name of OptionSet
+	 * @param setName: name of OptionSet
 	 * @return current index, if OptionSet exists. Otherwise, -1
 	 * @throws AutoException will always throw 201 regardless of what error it catches from upstream
 	 */
-	public int findOptionSet(String opsetName) throws AutoException{
+	public int findOptionSet(String setName) throws AutoException{
 		for (int i = 0; i < opset.size(); i++) {
-			if (opset.get(i).getName().equals(opsetName)) return i;
+			if (opset.get(i).getName().equals(setName)) return i;
 		}
-		throw new AutoException(201);
+		throw new AutoException(18);
 	}
 	
 	/**
 	 * Find an OptionSet by its name and change its values if exists
-	 * @param opsetName: existing OptionSet name
+	 * @param setName: existing OptionSet name
 	 * @param newName: new OptionSet name
 	 * @param newSize: new OptionSet size
 	 * @return the index if exists. Otherwise, -1
 	 * @throws AutoException pass exception to downstream
 	 */
-	public int updateOptionSet(String opsetName, String newName, int newSize) throws AutoException
+	public int updateOptionSet(String setName, String newName, int newSize) throws AutoException
 	{
-		int index = findOptionSet(opsetName); 
+		int index = findOptionSet(setName); 
 		if (index != -1) {
 			setOptionSet(index, newName, newSize);
 		}
