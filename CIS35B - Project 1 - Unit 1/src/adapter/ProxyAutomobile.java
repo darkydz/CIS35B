@@ -7,83 +7,105 @@ import model.Automobile;
 import util.FileIO;
 
 public abstract class ProxyAutomobile {
-	private static Automobile a1;
-	private static LinkedHashMap<String,Automobile> autos = new LinkedHashMap<String, Automobile>();
-	
+	private static LinkedHashMap<String, Automobile> autos = new LinkedHashMap<String, Automobile>();
+
 	/**
 	 * Self-explanatory
+	 * 
 	 * @param Modelname
 	 * @param OptionSetname
 	 * @param newName
 	 * @throws AutoException
 	 */
-	public void updateOptionSetName(String Modelname, String OptionSetname, String newName) throws AutoException {
-		a1.updateOptionSetName(OptionSetname, newName);
+	public void updateOptionSetName(String autoID, String OptionSetname, String newName) throws AutoException {
+		try {
+		getAuto(autoID).updateOptionSetName(OptionSetname, newName);
+		}
+	 catch (AutoException e) {
+		throw new AutoException(201);
+	}
 	}
 
 	/**
 	 * Self-explanatory
+	 * 
 	 * @param Modelname
 	 * @param OptionSetname
 	 * @param Option
 	 * @param newprice
 	 * @throws AutoException
 	 */
-	public void updateOptionPrice(String Modelname, String OptionSetname, String Option, float newprice)
+	public void updateOptionPrice(String autoID, String OptionSetname, String Option, float newprice)
 			throws AutoException {
-		a1.updateOptionPrice(OptionSetname, Option, newprice);
+		try {
+			getAuto(autoID).updateOptionPrice(OptionSetname, Option, newprice);
+		} catch (AutoException e) {
+			throw new AutoException(202);
+		}
 	}
-	
+
 	/**
 	 * Self-explanatory
+	 * 
 	 * @param filename
 	 */
 	public void buildAuto(String filename) {
 		FileIO io = new FileIO();
 		try {
-			a1 = io.buildAutomobileObject(filename);
-			addAuto(a1);
+			addAuto(io.buildAutomobileObject(filename));
 		} catch (AutoException e) {
 			e.fix(e.getErrorNumber());
 		}
 	}
 
 	/**
-	 * In the future, will take a model name to print its content. Right now, always print variable a1
+	 * In the future, will take a model name to print its content. Right now, always
+	 * print variable a1
+	 * 
 	 * @param modelName
-	 * @throws AutoException 
+	 * @throws AutoException
 	 */
 	public void printAuto(String autoID) {
-		Automobile a = getAuto(autoID); 
-		if ( a != null)
-			a.print();
-		else System.out.println("Auto cannot be found!");
+		try {
+			getAuto(autoID).print();
+		} catch (AutoException e) {
+			e.fix(e.getErrorNumber());
+		}
 	}
 
 	/**
 	 * Take an error number and process that error
+	 * 
 	 * @param errno
 	 */
 	public void fix(int errno) {
 		AutoException ae = new AutoException(errno);
 		ae.fix(errno);
 	}
-	
+
 	public double getTotal(String autoID) throws AutoException {
-		return a1.getTotalPrice();
+		return getAuto(autoID).getTotalPrice();
 	}
-	
-	public void setChoice(String autoID, String setName, String optionName) {
-		getAuto(autoID).setOptionChoice(setName, optionName);
+
+	public void setChoice(String autoID, String setName, String optionName) throws AutoException {
+		try {
+			getAuto(autoID).setOptionChoice(setName, optionName);
+		} catch (AutoException e) {
+			throw new AutoException(203);
+		}
 	}
-	
+
 	public void addAuto(Automobile a) {
 		String autoID = a.getAutoID();
 		if (autos.isEmpty() || !autos.containsKey(autoID))
 			autos.put(autoID, a);
 	}
-	
-	public Automobile getAuto(String autoID) {
-		return autos.get(autoID);
+
+	public Automobile getAuto(String autoID) throws AutoException {
+		Automobile a = autos.get(autoID);
+		if (a != null) {
+			return a;
+		} else
+			throw new AutoException(204);
 	}
 }

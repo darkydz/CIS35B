@@ -153,13 +153,14 @@ public class OptionSet implements Serializable {
 	/**
 	 * Set selected option of this set
 	 * @param optionName
+	 * @throws AutoException 
 	 */
-	protected void setOptionChoice(String optionName)
+	protected void setOptionChoice(String optionName) throws AutoException
 	{
 		try {
 			choice = opt.get(findOption(optionName));
 		} catch (AutoException e) {
-			e.fix(e.getErrorNumber());
+			throw new AutoException(19);
 		}
 	}
 	

@@ -21,31 +21,49 @@ public class Driver {
 		autoID = "Ford Focus Wagon ZTW 2017";
 		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
 		a1.printAuto(autoID);
-		a4.setChoice(autoID, "Color", "French Blue Clearcoat Metallic");
-		a4.setChoice(autoID, "Transmission", "Manual");
-		a4.setChoice(autoID, "Brakes/Traction Control", "ABS");
-		a4.setChoice(autoID, "Side Impact Air Bags", "Present");
-		a4.setChoice(autoID, "Power Moonroof", "Present");
+		try {
+			a4.setChoice(autoID, "Color", "French Blue Clearcoat Metallic");
+		} catch (AutoException e) {
+			a3.fix(e.getErrorNumber());//Ford Focus Wagon ZTW 2017:Color:French Blue Clearcoat Metallic
+		}
+		try {
+			a4.setChoice(autoID, "Transmission", "Manual");
+		} catch (AutoException e) {
+			a3.fix(e.getErrorNumber());
+		}
+		try {
+			a4.setChoice(autoID, "Brakes/Traction Control", "ABS");
+		} catch (AutoException e) {
+			a3.fix(e.getErrorNumber());
+		}
+		try {
+			a4.setChoice(autoID, "Side Impact Air Bags", "Present");
+		} catch (AutoException e) {
+			a3.fix(e.getErrorNumber());		}
+		try {
+			a4.setChoice(autoID, "Power Moonroof", "Present");
+		} catch (AutoException e) {
+			a3.fix(e.getErrorNumber());
+		}
 		try {
 			System.out.println("$$$Total of " + autoID + " = " + a4.getTotal(autoID));
 		} catch (AutoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			a3.fix(e.getErrorNumber());
 		}
-//		try {
-//			a2.updateOptionSetName(modelName, "Side Impact Air Bags", "Bluetooth");
-//		} catch (AutoException e) {
-//			a3.fix(e.getErrorNumber());
-//		} finally {
-//			a1.printAuto(modelName);
-//		}
-//		try {
-//			a2.updateOptionPrice(modelName, "Color", "Infra-Red Clearcoat", 1000);
-//		} catch (AutoException e) {
-//			a3.fix(e.getErrorNumber());
-//		} finally {
-//			a1.printAuto(modelName);
-//		}
+		try {
+			a2.updateOptionSetName(autoID, "Side Impact Air Bags1", "Bluetooth");
+		} catch (AutoException e) {
+			a3.fix(e.getErrorNumber()); //Ford Focus Wagon ZTW 2017:Side Impact Air Bags:Bluetooth
+		} finally {
+			a1.printAuto(autoID);
+		}
+		try {
+			a2.updateOptionPrice(autoID, "Color", "Infra-Red Clearcoat", 1000);
+		} catch (AutoException e) {
+			a3.fix(e.getErrorNumber());
+		} finally {
+			a1.printAuto(autoID);
+		}
 //
 //		System.out.println("\n\n");
 //		System.out.println("2. Test Working Toyota Camry Sport 2018");

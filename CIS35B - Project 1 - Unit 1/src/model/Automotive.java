@@ -120,7 +120,8 @@ public class Automotive implements Serializable {
 	public double getTotalPrice() throws AutoException {
 		double total = baseprice;
 		for (OptionSet s:opset) {
-			total += s.getOptionChoicePrice();
+			if (s == null) throw new AutoException(205);
+			else total += s.getOptionChoicePrice();
 		}
 		return total;
 	}
@@ -162,11 +163,11 @@ public class Automotive implements Serializable {
 			opset.get(i).setOption(j, opName, price);		
 	}
 	
-	public void setOptionChoice(String setName, String optionName) {
+	public void setOptionChoice(String setName, String optionName) throws AutoException {
 		try {
 			opset.get(findOptionSet(setName)).setOptionChoice(optionName);
 		} catch (AutoException e) {
-			e.fix(e.getErrorNumber());
+			throw new AutoException(e.getErrorNumber());
 		}
 	}
 	
