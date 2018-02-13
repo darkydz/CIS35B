@@ -19,11 +19,10 @@ public abstract class ProxyAutomobile {
 	 */
 	public void updateOptionSetName(String autoID, String OptionSetname, String newName) throws AutoException {
 		try {
-		getAuto(autoID).updateOptionSetName(OptionSetname, newName);
+			getAuto(autoID).updateOptionSetName(OptionSetname, newName);
+		} catch (AutoException e) {
+			throw new AutoException(201);
 		}
-	 catch (AutoException e) {
-		throw new AutoException(201);
-	}
 	}
 
 	/**
