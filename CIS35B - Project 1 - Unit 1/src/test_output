@@ -1,0 +1,214 @@
+
+
+
+1. Test Working Ford Focus Wagon ZTW 2017
+Make: Ford
+Model: Focus Wagon ZTW
+Year: 2017
+Base Price: 18445.0
+Options: 
+	- Color:
+		+ Fort Knox Gold Clearcoat Metallic : 0.0
+		+ Liquid Grey Clearcoat Metallic : 0.0
+		+ Infra-Red Clearcoat : 0.0
+		+ Grabber Green Clearcoat Metallic : 0.0
+		+ Sangria Red Clearcoat Metallic : 0.0
+		+ French Blue Clearcoat Metallic : 100.0
+		+ Twilight Blue Clearcoat Metallic : 0.0
+		+ CD Silver Clearcoat Metallic : 0.0
+		+ Pitch Black Clearcoat : 0.0
+		+ Cloud 9 White Clearcoat : 0.0
+	- Transmission:
+		+ Automatic : 0.0
+		+ Manual : -815.0
+	- Brakes/Traction Control:
+		+ Standard : 0.0
+		+ ABS : 400.0
+		+ ABS with Advance Trac : 1625.0
+	- Side Impact Air Bags:
+		+ Not present : 0.0
+		+ Present : 350.0
+	- Power Moonroof:
+		+ Not present : 0.0
+		+ Present : 595.0
+
+
+
+Set Wrong Color1
+One of the data is invalid or not found! Please re-enter the following info in the same format \"[AutoID]:[OptionSet Name]:[Option Name]\""
+Ford Focus Wagon ZTW 2017:Color:French Blue Clearcoat Metallic
+
+
+
+Set Choice Transmission
+
+
+
+Set Choice Brakes/Traction Control
+
+
+
+Set Choice Side Impact Air Bags
+
+
+
+Set Choice Power Moonroof
+$$$ Total of Ford Focus Wagon ZTW 2017 = 19075.0
+
+
+
+Update wrong OptionSetName Side Impact Air Bags1
+One of the data is invalid or not found! Please re-enter the following info in the same format "[AutoID]:[Old OptionSet Name]:[New OptionSet Name]"
+Ford Focus Wagon ZTW 2017:Side Impact Air Bags:Bluetooth
+Make: Ford
+Model: Focus Wagon ZTW
+Year: 2017
+Base Price: 18445.0
+Options: 
+	- Color:
+		+ Fort Knox Gold Clearcoat Metallic : 0.0
+		+ Liquid Grey Clearcoat Metallic : 0.0
+		+ Infra-Red Clearcoat : 0.0
+		+ Grabber Green Clearcoat Metallic : 0.0
+		+ Sangria Red Clearcoat Metallic : 0.0
+		+ French Blue Clearcoat Metallic : 100.0
+		+ Twilight Blue Clearcoat Metallic : 0.0
+		+ CD Silver Clearcoat Metallic : 0.0
+		+ Pitch Black Clearcoat : 0.0
+		+ Cloud 9 White Clearcoat : 0.0
+	- Transmission:
+		+ Automatic : 0.0
+		+ Manual : -815.0
+	- Brakes/Traction Control:
+		+ Standard : 0.0
+		+ ABS : 400.0
+		+ ABS with Advance Trac : 1625.0
+	- Bluetooth:
+		+ Not present : 0.0
+		+ Present : 350.0
+	- Power Moonroof:
+		+ Not present : 0.0
+		+ Present : 595.0
+
+
+
+Update Option Price Color
+Make: Ford
+Model: Focus Wagon ZTW
+Year: 2017
+Base Price: 18445.0
+Options: 
+	- Color:
+		+ Fort Knox Gold Clearcoat Metallic : 0.0
+		+ Liquid Grey Clearcoat Metallic : 0.0
+		+ Infra-Red Clearcoat : 1000.0
+		+ Grabber Green Clearcoat Metallic : 0.0
+		+ Sangria Red Clearcoat Metallic : 0.0
+		+ French Blue Clearcoat Metallic : 100.0
+		+ Twilight Blue Clearcoat Metallic : 0.0
+		+ CD Silver Clearcoat Metallic : 0.0
+		+ Pitch Black Clearcoat : 0.0
+		+ Cloud 9 White Clearcoat : 0.0
+	- Transmission:
+		+ Automatic : 0.0
+		+ Manual : -815.0
+	- Brakes/Traction Control:
+		+ Standard : 0.0
+		+ ABS : 400.0
+		+ ABS with Advance Trac : 1625.0
+	- Bluetooth:
+		+ Not present : 0.0
+		+ Present : 350.0
+	- Power Moonroof:
+		+ Not present : 0.0
+		+ Present : 595.0
+
+
+
+2. Test Working Toyota Camry Sport 2018
+Make: Toyota
+Model: Camry Sport
+Year: 2018
+Base Price: 21555.0
+Options: 
+	- Color:
+		+ Twilight Blue Clearcoat Metallic : 0.0
+		+ CD Silver Clearcoat Metallic : 100.0
+		+ Pitch Black Clearcoat : 200.0
+		+ Cloud 9 White Clearcoat : 0.0
+	- Transmission:
+		+ Automatic : 0.0
+		+ Manual : -815.0
+		+ Automatic V6 : 2000.0
+	- Brakes/Traction Control:
+		+ Standard : 0.0
+		+ ABS : 400.0
+		+ ABS with Advance Trac : 1999.0
+	- Sound:
+		+ Bluetooth : 0.0
+		+ Bluetooth + Bose 7.1 Speakers : 3000.0
+		+ No Bluetooth : -200.0
+	- Power Moonroof:
+		+ Not present : 0.0
+		+ Present : 999.0
+
+
+
+Update wrong OptionSetName Side Impact Air Bags
+One of the data is invalid or not found! Please re-enter the following info in the same format "[AutoID]:[Old OptionSet Name]:[New OptionSet Name]"
+Toyota Camry Sport 2018:Sound:Sound System
+Make: Toyota
+Model: Camry Sport
+Year: 2018
+Base Price: 21555.0
+Options: 
+	- Color:
+		+ Twilight Blue Clearcoat Metallic : 0.0
+		+ CD Silver Clearcoat Metallic : 100.0
+		+ Pitch Black Clearcoat : 200.0
+		+ Cloud 9 White Clearcoat : 0.0
+	- Transmission:
+		+ Automatic : 0.0
+		+ Manual : -815.0
+		+ Automatic V6 : 2000.0
+	- Brakes/Traction Control:
+		+ Standard : 0.0
+		+ ABS : 400.0
+		+ ABS with Advance Trac : 1999.0
+	- Sound System:
+		+ Bluetooth : 0.0
+		+ Bluetooth + Bose 7.1 Speakers : 3000.0
+		+ No Bluetooth : -200.0
+	- Power Moonroof:
+		+ Not present : 0.0
+		+ Present : 999.0
+Make: Toyota
+Model: Camry Sport
+Year: 2018
+Base Price: 21555.0
+Options: 
+	- Color:
+		+ Twilight Blue Clearcoat Metallic : 0.0
+		+ CD Silver Clearcoat Metallic : 100.0
+		+ Pitch Black Clearcoat : 200.0
+		+ Cloud 9 White Clearcoat : 0.0
+	- Transmission:
+		+ Automatic : 0.0
+		+ Manual : -815.0
+		+ Automatic V6 : 2000.0
+	- Brakes/Traction Control:
+		+ Standard : 0.0
+		+ ABS : 400.0
+		+ ABS with Advance Trac : 1999.0
+	- Sound System:
+		+ Bluetooth : 0.0
+		+ Bluetooth + Bose 7.1 Speakers : 3000.0
+		+ No Bluetooth : -200.0
+	- Power Moonroof:
+		+ Not present : 1000.0
+		+ Present : 999.0
+Cannot calculate Total Price: Not all Choices were selected! Program is now closing...
+
+
+
+PROGRAM FINISHED!

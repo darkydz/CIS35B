@@ -1,6 +1,8 @@
 package model;
 import java.util.LinkedHashMap;
 
+import exception.AutoException;
+
 public class Fleet <T extends Automobile> {
 	private LinkedHashMap<String, T> fleet;
 	
@@ -9,9 +11,11 @@ public class Fleet <T extends Automobile> {
 		fleet = new LinkedHashMap<String, T>();
 	}
 	
-	public T getAuto (String autoID)
+	public T getAuto (String autoID) throws AutoException
 	{
-		return fleet.get(autoID);
+		if (fleet.get(autoID) != null)
+			return fleet.get(autoID);
+		else throw new AutoException(204);
 	}
 	
 	public void addAuto (T a)
@@ -27,5 +31,13 @@ public class Fleet <T extends Automobile> {
 	public T updateAuto (String autoID, T a)
 	{
 		return fleet.replace(autoID, a);
+	}
+	
+	public boolean isEmpty() {
+		return fleet.isEmpty();
+	}
+	
+	public boolean containsKey(String autoID) {
+		return fleet.containsKey(autoID);
 	}
 }

@@ -121,7 +121,14 @@ public class Automotive implements Serializable {
 		double total = baseprice;
 		for (OptionSet s:opset) {
 			if (s == null) throw new AutoException(205);
-			else total += s.getOptionChoicePrice();
+			else {
+				try {
+					total += s.getOptionChoicePrice();
+				}
+				catch (AutoException e) {
+					throw new AutoException(205);
+				}
+			}
 		}
 		return total;
 	}
