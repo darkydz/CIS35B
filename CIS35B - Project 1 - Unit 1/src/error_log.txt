@@ -1,25 +1,11 @@
-Fri Feb 02 12:22:12 PST 2018 : Error#201
-Fri Feb 02 12:22:12 PST 2018 : OptionSet not found! Please re-enter the following info in the same format "[Old OptionSet Name]:[New OptionSet Name]"
-Fri Feb 02 12:22:17 PST 2018 : Color: new Color
-Fri Feb 02 12:22:17 PST 2018 : Error#202
-Fri Feb 02 12:22:17 PST 2018 : OptionSet not found or Option not found or Price is invalid! Please re-enter the following info in the same format "[OptionSet Name]:[Option Name]:[New Option Price]"
-Fri Feb 02 12:22:26 PST 2018 : Sound:Bluetooth:123
-Fri Feb 02 12:22:26 PST 2018 : Error#102
-Fri Feb 02 12:22:26 PST 2018 : File Not Found or File is Empty! Please enter the new File name:
-Fri Feb 02 12:22:37 PST 2018 : Start processing new File "src/AutoDataFiles/ToyotaCamry.txt"
-Fri Feb 02 12:22:37 PST 2018 : Error#5
-Fri Feb 02 12:22:37 PST 2018 : !!!Wrong Model info: Model Base Price is not found! Model info requires the following format "[name]:[base price]:[number of optionsets]". Please correct your file! Program is now closing...
-Fri Feb 02 12:22:37 PST 2018 : Error#12
-Fri Feb 02 12:22:37 PST 2018 : !!!Wrong Option info: Option info requires the following format "[name]:[price]". Please correct your file! Program is now closing...
-Fri Feb 02 12:22:37 PST 2018 : Error#13
-Fri Feb 02 12:22:37 PST 2018 : !!!Wrong Option info: Option Name is not found. Option info requires the following format "[name]:[price]". Please correct your file! Program is now closing...
-Fri Feb 02 12:22:37 PST 2018 : Error#12
-Fri Feb 02 12:22:37 PST 2018 : !!!Wrong Option info: Option info requires the following format "[name]:[price]". Please correct your file! Program is now closing...
-Fri Feb 02 12:22:37 PST 2018 : Error#7
-Fri Feb 02 12:22:37 PST 2018 : !!!Missing OptionSet info: OptionSet info requires the following format "[name]:[numer of options]". Please correct your file! Program is now closing...
-Fri Feb 02 12:22:37 PST 2018 : Error#7
-Fri Feb 02 12:22:37 PST 2018 : !!!Missing OptionSet info: OptionSet info requires the following format "[name]:[numer of options]". Please correct your file! Program is now closing...
-Fri Feb 02 12:22:37 PST 2018 : Error#3
-Fri Feb 02 12:22:37 PST 2018 : !!!Wrong Model info: Model info requires the following format "[name]:[base price]:[number of optionsets]". Please correct your file! Program is now closing...
-Fri Feb 02 12:22:37 PST 2018 : Error#3
-Fri Feb 02 12:22:37 PST 2018 : !!!Wrong Model info: Model info requires the following format "[name]:[base price]:[number of optionsets]". Please correct your file! Program is now closing...
+Tue Feb 13 14:17:13 PST 2018 : Error#203
+Tue Feb 13 14:17:13 PST 2018 : One of the data is invalid or not found! Please re-enter the following info in the same format \"[AutoID]:[OptionSet Name]:[Option Name]\""
+Tue Feb 13 14:17:23 PST 2018 : Ford Focus Wagon ZTW 2017:Color:French Blue Clearcoat Metallic
+Tue Feb 13 14:17:23 PST 2018 : Error#201
+Tue Feb 13 14:17:23 PST 2018 : One of the data is invalid or not found! Please re-enter the following info in the same format "[AutoID]:[Old OptionSet Name]:[New OptionSet Name]"
+Tue Feb 13 14:17:29 PST 2018 : Ford Focus Wagon ZTW 2017:Side Impact Air Bags:Bluetooth
+Tue Feb 13 14:17:29 PST 2018 : Error#201
+Tue Feb 13 14:17:29 PST 2018 : One of the data is invalid or not found! Please re-enter the following info in the same format "[AutoID]:[Old OptionSet Name]:[New OptionSet Name]"
+Tue Feb 13 14:17:33 PST 2018 : Toyota Camry Sport 2018:Sound:Sound System
+Tue Feb 13 14:17:33 PST 2018 : Error#205
+Tue Feb 13 14:17:33 PST 2018 : Cannot calculate Total Price: Not all Choices were selected! Program is now closing...

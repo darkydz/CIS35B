@@ -4,5 +4,5 @@ package adapter;
  * @author anguyen
  *
  */
-public class BuildAuto extends ProxyAutomobile implements CreateAuto, UpdateAuto, FixAuto{
+public class BuildAuto extends ProxyAutomobile implements CreateAuto, UpdateAuto, FixAuto, AutoChoice{
 }

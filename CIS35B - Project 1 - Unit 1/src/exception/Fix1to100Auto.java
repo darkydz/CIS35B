@@ -7,31 +7,31 @@ import adapter.CreateAuto;
 import adapter.FixAuto;
 import adapter.UpdateAuto;
 
-public class Fix1to100Model {
+public class Fix1to100Auto{
 	public void fix(int errno) {
 		String msg = "";
 		AutoException ae = new AutoException();
 		switch (errno) {
 		case 3:
-			msg = "!!!Wrong Model info: Model info requires the following format \"[name]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
+			msg = "!!!Wrong Auto info: Auto info requires the following format \"[make]:[model]:[year]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
 			System.out.println(msg);
 			ae.append_log(msg);
 			// System.exit(0);
 			break;
 		case 4:
-			msg = "!!!Wrong Model info: Model Name is not found! Model info requires the following format \"[name]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
+			msg = "!!!Wrong Auto info: Auto Model name is not found! Auto info requires the following format \"[make]:[model]:[year]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
 			System.out.println(msg);
 			ae.append_log(msg);
 			// System.exit(0);
 			break;
 		case 5:
-			msg = "!!!Wrong Model info: Model Base Price is not found! Model info requires the following format \"[name]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
+			msg = "!!!Wrong Auto info: Auto Base Price is not found! Auto info requires the following format \"[make]:[model]:[year]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
 			System.out.println(msg);
 			ae.append_log(msg);
 			// System.exit(0);
 			break;
 		case 6:
-			msg = "!!!Wrong Model info: Number of OptionSets is not found! Model info requires the following format \"[name]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
+			msg = "!!!Wrong Auto info: Number of OptionSets is not found! Auto info requires the following format \"[make]:[model]:[year]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
 			System.out.println(msg);
 			ae.append_log(msg);
 			// System.exit(0);
@@ -90,6 +90,36 @@ public class Fix1to100Model {
 			ae.append_log(msg);
 			// System.exit(0);
 			break;
+		case 16:
+			msg = "!!!Wrong Auto info: Auto Make name is not found! Auto info requires the following format \"[make]:[model]:[year]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;
+		case 17:
+			msg = "!!!Wrong Auto info: Auto Year is not found! Auto info requires the following format \"[make]:[model]:[year]:[base price]:[number of optionsets]\". Please correct your file! Program is now closing...";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;
+		case 18:
+			msg = "!!!No OptionSet found!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;	
+		case 19:
+			msg = "!!!No Option found!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;
+		case 20:
+			msg = "!!!No Option selected yet!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;	
 		}
 	}
 }

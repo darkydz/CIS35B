@@ -6,11 +6,8 @@ public class Automobile extends Automotive {
 		super();
 	}
 	
-	public Automobile(String n, float p, int size)
+	public Automobile(String mk, String md, int y, float p, int size)
 	{
-		super(n, p, size);
+		super(mk, md, y, p, size);
 	}
-
-
-	
 }

@@ -47,7 +47,7 @@ public class AutoException extends Exception {
 		append_log("Error#" + errno);
 		switch ((errno + 99) / 100) {
 		case 1:
-			Fix1to100Model f1 = new Fix1to100Model();
+			Fix1to100Auto f1 = new Fix1to100Auto();
 			f1.fix(errno);
 			break;
 		case 2:
