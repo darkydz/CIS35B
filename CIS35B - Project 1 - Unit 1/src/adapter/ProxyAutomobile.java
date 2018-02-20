@@ -1,11 +1,11 @@
 package adapter;
 
 import java.util.LinkedHashMap;
-
 import exception.AutoException;
 import model.Automobile;
 import model.Fleet;
 import util.FileIO;
+import scale.EditOptions;
 
 public abstract class ProxyAutomobile {
 	private static Fleet<Automobile> autos = new Fleet<Automobile>();
