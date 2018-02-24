@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import exception.AutoException;
 import model.OptionSet.Option;
+import scale.EditOptions;
 
 /**
  * 
@@ -12,6 +13,7 @@ import model.OptionSet.Option;
  *
  */
 public class Automotive implements Serializable {
+	private boolean isAvailableForEditing = true; 
 	private String model;
 	private String make;
 	private int year;
@@ -43,6 +45,14 @@ public class Automotive implements Serializable {
 		{
 			opset.add(new OptionSet());
 		}
+	}
+	
+	public boolean isEditable() {
+		return isAvailableForEditing;
+	}
+	
+	public void setEditable (boolean val) {
+		isAvailableForEditing = val;
 	}
 	
 	/**
@@ -170,6 +180,7 @@ public class Automotive implements Serializable {
 			opset.get(i).setOption(j, opName, price);		
 	}
 	
+	
 	public void setOptionChoice(String setName, String optionName) throws AutoException {
 		try {
 			opset.get(findOptionSet(setName)).setOptionChoice(optionName);
@@ -239,6 +250,30 @@ public class Automotive implements Serializable {
 		}
 			
 	}
+	
+	/**
+	 * 
+	 * @param optionSetname
+	 * @param option
+	 * @param newOp
+	 * @throws AutoException will always throw 206 regardless of what error it catches from upstream
+	 */
+	public boolean updateOptionName(String optionSetname, String option, String newOp) throws AutoException {
+		if (isEditable())
+		{
+			try {
+				opset.get(findOptionSet(optionSetname)).updateOptionName(option,newOp);
+				return true;
+			}
+			catch (AutoException e) {
+				throw new AutoException(206);
+			}
+		}
+		else
+			return false;
+	}
+	
+	
 	/**
 	 * Delete an OptionSet at index i
 	 * @param i: index of OptionSet array

@@ -9,7 +9,21 @@ import scale.EditOptions;
 
 public abstract class ProxyAutomobile {
 	private static Fleet<Automobile> autos = new Fleet<Automobile>();
+	private String threadName = ""; 
 
+	public void updateOptionName(String name,String autoID, String setName, String oldName, String newName) {
+		threadName = name;
+		try {
+			EditOptions editor = new EditOptions(threadName,autos.getAuto(autoID));
+			editor.updateOptionName(setName, oldName, newName);
+			Thread t = new Thread(editor);
+			t.start();
+		} catch (AutoException e) {
+			System.out.println(threadName + " encoutered error! Cannot find Option Name of \"" + oldName + "\".");
+		}
+	}
+	
+	
 	/**
 	 * Self-explanatory
 	 * 

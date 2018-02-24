@@ -96,6 +96,11 @@ public class Fix201to300Adapter {
 			System.out.println(msg);
 			ae.append_log(msg);
 			break;
+		case 206:
+			msg = "Cannot update Option Name! Program is now closing...";
+			System.out.println(msg);
+			ae.append_log(msg);
+			break;
 		}
 	}
 }
