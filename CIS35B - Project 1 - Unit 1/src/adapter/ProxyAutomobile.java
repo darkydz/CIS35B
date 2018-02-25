@@ -16,8 +16,7 @@ public abstract class ProxyAutomobile {
 		try {
 			EditOptions editor = new EditOptions(threadName,autos.getAuto(autoID));
 			editor.updateOptionName(setName, oldName, newName);
-			Thread t = new Thread(editor);
-			t.start();
+			editor.start();
 		} catch (AutoException e) {
 			System.out.println(threadName + " encoutered error! Cannot find Option Name of \"" + oldName + "\".");
 		}

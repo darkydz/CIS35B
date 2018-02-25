@@ -258,19 +258,15 @@ public class Automotive implements Serializable {
 	 * @param newOp
 	 * @throws AutoException will always throw 206 regardless of what error it catches from upstream
 	 */
-	public boolean updateOptionName(String optionSetname, String option, String newOp) throws AutoException {
-		if (isEditable())
-		{
-			try {
-				opset.get(findOptionSet(optionSetname)).updateOptionName(option,newOp);
-				return true;
-			}
-			catch (AutoException e) {
-				throw new AutoException(206);
-			}
+	public synchronized void updateOptionName(String optionSetname, String option, String newOp) throws AutoException {
+		setEditable(false);
+		try {
+			opset.get(findOptionSet(optionSetname)).updateOptionName(option,newOp);
 		}
-		else
-			return false;
+		catch (AutoException e) {
+			throw new AutoException(206);
+		}
+		setEditable(true);
 	}
 	
 	

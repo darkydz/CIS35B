@@ -32,9 +32,9 @@ public class Driver {
 		t2.updateOptionName("E2", autoID, "Color", "French Blue Clearcoat Metallic","Test2");
 //		t1.updateOptionName("E1", autoID, "Color", "Test1","Test11");
 		
-		System.out.println("\n\n");
-		System.out.println("After editing");
-		a1.printAuto(autoID);
+//		System.out.println("\n\n");
+//		System.out.println("After editing");
+//		a1.printAuto(autoID);
 //		
 //		System.out.println("\n\n");
 //		System.out.println("PROGRAM FINISHED!");
