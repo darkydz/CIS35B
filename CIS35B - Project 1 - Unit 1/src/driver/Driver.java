@@ -16,7 +16,8 @@ public class Driver {
 		AutoChoice a4 = new BuildAuto();
 		AutoThread t1 = new BuildAuto();
 		AutoThread t2 = new BuildAuto();
-	
+		AutoThread t3 = new BuildAuto();
+		
 		String autoID = "";
 
 //		System.out.println("\n\n");
@@ -30,7 +31,7 @@ public class Driver {
 		
 		t1.updateOptionName("E1", autoID, "Color", "French Blue Clearcoat Metallic","Test1");
 		t2.updateOptionName("E2", autoID, "Color", "French Blue Clearcoat Metallic","Test2");
-//		t1.updateOptionName("E1", autoID, "Color", "Test1","Test11");
+		t3.updateOptionName("E3", autoID, "Color", "French Blue Clearcoat Metallic","Test3");
 		
 //		System.out.println("\n\n");
 //		System.out.println("After editing");

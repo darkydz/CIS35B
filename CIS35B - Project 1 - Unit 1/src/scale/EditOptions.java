@@ -13,32 +13,14 @@ public class EditOptions implements Runnable {
 
 	public EditOptions(String name, Automobile auto) {
 		threadName = name;
-		t = new Thread(this,threadName);
+		t = new Thread(this, threadName);
 		a = auto;
 		// t.start();
 	}
 
 	@Override
 	public synchronized void run() {
-		System.out.println(threadName + " wants to update Option " + oldName);
-		while (!a.isEditable()) {
-			try {
-				System.out.println(threadName + " waits to update Option " + oldName);
-				wait();
-			} catch (InterruptedException e) {
-				System.out.println(threadName + " begins to update Option " + oldName);
-			}
-		}
-		System.out.println(threadName + " starts to update Option " + oldName);
-		try {
-			a.updateOptionName(setName, oldName, newName);
-			System.out.println(threadName + " updated Option " + oldName + " to " + newName);
-			notifyAll();
-			System.out.println(threadName + " notifies All!");
-			a.print();
-		} catch (AutoException e) {
-			System.out.println(threadName + " can't find Option " + oldName + "!");
-		}
+		test();
 	}
 
 	public void updateOptionName(String setName, String oldName, String newName) {
@@ -47,6 +29,31 @@ public class EditOptions implements Runnable {
 		this.newName = newName;
 	}
 	
+	private synchronized void test()
+	{
+		System.out.println(threadName + " wants to update Option " + oldName);
+		while (!a.isEditable()) {
+			try {
+				System.out.println(threadName + " waits to update Option " + oldName);
+				t.wait();
+			} catch (InterruptedException e) {
+				System.out.println(threadName + " begins to update Option " + oldName);
+			}
+		}
+		System.out.println(threadName + " starts to update Option " + oldName);
+		a.setEditable(false);
+		if (a.updateOptionName(setName, oldName, newName)) {
+			System.out.println(threadName + " updated Option " + oldName + " to " + newName);
+			a.print();
+		} else {
+			System.out.println(threadName + " can't find Option " + oldName + "!");
+		}
+		a.setEditable(true);
+		System.out.println(threadName + " made Auto editable again!");
+		t.notifyAll();
+		System.out.println(threadName + " notifies All!");
+	}
+
 	public void start() {
 		t.start();
 	}
