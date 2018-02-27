@@ -18,15 +18,23 @@ public class EditOptions implements Runnable {
 		a = auto;
 	}
 
+	/**
+	 * Switch operation based on opNum
+	 */
 	public void ops() {
 		switch (opNum) {
 		case 0:
+			System.out.println(threadName + " is too lazy to run!");
 			break;
 		case 1:
 			runUpdateOptionName();
 			break;
 		}
 	}
+	
+	/**
+	 * Start the process of updating an Option name
+	 */
 	private void runUpdateOptionName() {
 		System.out.println(threadName + " wants to update Option " + oldName);
 		while (!a.isEditable()) {
@@ -56,6 +64,12 @@ public class EditOptions implements Runnable {
 		ops();		
 	}
 
+	/**
+	 * Assign values to be updated
+	 * @param setName
+	 * @param oldName
+	 * @param newName
+	 */
 	public void prepUpdateOptionName(String setName, String oldName, String newName) {
 		this.setName = setName;
 		this.oldName = oldName;

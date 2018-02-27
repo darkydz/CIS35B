@@ -11,6 +11,14 @@ public abstract class ProxyAutomobile {
 	private static Fleet<Automobile> autos = new Fleet<Automobile>();
 	private String threadName = ""; 
 
+	/**
+	 * update an Option name of an OptionSet of an Auto object in the Fleet using thread
+	 * @param name
+	 * @param autoID
+	 * @param setName
+	 * @param oldName
+	 * @param newName
+	 */
 	public void updateOptionName(String name,String autoID, String setName, String oldName, String newName) {
 		threadName = name;
 		try {

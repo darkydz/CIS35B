@@ -180,7 +180,12 @@ public class Automotive implements Serializable {
 			opset.get(i).setOption(j, opName, price);		
 	}
 	
-	
+	/**
+	 * 
+	 * @param setName
+	 * @param optionName
+	 * @throws AutoException
+	 */
 	public void setOptionChoice(String setName, String optionName) throws AutoException {
 		try {
 			opset.get(findOptionSet(setName)).setOptionChoice(optionName);
@@ -201,23 +206,6 @@ public class Automotive implements Serializable {
 		}
 		throw new AutoException(18);
 	}
-	
-//	/**
-//	 * Find an OptionSet by its name and change its values if exists
-//	 * @param setName: existing OptionSet name
-//	 * @param newName: new OptionSet name
-//	 * @param newSize: new OptionSet size
-//	 * @return the index if exists. Otherwise, -1
-//	 * @throws AutoException pass exception to downstream
-//	 */
-//	public int updateOptionSet(String setName, String newName, int newSize) throws AutoException
-//	{
-//		int index = findOptionSet(setName); 
-//		if (index != -1) {
-//			setOptionSet(index, newName, newSize);
-//		}
-//		return index;
-//	}
 	
 	/**
 	 * Self-explanatory
@@ -252,11 +240,11 @@ public class Automotive implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Update Option Name
 	 * @param optionSetname
 	 * @param option
 	 * @param newOp
-	 * @throws AutoException will always throw 206 regardless of what error it catches from upstream
+	 * @return true of no error, false if any error.
 	 */
 	public boolean updateOptionName(String optionSetname, String option, String newOp) {
 		try {
