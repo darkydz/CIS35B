@@ -197,6 +197,16 @@ public class OptionSet implements Serializable {
 	/**
 	 * 
 	 * @param option
+	 * @param newOpName
+	 * @throws AutoException pass exception to downstream
+	 */
+	protected void updateOptionName(String option, String newOpName) throws AutoException {
+		opt.get(findOption(option)).setName(newOpName);
+	}
+	
+	/**
+	 * 
+	 * @param option
 	 * @param newprice
 	 * @throws AutoException pass exception to downstream
 	 */
@@ -229,4 +239,6 @@ public class OptionSet implements Serializable {
 		}
 		return sb.toString();
 	}
+
+	
 }

@@ -11,101 +11,36 @@ public class Driver {
 	 */
 	public static void main(String args[]) {
 		CreateAuto a1 = new BuildAuto();
-		UpdateAuto a2 = new BuildAuto();
-		FixAuto a3 = new BuildAuto();
-		AutoChoice a4 = new BuildAuto();
 		String autoID = "";
 
-		System.out.println("\n\n");
-		System.out.println("1. Test Working Ford Focus Wagon ZTW 2017");
+		System.out.println("\\n\\n1. Test Working Ford Focus Wagon ZTW 2017: Synched");
 		autoID = "Ford Focus Wagon ZTW 2017";
 		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
+		System.out.println("\n\n1.a.Before");
 		a1.printAuto(autoID);
-		try {
-			System.out.println("\n\n");
-			System.out.println("Set Wrong Color1");
-			a4.setChoice(autoID, "Color1", "French Blue Clearcoat Metallic");
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());// Ford Focus Wagon ZTW 2017:Color:French Blue Clearcoat Metallic
-		}
-		try {
-			System.out.println("\n\n");
-			System.out.println("Set Choice Transmission");
-			a4.setChoice(autoID, "Transmission", "Manual");
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		}
-		try {
-			System.out.println("\n\n");
-			System.out.println("Set Choice Brakes/Traction Control");
-			a4.setChoice(autoID, "Brakes/Traction Control", "ABS");
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		}
-		try {
-			System.out.println("\n\n");
-			System.out.println("Set Choice Side Impact Air Bags");
-			a4.setChoice(autoID, "Side Impact Air Bags", "Present");
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		}
-		try {
-			System.out.println("\n\n");
-			System.out.println("Set Choice Power Moonroof");
-			a4.setChoice(autoID, "Power Moonroof", "Present");
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		}
-		try {
-			System.out.println("$$$ Total of " + autoID + " = " + a4.getTotal(autoID));
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		}
-		try {
-			System.out.println("\n\n");
-			System.out.println("Update wrong OptionSetName Side Impact Air Bags1");
-			a2.updateOptionSetName(autoID, "Side Impact Air Bags1", "Bluetooth");
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber()); // Ford Focus Wagon ZTW 2017:Side Impact Air Bags:Bluetooth
-		} finally {
-			a1.printAuto(autoID);
-		}
-		try {
-			System.out.println("\n\n");
-			System.out.println("Update Option Price Color");
-			a2.updateOptionPrice(autoID, "Color", "Infra-Red Clearcoat", 1000);
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		} finally {
-			a1.printAuto(autoID);
-		}
 
-		System.out.println("\n\n");
-		System.out.println("2. Test Working Toyota Camry Sport 2018");
+		AutoThread t1 = new BuildAuto();
+		AutoThread t2 = new BuildAuto();
+		AutoThread t3 = new BuildAuto();
+		System.out.println("\n\n1.a.After changing Color");
+		t1.updateOptionName(1,"E1", autoID, "Color", "French Blue Clearcoat Metallic","Test1");
+		t2.updateOptionName(1,"E2", autoID, "Color", "French Blue Clearcoat Metallic","Test2");
+		t3.updateOptionName(1,"E3", autoID, "Color", "French Blue Clearcoat Metallic","Test3");
+
+		
+		System.out.println("\\n\\n2. Test Working Toyota Camry Sport 2018: Not Synched");
 		autoID = "Toyota Camry Sport 2018";
 		a1.buildAuto("src/AutoDataFiles/" + autoID + ".txt");
+		System.out.println("\n\n2.a.Before");
 		a1.printAuto(autoID);
-		try {
-			System.out.println("\n\n");
-			System.out.println("Update wrong OptionSetName Side Impact Air Bags");
-			a2.updateOptionSetName(autoID, "Side Impact Air Bags", "Bluetooth");
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber()); //Toyota Camry Sport 2018:Sound:Sound System
-		} finally {
-			a1.printAuto(autoID);
-		}
-		try {
-			a2.updateOptionPrice(autoID, "Power Moonroof", "Not present", 1000);
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		} finally {
-			a1.printAuto(autoID);
-		}
-		try {
-			System.out.println("$$$ Total of " + autoID + " = " + a4.getTotal(autoID));
-		} catch (AutoException e) {
-			a3.fix(e.getErrorNumber());
-		}
+		
+		AutoThread t4 = new BuildAuto();
+		AutoThread t5 = new BuildAuto();
+		AutoThread t6 = new BuildAuto();
+		System.out.println("\n\n2.a.After");
+		t4.updateOptionName(2,"E4", autoID, "Color", "Cloud 9 White Clearcoat","Test4");
+		t5.updateOptionName(2,"E5", autoID, "Color", "Cloud 9 White Clearcoat","Test5");
+		t6.updateOptionName(2,"E6", autoID, "Color", "Cloud 9 White Clearcoat","Test6");
 		
 		System.out.println("\n\n");
 		System.out.println("PROGRAM FINISHED!");

@@ -1,15 +1,36 @@
 package adapter;
 
 import java.util.LinkedHashMap;
-
 import exception.AutoException;
 import model.Automobile;
 import model.Fleet;
 import util.FileIO;
+import scale.EditOptions;
 
 public abstract class ProxyAutomobile {
 	private static Fleet<Automobile> autos = new Fleet<Automobile>();
+	private String threadName = ""; 
 
+	/**
+	 * update an Option name of an OptionSet of an Auto object in the Fleet using thread
+	 * @param name
+	 * @param autoID
+	 * @param setName
+	 * @param oldName
+	 * @param newName
+	 */
+	public void updateOptionName(int op,String name,String autoID, String setName, String oldName, String newName) {
+		threadName = name;
+		try {
+			EditOptions editor = new EditOptions(threadName,autos.getAuto(autoID));
+			editor.prepUpdateOptionName(op,setName, oldName, newName);
+			editor.start();
+		} catch (AutoException e) {
+			System.out.println(threadName + " encoutered error! Cannot find Option Name of \"" + oldName + "\".");
+		}
+	}
+	
+	
 	/**
 	 * Self-explanatory
 	 * 

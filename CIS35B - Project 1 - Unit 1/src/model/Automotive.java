@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import exception.AutoException;
 import model.OptionSet.Option;
+import scale.EditOptions;
 
 /**
  * 
@@ -12,6 +13,7 @@ import model.OptionSet.Option;
  *
  */
 public class Automotive implements Serializable {
+	private boolean isAvailableForEditing = true; 
 	private String model;
 	private String make;
 	private int year;
@@ -43,6 +45,14 @@ public class Automotive implements Serializable {
 		{
 			opset.add(new OptionSet());
 		}
+	}
+	
+	public boolean isEditable() {
+		return isAvailableForEditing;
+	}
+	
+	public void setEditable (boolean val) {
+		isAvailableForEditing = val;
 	}
 	
 	/**
@@ -170,6 +180,12 @@ public class Automotive implements Serializable {
 			opset.get(i).setOption(j, opName, price);		
 	}
 	
+	/**
+	 * 
+	 * @param setName
+	 * @param optionName
+	 * @throws AutoException
+	 */
 	public void setOptionChoice(String setName, String optionName) throws AutoException {
 		try {
 			opset.get(findOptionSet(setName)).setOptionChoice(optionName);
@@ -190,23 +206,6 @@ public class Automotive implements Serializable {
 		}
 		throw new AutoException(18);
 	}
-	
-//	/**
-//	 * Find an OptionSet by its name and change its values if exists
-//	 * @param setName: existing OptionSet name
-//	 * @param newName: new OptionSet name
-//	 * @param newSize: new OptionSet size
-//	 * @return the index if exists. Otherwise, -1
-//	 * @throws AutoException pass exception to downstream
-//	 */
-//	public int updateOptionSet(String setName, String newName, int newSize) throws AutoException
-//	{
-//		int index = findOptionSet(setName); 
-//		if (index != -1) {
-//			setOptionSet(index, newName, newSize);
-//		}
-//		return index;
-//	}
 	
 	/**
 	 * Self-explanatory
@@ -239,6 +238,80 @@ public class Automotive implements Serializable {
 		}
 			
 	}
+	
+	/**
+	 * Update Option Name
+	 * @param optionSetname
+	 * @param option
+	 * @param newOp
+	 */
+	public synchronized void updateOptionName(String threadName, String optionSetname, String option, String newOp) {
+		System.out.println(threadName + " attempts to update Auto!!!");
+		while (!isAvailableForEditing)
+		{
+			System.out.println(threadName + " waits...");
+			try {
+				wait();
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		isAvailableForEditing = false;
+		try {
+			opset.get(findOptionSet(optionSetname)).updateOptionName(option,newOp);
+			System.out.println(threadName + " updated Auto!!!");
+			print();
+		}
+		catch (AutoException e) {
+			System.out.println(threadName + " can't update Auto!!!");
+		}
+		finally {
+			isAvailableForEditing = true;
+			System.out.println(threadName + " set Auto to be editable");
+			notifyAll();
+			System.out.println(threadName + " notifyAll");
+		}
+	}
+	
+	/**
+	 * Update Option Name
+	 * @param optionSetname
+	 * @param option
+	 * @param newOp
+	 */
+	public void updateOptionNamenotSync(String threadName, String optionSetname, String option, String newOp) {
+		System.out.println(threadName + " attempts to update Auto!!!");
+		while (!isAvailableForEditing)
+		{
+			System.out.println(threadName + " waits...");
+			try {
+				wait();
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		isAvailableForEditing = false;
+		try {
+			opset.get(findOptionSet(optionSetname)).updateOptionName(option,newOp);
+			System.out.println(threadName + " updated Auto!!!");
+			print();
+		}
+		catch (AutoException e) {
+			System.out.println(threadName + " can't update Auto!!!");
+		}
+		finally {
+			isAvailableForEditing = true;
+			System.out.println(threadName + " set Auto to be editable");
+			notifyAll();
+			System.out.println(threadName + " notifyAll");
+		}
+	}
+	
+	
 	/**
 	 * Delete an OptionSet at index i
 	 * @param i: index of OptionSet array
