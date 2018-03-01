@@ -19,9 +19,9 @@ public class Driver {
 		System.out.println("\n\n1.a.Before");
 		a1.printAuto(autoID);
 
-		AutoThread t1 = new BuildAuto();
-		AutoThread t2 = new BuildAuto();
-		AutoThread t3 = new BuildAuto();
+		EditThread t1 = new BuildAuto();
+		EditThread t2 = new BuildAuto();
+		EditThread t3 = new BuildAuto();
 		System.out.println("\n\n1.a.After changing Color");
 		t1.updateOptionName(1,"E1", autoID, "Color", "French Blue Clearcoat Metallic","Test1");
 		t2.updateOptionName(1,"E2", autoID, "Color", "French Blue Clearcoat Metallic","Test2");
@@ -34,9 +34,9 @@ public class Driver {
 		System.out.println("\n\n2.a.Before");
 		a1.printAuto(autoID);
 		
-		AutoThread t4 = new BuildAuto();
-		AutoThread t5 = new BuildAuto();
-		AutoThread t6 = new BuildAuto();
+		EditThread t4 = new BuildAuto();
+		EditThread t5 = new BuildAuto();
+		EditThread t6 = new BuildAuto();
 		System.out.println("\n\n2.a.After");
 		t4.updateOptionName(2,"E4", autoID, "Color", "Cloud 9 White Clearcoat","Test4");
 		t5.updateOptionName(2,"E5", autoID, "Color", "Cloud 9 White Clearcoat","Test5");
