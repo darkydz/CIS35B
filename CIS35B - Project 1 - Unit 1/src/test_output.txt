@@ -35,8 +35,8 @@ Options:
 
 1.a.After changing Color
 \n\n2. Test Working Toyota Camry Sport 2018: Not Synched
-E2 attempts to update Auto!!!
-E2 updated Auto!!!
+E1 attempts to update Auto!!!
+E1 updated Auto!!!
 Make: Ford
 Model: Focus Wagon ZTW
 Year: 2017
@@ -48,7 +48,7 @@ Options:
 		+ Infra-Red Clearcoat : 0.0
 		+ Grabber Green Clearcoat Metallic : 0.0
 		+ Sangria Red Clearcoat Metallic : 0.0
-		+ Test2 : 100.0
+		+ Test1 : 100.0
 		+ Twilight Blue Clearcoat Metallic : 0.0
 		+ CD Silver Clearcoat Metallic : 0.0
 		+ Pitch Black Clearcoat : 0.0
@@ -66,16 +66,16 @@ Options:
 	- Power Moonroof:
 		+ Not present : 0.0
 		+ Present : 595.0
+E1 set Auto to be editable
+E1 notifyAll
+E2 attempts to update Auto!!!
+E2 can't update Auto!!!
 E2 set Auto to be editable
 E2 notifyAll
 E3 attempts to update Auto!!!
 E3 can't update Auto!!!
 E3 set Auto to be editable
 E3 notifyAll
-E1 attempts to update Auto!!!
-E1 can't update Auto!!!
-E1 set Auto to be editable
-E1 notifyAll
 
 
 2.a.Before
@@ -113,7 +113,9 @@ Options:
 PROGRAM FINISHED!
 E4 attempts to update Auto!!!
 E4 updated Auto!!!
-Make: Toyota
+E5 attempts to update Auto!!!
+E5 waits...
+Exception in thread "E5" Make: Toyota
 Model: Camry Sport
 Year: 2018
 Base Price: 21555.0
@@ -139,21 +141,19 @@ Options:
 		+ Not present : 0.0
 		+ Present : 999.0
 E4 set Auto to be editable
-E6 attempts to update Auto!!!
-E6 can't update Auto!!!
-E6 set Auto to be editable
-Exception in thread "E6" Exception in thread "E4" E5 attempts to update Auto!!!
-E5 can't update Auto!!!
-E5 set Auto to be editablejava.lang.IllegalMonitorStateException
+Exception in thread "E4" E6 attempts to update Auto!!!
+java.lang.IllegalMonitorStateExceptionE6 can't update Auto!!!
 
+E6 set Auto to be editable
 	at java.lang.Object.notifyAll(Native Method)
 	at model.Automotive.updateOptionNamenotSync(Automotive.java:309)
 	at scale.EditOptions.ops(EditOptions.java:33)
 	at scale.EditOptions.run(EditOptions.java:40)
 	at java.lang.Thread.run(Unknown Source)
-Exception in thread "E5" java.lang.IllegalMonitorStateException
-	at java.lang.Object.notifyAll(Native Method)
-	at model.Automotive.updateOptionNamenotSync(Automotive.java:309)
+Exception in thread "E6" java.lang.IllegalMonitorStateException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Unknown Source)
+	at model.Automotive.updateOptionNamenotSync(Automotive.java:290)
 	at scale.EditOptions.ops(EditOptions.java:33)
 	at scale.EditOptions.run(EditOptions.java:40)
 	at java.lang.Thread.run(Unknown Source)
