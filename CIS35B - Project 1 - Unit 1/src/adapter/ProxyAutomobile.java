@@ -19,11 +19,11 @@ public abstract class ProxyAutomobile {
 	 * @param oldName
 	 * @param newName
 	 */
-	public void updateOptionName(String name,String autoID, String setName, String oldName, String newName) {
+	public void updateOptionName(int op,String name,String autoID, String setName, String oldName, String newName) {
 		threadName = name;
 		try {
 			EditOptions editor = new EditOptions(threadName,autos.getAuto(autoID));
-			editor.prepUpdateOptionName(setName, oldName, newName);
+			editor.prepUpdateOptionName(op,setName, oldName, newName);
 			editor.start();
 		} catch (AutoException e) {
 			System.out.println(threadName + " encoutered error! Cannot find Option Name of \"" + oldName + "\".");

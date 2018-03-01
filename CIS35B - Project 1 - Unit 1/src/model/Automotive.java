@@ -244,16 +244,71 @@ public class Automotive implements Serializable {
 	 * @param optionSetname
 	 * @param option
 	 * @param newOp
-	 * @return true of no error, false if any error.
 	 */
-	public boolean updateOptionName(String optionSetname, String option, String newOp) {
+	public synchronized void updateOptionName(String threadName, String optionSetname, String option, String newOp) {
+		System.out.println(threadName + " attempts to update Auto!!!");
+		while (!isAvailableForEditing)
+		{
+			System.out.println(threadName + " waits...");
+			try {
+				wait();
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		isAvailableForEditing = false;
 		try {
 			opset.get(findOptionSet(optionSetname)).updateOptionName(option,newOp);
+			System.out.println(threadName + " updated Auto!!!");
+			print();
 		}
 		catch (AutoException e) {
-			return false;
+			System.out.println(threadName + " can't update Auto!!!");
 		}
-		return true;
+		finally {
+			isAvailableForEditing = true;
+			System.out.println(threadName + " set Auto to be editable");
+			notifyAll();
+			System.out.println(threadName + " notifyAll");
+		}
+	}
+	
+	/**
+	 * Update Option Name
+	 * @param optionSetname
+	 * @param option
+	 * @param newOp
+	 */
+	public void updateOptionNamenotSync(String threadName, String optionSetname, String option, String newOp) {
+		System.out.println(threadName + " attempts to update Auto!!!");
+		while (!isAvailableForEditing)
+		{
+			System.out.println(threadName + " waits...");
+			try {
+				wait();
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		isAvailableForEditing = false;
+		try {
+			opset.get(findOptionSet(optionSetname)).updateOptionName(option,newOp);
+			System.out.println(threadName + " updated Auto!!!");
+			print();
+		}
+		catch (AutoException e) {
+			System.out.println(threadName + " can't update Auto!!!");
+		}
+		finally {
+			isAvailableForEditing = true;
+			System.out.println(threadName + " set Auto to be editable");
+			notifyAll();
+			System.out.println(threadName + " notifyAll");
+		}
 	}
 	
 	
