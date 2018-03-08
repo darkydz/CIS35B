@@ -124,5 +124,10 @@ public class FileIO {
 		}
 		return null;
 	}
+	
+	public Automobile buildAutomobileObjectProp(String filename) {
+		Automobile auto = new Automobile();
+		return auto;
+	}
 
 }

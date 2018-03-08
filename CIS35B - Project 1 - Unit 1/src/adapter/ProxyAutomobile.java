@@ -8,7 +8,7 @@ import util.FileIO;
 import scale.EditOptions;
 
 public abstract class ProxyAutomobile {
-	private static Fleet<Automobile> autos = new Fleet<Automobile>();
+	protected static Fleet<Automobile> autos = new Fleet<Automobile>();
 	private String threadName = ""; 
 
 	/**
