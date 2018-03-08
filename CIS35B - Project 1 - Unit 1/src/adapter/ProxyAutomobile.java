@@ -6,6 +6,7 @@ import model.Automobile;
 import model.Fleet;
 import util.FileIO;
 import scale.EditOptions;
+import server.*;
 
 public abstract class ProxyAutomobile {
 	protected static Fleet<Automobile> autos = new Fleet<Automobile>();
@@ -76,6 +77,28 @@ public abstract class ProxyAutomobile {
 			autos.addAuto(io.buildAutomobileObject(filename));
 		} catch (AutoException e) {
 			e.fix(e.getErrorNumber());
+		}
+	}
+	
+	/**
+	 * 
+	 * @param filename path to the file
+	 * @param filetype .txt or .prop
+	 */
+	public void buildAuto(String filename, String filetype) {
+		switch (filetype)
+		{
+			case ".prop":
+				FileIO io = new FileIO();
+				try {
+					autos.addAuto(io.buildAutomobileObjectProp(filename));
+				} catch (AutoException e) {
+					e.fix(e.getErrorNumber());
+				}
+				break;
+			case ".txt":
+				buildAuto(filename);
+				break;
 		}
 	}
 

@@ -120,6 +120,12 @@ public class Fix1to100Auto{
 			ae.append_log(msg);
 			// System.exit(0);
 			break;	
+		case 21:
+			msg = "!!!Cannot create new Auto. Prop file or its data is not proper!";
+			System.out.println(msg);
+			ae.append_log(msg);
+			// System.exit(0);
+			break;
 		}
 	}
 }

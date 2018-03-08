@@ -47,6 +47,14 @@ public class Automotive implements Serializable {
 		}
 	}
 	
+	public Automotive(String mk, String md, int y, float p) {
+		make = mk;
+		model = md;
+		year = y;
+		baseprice = p;
+		opset = new ArrayList<OptionSet>();
+	}
+
 	public boolean isEditable() {
 		return isAvailableForEditing;
 	}
@@ -100,6 +108,12 @@ public class Automotive implements Serializable {
 		else return null;
 	}
 	
+	/**
+	 * 
+	 * @param setName
+	 * @return
+	 * @throws AutoException
+	 */
 	public String getOptionChoice(String setName) throws AutoException{
 		int index = 0;
 		try {
@@ -166,6 +180,27 @@ public class Automotive implements Serializable {
 	public void setOptionSet(int i, String setName, int opSetSize) {
 		if (i < opset.size())
 			opset.set(i, new OptionSet(setName, opSetSize));
+	}
+	
+	/**
+	 * Add an empty OptionSet with new name
+	 * @param setName
+	 */
+	public void addOptionSet(String setName) {
+		OptionSet newOp = new OptionSet(setName);
+		if (!opset.contains(newOp)) opset.add(newOp);
+	}
+	
+	/**
+	 * 
+	 * @param setName
+	 * @param opName
+	 * @param opPrice
+	 * @throws AutoException pass to downstream
+	 */
+	public void addOption(String setName, String opName, float opPrice) throws AutoException
+	{
+		opset.get(findOptionSet(setName)).addOption(opName, opPrice);
 	}
 	
 	/**

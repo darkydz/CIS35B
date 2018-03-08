@@ -10,4 +10,9 @@ public class Automobile extends Automotive {
 	{
 		super(mk, md, y, p, size);
 	}
+	
+	public Automobile(String mk, String md, int y, float p)
+	{
+		super(mk, md, y, p);
+	}
 }
