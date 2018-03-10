@@ -127,59 +127,62 @@ public class FileIO {
 		return null;
 	}
 	
-	public Automobile buildAutomobileObjectProp(String filename) throws AutoException {
+	public Automobile buildAutomobileFromPropFile(String filename) throws AutoException {
 		Properties props = new Properties();
 		FileInputStream in = null;
-		Automobile auto = null;
 		try {
 			in = new FileInputStream(filename);
 			props.load(in);
-			String make = props.getProperty("Make");
-			String model = props.getProperty("Model");
-			String yearString = props.getProperty("Year");
-			String basepriceString = props.getProperty("BasePrice");
-			if (make != null && model != null && yearString != null && basepriceString != null)
-			{
-				int year = Integer.parseInt(yearString);
-				float baseprice = Float.parseFloat(basepriceString);
-				auto = new Automobile(make,model,year,baseprice);
-				int count = 0;
-				ArrayList<String> opsetNames = new ArrayList<String>();
-				String opsetName = "";
-				while ((opsetName = props.getProperty("Option"+(count+1))) != null)//check if next OpSet exists and assign it to variable to save space
-				{
-					opsetNames.add(opsetName);
-					count++;
-				}
-				if (count > 0)
-				{
-					for (int i = 0; i < opsetNames.size(); i++)
-					{
-						count = 0;
-						String setName = opsetNames.get(i);
-						String opName = "";
-						String opPriceString = "";
-						auto.addOptionSet(setName);
-						while ((opName = props.getProperty("Option"+(i+1) + "Value" + (count+1))) != null
-								&& (opPriceString = props.getProperty("Option"+(i+1) + "Price" + (count+1))) != null
-								)
-						{
-							float opPrice = Float.parseFloat(opPriceString);
-							auto.addOption(setName,opName,opPrice);
-							count++;
-						}
-					}
-					if (count > 0)
-						return auto;
-					else throw new Exception();//too lazy to code, so all exceptions are the same
-				}
-				else throw new Exception();//too lazy to code, so all exceptions are the same
-			}
-			else throw new Exception();//too lazy to code, so all exceptions are the same
+			return buildAutomobileFromPropObject(props);
 		} catch (Exception e) {
 			throw new AutoException(21);
 		}
 //		return null;
 	}
-
+	
+	public Automobile buildAutomobileFromPropObject(Properties props) throws AutoException{
+		Automobile auto = null;
+		String make = props.getProperty("Make");
+		String model = props.getProperty("Model");
+		String yearString = props.getProperty("Year");
+		String basepriceString = props.getProperty("BasePrice");
+		if (make != null && model != null && yearString != null && basepriceString != null)
+		{
+			int year = Integer.parseInt(yearString);
+			float baseprice = Float.parseFloat(basepriceString);
+			auto = new Automobile(make,model,year,baseprice);
+			int count = 0;
+			ArrayList<String> opsetNames = new ArrayList<String>();
+			String opsetName = "";
+			while ((opsetName = props.getProperty("Option"+(count+1))) != null)//check if next OpSet exists and assign it to variable to save space
+			{
+				opsetNames.add(opsetName);
+				count++;
+			}
+			if (count > 0)
+			{
+				for (int i = 0; i < opsetNames.size(); i++)
+				{
+					count = 0;
+					String setName = opsetNames.get(i);
+					String opName = "";
+					String opPriceString = "";
+					auto.addOptionSet(setName);
+					while ((opName = props.getProperty("Option"+(i+1) + "Value" + (count+1))) != null
+							&& (opPriceString = props.getProperty("Option"+(i+1) + "Price" + (count+1))) != null
+							)
+					{
+						float opPrice = Float.parseFloat(opPriceString);
+						auto.addOption(setName,opName,opPrice);
+						count++;
+					}
+				}
+				if (count > 0)
+					return auto;
+				else throw new AutoException(21);//too lazy to code, so all exceptions are the same
+			}
+			else throw new AutoException(21);//too lazy to code, so all exceptions are the same
+		}
+		else throw new AutoException(21);//too lazy to code, so all exceptions are the same
+	}
 }

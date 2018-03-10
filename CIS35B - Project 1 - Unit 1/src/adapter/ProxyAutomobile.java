@@ -1,6 +1,8 @@
 package adapter;
 
 import java.util.LinkedHashMap;
+import java.util.Properties;
+
 import exception.AutoException;
 import model.Automobile;
 import model.Fleet;
@@ -91,7 +93,7 @@ public abstract class ProxyAutomobile {
 			case ".prop":
 				FileIO io = new FileIO();
 				try {
-					autos.addAuto(io.buildAutomobileObjectProp(filename));
+					autos.addAuto(io.buildAutomobileFromPropFile(filename));
 				} catch (AutoException e) {
 					e.fix(e.getErrorNumber());
 				}
@@ -99,6 +101,15 @@ public abstract class ProxyAutomobile {
 			case ".txt":
 				buildAuto(filename);
 				break;
+		}
+	}
+	
+	public void buildAuto(Properties props) {
+		FileIO io = new FileIO();
+		try {
+			autos.addAuto(io.buildAutomobileFromPropObject(props));
+		} catch (AutoException e) {
+			e.fix(e.getErrorNumber());
 		}
 	}
 
