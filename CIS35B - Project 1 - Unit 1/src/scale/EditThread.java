@@ -1,4 +1,4 @@
-package adapter;
+package scale;
 
 import exception.AutoException;
 

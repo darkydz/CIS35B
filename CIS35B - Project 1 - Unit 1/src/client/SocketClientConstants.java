@@ -5,5 +5,5 @@ public interface SocketClientConstants {
 	int iDAYTIME_PORT = 4444;
 	int iSMTP_PORT = 25;
 	boolean DEBUG =true;
-	String hostIP = "10.243.217.193";
+	String hostIP = "192.168.1.78";
 }

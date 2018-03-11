@@ -1,11 +1,10 @@
 package adapter;
 
-import java.util.LinkedHashMap;
+import java.io.ObjectOutputStream;
 import java.util.Properties;
 
 import exception.AutoException;
-import model.Automobile;
-import model.Fleet;
+import model.*;
 import util.FileIO;
 import scale.EditOptions;
 import server.*;
@@ -104,13 +103,20 @@ public abstract class ProxyAutomobile {
 		}
 	}
 	
-	public void buildAuto(Properties props) {
-		FileIO io = new FileIO();
-		try {
-			autos.addAuto(io.buildAutomobileFromPropObject(props));
-		} catch (AutoException e) {
-			e.fix(e.getErrorNumber());
-		}
+	public boolean createAutoFromProp(Properties props)
+	{
+		BuildCarModelOptions serverHelper = new BuildCarModelOptions();
+		return serverHelper.buildAutoFromProp(props);
+	}
+	
+	public void sendAutoList(ObjectOutputStream out) {
+		ServerHelper sh = new ServerHelper();
+		sh.sendAutoList(out);
+	}
+	
+	public void sendAutoObject(String autoID, ObjectOutputStream out) {
+		ServerHelper sh = new ServerHelper();
+		sh.sendAutoObject(autoID, out);
 	}
 
 	/**
