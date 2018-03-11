@@ -10,6 +10,9 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import adapter.AutoChoice;
+import adapter.BuildAuto;
+import exception.AutoException;
 import model.Automobile;
 
 public class DefaultSocketClient extends Thread implements SocketClientInterface, SocketClientConstants {
@@ -76,19 +79,8 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 			String fromUser;
 			while ((fromServer = strIn.readLine()) != null) {
 				System.out.println("Server: " + fromServer);
-//				if (fromServer.equals("What can we do for you?")) {
-//					waiting_for_input = true;
-//					menu_option = -1;
-//				} else if (fromServer.equals("Auto sucessfully added!")) {
-//					// ch.displayMainMenu();
-//					waiting_for_input = true;
-//					menu_option = -1;
-//				} else if (fromServer.equals("Error: Auto cannot be added!")) {
-//					// ch.displayMainMenu();
-//					waiting_for_input = true;
-//					menu_option = -1;
-//				} else 
-				if (fromServer.equals("Bye!")) break;
+				if (fromServer.equals("Bye!"))
+					break;
 				else {
 					waiting_for_input = true;
 					menu_option = -1;
@@ -103,56 +95,89 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 							menu_option = 1;
 						} else if (fromUser.equals("2")) {
 							sendOutput(fromUser);
-							menu_option = 2;
+							fromServer = strIn.readLine();
+							System.out.println("Server: " + fromServer);
+							if (fromServer.equals("Error: No Auto to configure. Please Upload new Auto 1st!")) {
+								menu_option = -1;
+							} else
+								menu_option = 2;
 						} else if (fromUser.equals("0")) {
 							sendOutput(fromUser);
 							waiting_for_input = false;
-//							closeSession();
-						}	
-					}
-					else if (menu_option == 1) {
-						System.out.println("Please enter file name (with .prop) to upload or 0 to go back to main menu.");
-						fromUser = stdIn.readLine();
-						if (fromUser.equals("0"))
-							menu_option = -1;
-						else {
-							CarModelOptionsIO io = new CarModelOptionsIO();
-							io.sendAutoFromPropFile("src/AutoDataFiles/" + fromUser, objOut);
-							menu_option = -1;
-							waiting_for_input = false;
+							// closeSession();
 						}
-					}
-					else if (menu_option == 2) {
-//						System.out.println("Please enter Auto ID to configure or 0 to go back to main menu.");
-//						fromUser = stdIn.readLine();
-//						if (fromUser.equals("0"))
-//							menu_option = -1;
-//						else 
-						{
-							SelectCarOption sc = new SelectCarOption();
-							try {
-								
-								String[] aList = (String[]) objIn.readObject();
+					} else if (menu_option == 1) {
+						System.out.println("Please enter file name (with .prop)");
+						fromUser = stdIn.readLine();
+						CarModelOptionsIO io = new CarModelOptionsIO();
+						if (io.sendAutoFromPropFile("src/AutoDataFiles/" + fromUser, objOut)) {
+							waiting_for_input = false;
+							menu_option = -1;
+						} else {
+//							io.sendEmptyAutoProp(objOut);
+							waiting_for_input = true;
+						}
+					} else if (menu_option == 2) {
+						SelectCarOption sc = new SelectCarOption();
+						try {
+							String[] aList = (String[]) objIn.readObject();
+							sc.displayAutoList(aList);
+							fromUser = stdIn.readLine();
+							int configure_option_1 = Integer.parseInt(fromUser);
+							while (configure_option_1 == 0 || configure_option_1 > aList.length) {
 								sc.displayAutoList(aList);
 								fromUser = stdIn.readLine();
-								int configure_option = Integer.parseInt(fromUser);
-								while (configure_option == 0 || configure_option > aList.length)
-								{
-									System.out.println("Please select an Auto!");
+								configure_option_1 = Integer.parseInt(fromUser);
+							}
+							sendOutput(aList[(configure_option_1 - 1)]);
+							Automobile selectedAuto = (Automobile) objIn.readObject();
+							String autoID = selectedAuto.getAutoID();
+							sc.displayAutoInfo(selectedAuto);
+
+							String[] setList = selectedAuto.getOptionSetList();
+							
+							for (int i = 0; i < setList.length; i++) {
+								String setName = setList[i];
+								String[] opList = new String[0];
+								try {
+									opList = selectedAuto.getOptionList(setName);
+								} catch (AutoException e1) {
+									if (DEBUG)
+										System.out.println("Error: Cannot find " + setName);
 								}
-								sendOutput(aList[configure_option-1]);
-								sc.displayAutoInfo((Automobile) objIn.readObject());
-							} catch (ClassNotFoundException e) {
-								if (DEBUG)
-									System.out.println("Error: Cannot open Auto List!");
+								sc.displayOptionList(opList, setName);
+								fromUser = stdIn.readLine();
+								int configure_option_2 = Integer.parseInt(fromUser);
+								while (configure_option_2 == 0 || configure_option_2 > opList.length) {
+									sc.displayOptionList(opList, setName);
+									fromUser = stdIn.readLine();
+									configure_option_2 = Integer.parseInt(fromUser);
+								}
+
+								try {
+									selectedAuto.setOptionChoice(setName, opList[(configure_option_2 - 1)]);
+								} catch (AutoException e) {
+									if (DEBUG)
+										System.out.println("Error: Cannot set Option Choice for " + setName);
+								}
 							}
-							catch (IOException e) {
+							
+							try {
+								System.out.println("$$$Total = " + selectedAuto.getTotalPrice());
+							} catch (AutoException e) {
 								if (DEBUG)
-									System.out.println("Error: Cannot receive Auto List!");
+									System.out.println("Error: Cannot calculate Total for " + autoID);
 							}
-							menu_option = -1;
-							waiting_for_input = false;
+							
+						} catch (ClassNotFoundException e) {
+							if (DEBUG)
+								System.out.println("Error: Cannot open Auto List!");
+						} catch (IOException e) {
+							if (DEBUG)
+								System.out.println("Error: Cannot receive Auto List!");
 						}
+						menu_option = -1;
+						waiting_for_input = true;
 					}
 				}
 

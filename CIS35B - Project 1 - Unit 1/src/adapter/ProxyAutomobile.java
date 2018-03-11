@@ -155,5 +155,23 @@ public abstract class ProxyAutomobile {
 			throw new AutoException(203);
 		}
 	}
+	
+//	public String[] getOptionSetList(String autoID) {
+//		try {
+//			return autos.getAuto(autoID).getOptionSetList();
+//		} catch (AutoException e) {
+//			e.fix(e.getErrorNumber());
+//		}
+//		return new String[0];
+//	}
+//	
+//	public String[] getOptionList(String autoID, String setName) {
+//		try {
+//			return autos.getAuto(autoID).getOptionList(setName);
+//		} catch (AutoException e) {
+//			e.fix(e.getErrorNumber());
+//		}
+//		return new String[0];
+//	}
 
 }

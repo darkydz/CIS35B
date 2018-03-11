@@ -135,7 +135,15 @@ public class OptionSet implements Serializable {
 			return choice.getPrice();
 		else throw new AutoException(20);
 	}
-
+	
+	public String[] getOptionList() {
+		String[] opList = new String[opt.size()];
+		for (int i = 0; i < opt.size(); i++) {
+			opList[i] = opt.get(i).getName();
+		}
+		return opList;
+	}
+	
 	/**
 	 * @param n: new name of OptionSet 
 	 */

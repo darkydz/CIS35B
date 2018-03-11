@@ -157,6 +157,18 @@ public class Automotive implements Serializable {
 		return total;
 	}
 	
+	public String[] getOptionSetList() {
+		String[] opsetList = new String[opset.size()];
+		for (int i = 0; i < opset.size(); i++) {
+			opsetList[i] = opset.get(i).getName();
+		}
+		return opsetList;
+	}
+	
+	public String[] getOptionList(String setName) throws AutoException {
+		return opset.get(findOptionSet(setName)).getOptionList();
+	}
+	
 	/**
 	 * @param n: new name of Auto
 	 */

@@ -16,6 +16,9 @@ public class ServerHelper extends ProxyAutomobile{
 
     private int state = MENU;
     
+    public boolean isAutoListEmpty() {
+    	return autos.isEmpty();
+    }
 	public boolean buildAutoFromProp(Properties props) {
 		FileIO io = new FileIO();
 		try {
