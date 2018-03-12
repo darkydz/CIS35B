@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Properties;
 
-public class CarModelOptionsIO extends ClientHelper{
+public class CarModelOptionsIO {
 	public boolean sendAutoFromPropFile(String filename, ObjectOutputStream out) {
 		Properties props = new Properties();
 		FileInputStream in = null;
@@ -13,10 +13,10 @@ public class CarModelOptionsIO extends ClientHelper{
 			in = new FileInputStream(filename);
 			props.load(in);
 		} catch (Exception e) {
-			System.err.println("Error: Cannot read file \""+filename + "\"");
+			System.err.println("Error: Cannot read file \"" + filename + "\"");
 			return false;
 		}
-		
+
 		try {
 			out.writeObject(props);
 			return true;
@@ -25,6 +25,7 @@ public class CarModelOptionsIO extends ClientHelper{
 			return false;
 		}
 	}
+
 	public void sendEmptyAutoProp(ObjectOutputStream out) {
 		Properties props = new Properties();
 		try {

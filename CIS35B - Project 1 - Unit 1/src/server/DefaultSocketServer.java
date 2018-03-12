@@ -101,7 +101,10 @@ public class DefaultSocketServer extends Thread implements SocketClientInterface
 						response = "Auto sucessfully added!";
 						sendOutput(response);
 					} else
+					{
 						response = "Error: Auto cannot be added!";
+						sendOutput(response);
+					}
 				} catch (ClassNotFoundException e) {
 					response = "Error: Object is not class Properties!";
 					sendOutput(response);
