@@ -31,7 +31,7 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 
 		} catch (IOException e) {
 			if (DEBUG)
-				System.out.println("Unable to connect to " + strHost);
+				System.out.println("Unable to connect to " + strHost + ":" + iPort);
 			return false;
 		}
 
@@ -42,17 +42,22 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 			objIn = new ObjectInputStream(sock.getInputStream());
 		} catch (IOException e) {
 			if (DEBUG)
-				System.out.println("Unable to obtain stream to/from " + strHost);
+				System.out.println("Unable to obtain stream to/from " + strHost + ":" + iPort);
 			return false;
 		}
 		return true;
 	}
 
-	public void handleSession() {
+	public synchronized void handleSession() {
 		ClientHelper ch = new ClientHelper(strOut, strIn, objOut, objIn);
 		if (DEBUG)
-			System.out.println("Start session with " + strHost + ":" + iPort);
-		ch.processRequest();
+			System.out.println("Start handling session with " + strHost + ":" + iPort);
+		try {
+			ch.processRequest();
+		} catch (IOException e) {
+			if (DEBUG)
+				System.out.println("Error: Handling session with " + strHost + ":" + iPort);
+		}
 	}
 
 	public void closeSession() {
@@ -64,7 +69,7 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 			sock.close();
 		} catch (IOException e) {
 			if (DEBUG)
-				System.out.println("Error: Closing socket to " + strHost);
+				System.out.println("Error: Closing socket to " + strHost + ":" + iPort);
 		}
 	}
 

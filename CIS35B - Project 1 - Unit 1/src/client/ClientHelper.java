@@ -37,85 +37,79 @@ public class ClientHelper implements SocketClientConstants {
 		System.out.println(main_menu);
 	}
 
-	public void processRequest() {
+	public void processRequest() throws IOException {
 		boolean waiting_for_input = false;
 		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 		String fromServer;
 		String fromUser;
-		try {
-			while ((fromServer = strIn.readLine()) != null) {
-				System.out.println("Server: " + fromServer);
-				if (fromServer.equals("Bye!"))
-					break;
-				else {
-					waiting_for_input = true;
-					menu = MAINMENU;
-				}
-				while (waiting_for_input) {
-					if (menu == MAINMENU) {
-						displayMainMenu();
-						fromUser = stdIn.readLine();
-						if (fromUser.equals("1")) {
-							strOut.println(fromUser);
-							menu = UPLOAD;
-						} else if (fromUser.equals("2")) {
-							strOut.println(fromUser);
-							fromServer = strIn.readLine();
-							System.out.println("Server: " + fromServer);
-							if (fromServer.equals("Error: No Auto to configure. Please Upload new Auto 1st!")) {
-								menu = MAINMENU;
-							} else
-								menu = CONFIGURE;
-						} else if (fromUser.equals("0")) {
-							strOut.println(fromUser);
-							waiting_for_input = false;
-						}
-					} else if (menu == UPLOAD) {
-						System.out.println(upload_menu);
-						fromUser = stdIn.readLine();
-						CarModelOptionsIO io = new CarModelOptionsIO();
-						if (io.sendAutoFromPropFile("src/AutoDataFiles/" + fromUser, objOut)) {
-							waiting_for_input = false;
+		while ((fromServer = strIn.readLine()) != null) {
+			System.out.println("Server: " + fromServer);
+			if (fromServer.equals("Bye!"))
+				break;
+			else {
+				waiting_for_input = true;
+				menu = MAINMENU;
+			}
+			while (waiting_for_input) {
+				if (menu == MAINMENU) {
+					displayMainMenu();
+					fromUser = stdIn.readLine();
+					if (fromUser.equals("1")) {
+						strOut.println(fromUser);
+						menu = UPLOAD;
+					} else if (fromUser.equals("2")) {
+						strOut.println(fromUser);
+						fromServer = strIn.readLine();
+						System.out.println("Server: " + fromServer);
+						if (fromServer.equals("Error: No Auto to configure. Please Upload new Auto 1st!")) {
 							menu = MAINMENU;
-						} else {
-							waiting_for_input = true;
-						}
-					} else if (menu == CONFIGURE) {
-						SelectCarOption sc = new SelectCarOption();
-						try {
-							String[] autoList = (String[]) objIn.readObject();
-							sc.displayAutoList(autoList);
-							try {
-								strOut.println(sc.selectAuto(autoList));
-							} catch (IOException e) {
-								if (DEBUG)
-									System.out.println("Error: Cannot select Auto!");
-							}
-							Automobile selectedAuto = (Automobile) objIn.readObject();
-							sc.configureAuto(selectedAuto);
-
-							try {
-								System.out.println("$$$\nTotal = " + selectedAuto.getTotalPrice() + "\n$$$\n");
-							} catch (AutoException e) {
-								if (DEBUG)
-									System.out.println("Error: Cannot calculate Total for " + selectedAuto.getAutoID());
-							}
-						} catch (ClassNotFoundException e) {
-							if (DEBUG)
-								System.out.println("Error: Cannot open Auto List!");
-						} catch (IOException e) {
-							if (DEBUG)
-								System.out.println("Error: Cannot receive Auto List!");
-						}
+						} else
+							menu = CONFIGURE;
+					} else if (fromUser.equals("0")) {
+						strOut.println(fromUser);
+						waiting_for_input = false;
+					}
+				} else if (menu == UPLOAD) {
+					System.out.println(upload_menu);
+					fromUser = stdIn.readLine();
+					CarModelOptionsIO io = new CarModelOptionsIO();
+					if (io.sendAutoFromPropFile("src/AutoDataFiles/" + fromUser, objOut)) {
+						waiting_for_input = false;
 						menu = MAINMENU;
+					} else {
 						waiting_for_input = true;
 					}
+				} else if (menu == CONFIGURE) {
+					SelectCarOption sc = new SelectCarOption();
+					try {
+						String[] autoList = (String[]) objIn.readObject();
+						sc.displayAutoList(autoList);
+						try {
+							strOut.println(sc.selectAuto(autoList));
+						} catch (IOException e) {
+							if (DEBUG)
+								System.out.println("Error: Cannot select Auto!");
+						}
+						Automobile selectedAuto = (Automobile) objIn.readObject();
+						sc.configureAuto(selectedAuto);
+
+						try {
+							System.out.println("$$$\nTotal = " + selectedAuto.getTotalPrice() + "\n$$$\n");
+						} catch (AutoException e) {
+							if (DEBUG)
+								System.out.println("Error: Cannot calculate Total for " + selectedAuto.getAutoID());
+						}
+					} catch (ClassNotFoundException e) {
+						if (DEBUG)
+							System.out.println("Error: Cannot open Auto List!");
+					} catch (IOException e) {
+						if (DEBUG)
+							System.out.println("Error: Cannot receive Auto List!");
+					}
+					menu = MAINMENU;
+					waiting_for_input = true;
 				}
 			}
-		} catch (IOException e) {
-			if (DEBUG)
-				System.err.println("Error: Cannot receive message from Server!");
 		}
-
 	}
 }

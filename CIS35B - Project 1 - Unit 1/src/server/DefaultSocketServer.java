@@ -26,7 +26,10 @@ public class DefaultSocketServer extends Thread implements SocketClientInterface
 			}
 		}
 	}
-
+	
+	/**
+	 * to stop this server thread
+	 */
 	public void stopThread() {
 		if (DEBUG)
 			System.out.println("Stopping Thread... exit...");

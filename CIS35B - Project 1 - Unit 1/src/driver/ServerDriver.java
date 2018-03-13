@@ -6,7 +6,7 @@ import java.net.*;
 import client.*;
 import server.*;
 
-public class ServerDriver implements SocketClientConstants{
+public class ServerDriver implements SocketClientConstants {
 	public static void main(String args[]) {
 		ServerSocket serverSocket = null;
 		Socket clientSocket = null;
@@ -16,18 +16,18 @@ public class ServerDriver implements SocketClientConstants{
 			System.out.println("Start server on port: " + iDAYTIME_PORT);
 		} catch (IOException e) {
 			System.err.println("Could not listen on port: " + iDAYTIME_PORT);
-            System.exit(1);
+			System.exit(1);
 		}
-	
-		while (true)
-		{
+
+		//Server is always ON
+		while (true) {
 			try {
-	            clientSocket = serverSocket.accept();
-	            DefaultSocketServer serverThread = new DefaultSocketServer(clientSocket);
-	            serverThread.start();
-	        } catch (IOException e) {
-	            System.err.println("Accept failed.");
-	        }
+				clientSocket = serverSocket.accept();
+				DefaultSocketServer serverThread = new DefaultSocketServer(clientSocket);
+				serverThread.start();
+			} catch (IOException e) {
+				System.err.println("Accept failed.");
+			}
 		}
 	}
 }
