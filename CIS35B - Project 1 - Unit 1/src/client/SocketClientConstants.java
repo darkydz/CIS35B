@@ -2,8 +2,8 @@ package client;
 
 public interface SocketClientConstants {
 	int iECHO_PORT = 7;
-	int iDAYTIME_PORT = 4444;
+	int iDAYTIME_PORT = 3535;
 	int iSMTP_PORT = 25;
 	boolean DEBUG =true;
-	String hostIP = "192.168.1.78";
+	String hostIP = "localhost";
 }

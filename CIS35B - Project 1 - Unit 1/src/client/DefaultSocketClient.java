@@ -17,10 +17,6 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 		setHost(strHost);
 	}
 
-	public Socket getSocket() {
-		return sock;
-	}
-
 	public void run() {
 		if (openConnection()) {
 			handleSession();
@@ -35,7 +31,7 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 
 		} catch (IOException e) {
 			if (DEBUG)
-				System.err.println("Unable to connect to " + strHost);
+				System.out.println("Unable to connect to " + strHost);
 			return false;
 		}
 
@@ -46,7 +42,7 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 			objIn = new ObjectInputStream(sock.getInputStream());
 		} catch (IOException e) {
 			if (DEBUG)
-				System.err.println("Unable to obtain stream to/from " + strHost);
+				System.out.println("Unable to obtain stream to/from " + strHost);
 			return false;
 		}
 		return true;
@@ -59,29 +55,17 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 		ch.processRequest();
 	}
 
-	public void sendOutput(String strOutput) {
-		strOut.println(strOutput);
-	}
-
-	public void handleInput(String strInput) {
-		// System.out.println(strInput);
-	}
-
 	public void closeSession() {
 		try {
-			sock.close();
 			strIn.close();
 			strOut.close();
 			objIn.close();
 			objOut.close();
+			sock.close();
 		} catch (IOException e) {
 			if (DEBUG)
 				System.out.println("Error: Closing socket to " + strHost);
 		}
-	}
-
-	public void setSocket(Socket s) {
-		sock = s;
 	}
 
 	public void setHost(String strHost) {

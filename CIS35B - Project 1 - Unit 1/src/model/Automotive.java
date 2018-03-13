@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import exception.AutoException;
 import model.OptionSet.Option;
-import scale.EditOptions;
 
 /**
  * 

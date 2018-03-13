@@ -87,13 +87,19 @@ public class ClientHelper implements SocketClientConstants {
 							sc.displayAutoList(autoList);
 							try {
 								strOut.println(sc.selectAuto(autoList));
-							}
-							catch (IOException e) {
+							} catch (IOException e) {
 								if (DEBUG)
 									System.out.println("Error: Cannot select Auto!");
 							}
 							Automobile selectedAuto = (Automobile) objIn.readObject();
 							sc.configureAuto(selectedAuto);
+
+							try {
+								System.out.println("$$$\nTotal = " + selectedAuto.getTotalPrice() + "\n$$$\n");
+							} catch (AutoException e) {
+								if (DEBUG)
+									System.out.println("Error: Cannot calculate Total for " + selectedAuto.getAutoID());
+							}
 						} catch (ClassNotFoundException e) {
 							if (DEBUG)
 								System.out.println("Error: Cannot open Auto List!");
@@ -106,9 +112,6 @@ public class ClientHelper implements SocketClientConstants {
 					}
 				}
 			}
-		} catch (NumberFormatException e) {
-			if (DEBUG)
-				System.err.println("Error: Cannot convert String to Int!");
 		} catch (IOException e) {
 			if (DEBUG)
 				System.err.println("Error: Cannot receive message from Server!");

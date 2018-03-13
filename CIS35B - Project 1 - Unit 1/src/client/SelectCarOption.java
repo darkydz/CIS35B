@@ -39,7 +39,6 @@ public class SelectCarOption implements SocketClientConstants{
 	}
 	
 	public void configureAuto(Automobile selectedAuto) {
-		String autoID = selectedAuto.getAutoID();
 		displayAutoInfo(selectedAuto);
 		String[] setList = selectedAuto.getOptionSetList();
 		for (int i = 0; i < setList.length; i++) {
@@ -62,12 +61,6 @@ public class SelectCarOption implements SocketClientConstants{
 				if (DEBUG)
 					System.out.println("Error: Cannot select Option for " + setName);
 			}
-		}
-		try {
-			System.out.println("$$$\nTotal = " + selectedAuto.getTotalPrice() + "\n$$$\n");
-		} catch (AutoException e) {
-			if (DEBUG)
-				System.out.println("Error: Cannot calculate Total for " + autoID);
 		}
 	}
 

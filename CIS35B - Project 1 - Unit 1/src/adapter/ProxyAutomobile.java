@@ -1,6 +1,5 @@
 package adapter;
 
-import java.io.ObjectOutputStream;
 import java.util.Properties;
 
 import exception.AutoException;
@@ -109,15 +108,15 @@ public abstract class ProxyAutomobile {
 		return serverHelper.buildAutoFromProp(props);
 	}
 	
-	public void sendAutoList(ObjectOutputStream out) {
-		ServerHelper sh = new ServerHelper();
-		sh.sendAutoList(out);
-	}
-	
-	public void sendAutoObject(String autoID, ObjectOutputStream out) {
-		ServerHelper sh = new ServerHelper();
-		sh.sendAutoObject(autoID, out);
-	}
+	// public void sendAutoList(ObjectOutputStream out) {
+	// ServerHelper sh = new ServerHelper();
+	// sh.sendAutoList(out);
+	// }
+	//
+	// public void sendAutoObject(String autoID, ObjectOutputStream out) {
+	// ServerHelper sh = new ServerHelper();
+	// sh.sendAutoObject(autoID, out);
+	// }
 
 	/**
 	 * In the future, will take a model name to print its content. Right now, always
