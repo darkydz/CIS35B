@@ -1,14 +1,15 @@
 package adapter;
 
-import java.util.LinkedHashMap;
+import java.util.Properties;
+
 import exception.AutoException;
-import model.Automobile;
-import model.Fleet;
+import model.*;
 import util.FileIO;
 import scale.EditOptions;
+import server.*;
 
 public abstract class ProxyAutomobile {
-	private static Fleet<Automobile> autos = new Fleet<Automobile>();
+	protected static Fleet<Automobile> autos = new Fleet<Automobile>();
 	private String threadName = ""; 
 
 	/**
@@ -78,6 +79,44 @@ public abstract class ProxyAutomobile {
 			e.fix(e.getErrorNumber());
 		}
 	}
+	
+	/**
+	 * 
+	 * @param filename path to the file
+	 * @param filetype .txt or .prop
+	 */
+	public void buildAuto(String filename, String filetype) {
+		switch (filetype)
+		{
+			case ".prop":
+				FileIO io = new FileIO();
+				try {
+					autos.addAuto(io.buildAutomobileFromPropFile(filename));
+				} catch (AutoException e) {
+					e.fix(e.getErrorNumber());
+				}
+				break;
+			case ".txt":
+				buildAuto(filename);
+				break;
+		}
+	}
+	
+	public boolean createAutoFromProp(Properties props)
+	{
+		BuildCarModelOptions serverHelper = new BuildCarModelOptions();
+		return serverHelper.buildAutoFromProp(props);
+	}
+	
+	// public void sendAutoList(ObjectOutputStream out) {
+	// ServerHelper sh = new ServerHelper();
+	// sh.sendAutoList(out);
+	// }
+	//
+	// public void sendAutoObject(String autoID, ObjectOutputStream out) {
+	// ServerHelper sh = new ServerHelper();
+	// sh.sendAutoObject(autoID, out);
+	// }
 
 	/**
 	 * In the future, will take a model name to print its content. Right now, always
@@ -115,5 +154,23 @@ public abstract class ProxyAutomobile {
 			throw new AutoException(203);
 		}
 	}
+	
+//	public String[] getOptionSetList(String autoID) {
+//		try {
+//			return autos.getAuto(autoID).getOptionSetList();
+//		} catch (AutoException e) {
+//			e.fix(e.getErrorNumber());
+//		}
+//		return new String[0];
+//	}
+//	
+//	public String[] getOptionList(String autoID, String setName) {
+//		try {
+//			return autos.getAuto(autoID).getOptionList(setName);
+//		} catch (AutoException e) {
+//			e.fix(e.getErrorNumber());
+//		}
+//		return new String[0];
+//	}
 
 }

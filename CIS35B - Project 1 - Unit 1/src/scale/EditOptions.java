@@ -1,6 +1,5 @@
 package scale;
 
-import exception.AutoException;
 import model.Automobile;
 
 public class EditOptions implements Runnable {

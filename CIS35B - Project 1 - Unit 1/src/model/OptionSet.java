@@ -27,6 +27,11 @@ public class OptionSet implements Serializable {
 		}
 	}
 
+	public OptionSet(String setName) {
+		name = setName;
+		opt = new ArrayList<Option>();
+	}
+
 	public class Option implements Serializable {
 		private String optionName;
 		private float price;
@@ -130,7 +135,15 @@ public class OptionSet implements Serializable {
 			return choice.getPrice();
 		else throw new AutoException(20);
 	}
-
+	
+	public String[] getOptionList() {
+		String[] opList = new String[opt.size()];
+		for (int i = 0; i < opt.size(); i++) {
+			opList[i] = opt.get(i).getName();
+		}
+		return opList;
+	}
+	
 	/**
 	 * @param n: new name of OptionSet 
 	 */
@@ -148,6 +161,16 @@ public class OptionSet implements Serializable {
 //		if (opt[i]!=null)
 		if (i < opt.size())
 			opt.set(i, new Option(opName, opPrice));
+	}
+	
+	/**
+	 * Add new Option to this OptionSet
+	 * @param opName
+	 * @param opPrice
+	 */
+	protected void addOption(String opName, float opPrice) {
+		Option op = new Option(opName, opPrice);
+		if (!opt.contains(op)) opt.add(op);
 	}
 	
 	/**

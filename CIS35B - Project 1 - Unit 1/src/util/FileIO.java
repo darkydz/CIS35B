@@ -1,6 +1,8 @@
 package util;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Properties;
 
 import exception.AutoException;
 import model.*;
@@ -92,11 +94,11 @@ public class FileIO {
 
 	/**
 	 * @param autoObject:
-	 *            Automotive object to be serialized
+	 *            Automobile object to be serialized
 	 * @param filename:
 	 *            destination serialized file
 	 */
-	public void serializeAuto(Automotive autoObject, String filename) {
+	public void serializeAuto(Automobile autoObject, String filename) {
 		try {
 			ObjectOutputStream ost = new ObjectOutputStream(new FileOutputStream(filename));
 			ost.writeObject(autoObject);
@@ -107,16 +109,16 @@ public class FileIO {
 	}
 
 	/**
-	 * Take a serialized Automotive file and read into an Auto object
+	 * Take a serialized Automobile file and read into an Auto object
 	 * 
 	 * @param filename:
 	 *            the serialized file
 	 * @return Auto object
 	 */
-	public Automotive deserializeAuto(String filename) {
+	public Automobile deserializeAuto(String filename) {
 		try {
 			ObjectInputStream ist = new ObjectInputStream(new FileInputStream(filename));
-			Automotive autoObject = (Automotive) ist.readObject();
+			Automobile autoObject = (Automobile) ist.readObject();
 			ist.close();
 			return autoObject;
 		} catch (Exception e) {
@@ -125,4 +127,61 @@ public class FileIO {
 		return null;
 	}
 
+	public Automobile buildAutomobileFromPropFile(String filename) throws AutoException {
+		Properties props = new Properties();
+		FileInputStream in = null;
+		try {
+			in = new FileInputStream(filename);
+			props.load(in);
+			return buildAutomobileFromPropObject(props);
+		} catch (Exception e) {
+			throw new AutoException(21);
+		}
+		// return null;
+	}
+
+	public Automobile buildAutomobileFromPropObject(Properties props) throws AutoException {
+		Automobile auto = null;
+		String make = props.getProperty("Make");
+		String model = props.getProperty("Model");
+		String yearString = props.getProperty("Year");
+		String basepriceString = props.getProperty("BasePrice");
+		if (make != null && model != null && yearString != null && basepriceString != null) {
+			int year = Integer.parseInt(yearString);
+			float baseprice = Float.parseFloat(basepriceString);
+			auto = new Automobile(make, model, year, baseprice);
+			int count = 0;
+			ArrayList<String> opsetNames = new ArrayList<String>();
+			String opsetName = "";
+			while ((opsetName = props.getProperty("Option" + (count + 1))) != null)// check if next OpSet exists and
+																					// assign it to variable to save
+																					// space
+			{
+				opsetNames.add(opsetName);
+				count++;
+			}
+			if (count > 0) {
+				for (int i = 0; i < opsetNames.size(); i++) {
+					count = 0;
+					String setName = opsetNames.get(i);
+					String opName = "";
+					String opPriceString = "";
+					auto.addOptionSet(setName);
+					while ((opName = props.getProperty("Option" + (i + 1) + "Value" + (count + 1))) != null
+							&& (opPriceString = props
+									.getProperty("Option" + (i + 1) + "Price" + (count + 1))) != null) {
+						float opPrice = Float.parseFloat(opPriceString);
+						auto.addOption(setName, opName, opPrice);
+						count++;
+					}
+				}
+				if (count > 0)
+					return auto;
+				else
+					throw new AutoException(21);// too lazy to code, so all exceptions are the same
+			} else
+				throw new AutoException(21);// too lazy to code, so all exceptions are the same
+		} else
+			throw new AutoException(21);// too lazy to code, so all exceptions are the same
+	}
 }

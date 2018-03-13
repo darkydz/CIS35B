@@ -1,5 +1,6 @@
 package model;
-import java.util.LinkedHashMap;
+
+import java.util.*;
 
 import exception.AutoException;
 
@@ -39,5 +40,14 @@ public class Fleet <T extends Automobile> {
 	
 	public boolean containsKey(String autoID) {
 		return fleet.containsKey(autoID);
+	}
+	
+	public int size() {
+		return fleet.size();
+	}
+	
+	public String[] getAutoList() {
+		Set<String> autoList = fleet.keySet();
+		return autoList.toArray(new String[fleet.size()]);
 	}
 }
