@@ -15,7 +15,10 @@ public class ServerHelper extends ProxyAutomobile {
 
 	public ServerHelper() {
 	}
-
+	
+	/**
+	 * Assign IO objects
+	 */
 	public ServerHelper(PrintWriter sOut, BufferedReader sIn, ObjectOutputStream oOut, ObjectInputStream oIn) {
 		strOut = sOut;
 		strIn = sIn;
@@ -23,10 +26,19 @@ public class ServerHelper extends ProxyAutomobile {
 		objIn = oIn;
 	}
 
+	/**
+	 * 
+	 * @return true if fleet is empty; otherwise false.
+	 */
 	public boolean isAutoListEmpty() {
 		return autos.isEmpty();
 	}
 
+	/**
+	 * 
+	 * @param props Properties object
+	 * @return true if new Automobile is added to fleet; otherwise, false.
+	 */
 	public boolean buildAutoFromProp(Properties props) {
 		FileIO io = new FileIO();
 		try {
@@ -38,6 +50,10 @@ public class ServerHelper extends ProxyAutomobile {
 		}
 	}
 
+	/**
+	 * 
+	 * @param out IO object to serialize and send data out
+	 */
 	public void sendAutoList(ObjectOutputStream out) {
 		try {
 			out.writeObject(autos.getAutoList());
@@ -46,6 +62,9 @@ public class ServerHelper extends ProxyAutomobile {
 		}
 	}
 
+	/**
+	 * Print list of current Autos in the fleet
+	 */
 	public void displayAutoList() {
 		String[] aList = autos.getAutoList();
 		for (int i = 0; i < aList.length; i++) {
@@ -53,6 +72,11 @@ public class ServerHelper extends ProxyAutomobile {
 		}
 	}
 
+	/**
+	 * 
+	 * @param autoID ID of Auto to be sent
+	 * @param out IO object to serialize and send data out
+	 */
 	public void sendAutoObject(String autoID, ObjectOutputStream out) {
 		try {
 			out.writeObject(autos.getAuto(autoID));
@@ -63,34 +87,47 @@ public class ServerHelper extends ProxyAutomobile {
 		}
 	}
 
+	/**
+	 * Self-explanatory
+	 */
 	public void displayClientRequest(String request) {
 		System.out.println("Client: " + request);
 	}
 
+	/**
+	 * Self-explanatory
+	 */
 	public void displayServerResponse(String response) {
 		System.out.println("Server: " + response);
 	}
 
+	/**
+	 * Self-explanatory
+	 */
 	public void sendAndLogResponse(String response) {
 		strOut.println(response);
 		displayServerResponse(response);
 	}
 
+	/**
+	 * 
+	 * @throws IOException if cannot receive or send data
+	 */
 	public void processRequest() throws IOException {
-		strOut.println("What can we do for you?");
+		strOut.println("What can we do for you?");//acknowledge connection with client to trigger menu
 		String request = "";
-		while ((request = strIn.readLine()) != null) {
+		while ((request = strIn.readLine()) != null) {//wait for client to send a request
 			displayClientRequest(request);
 			String response = "";
 			switch (request) {
-			case "1":
+			case "1"://add new auto to the fleet
 				BuildCarModelOptions bc = new BuildCarModelOptions();
 				try {
-					if (bc.buildAutoFromProp((Properties) objIn.readObject())) {
+					if (bc.buildAutoFromProp((Properties) objIn.readObject())) { //if valid Properties object is received
 						displayServerResponse("Auto List:");
 						displayAutoList();
 						response = "Auto sucessfully added!";
-						sendAndLogResponse(response);
+						sendAndLogResponse(response); //send response to client
 					} else {
 						response = "Error: Auto cannot be added!";
 						sendAndLogResponse(response);
@@ -103,30 +140,30 @@ public class ServerHelper extends ProxyAutomobile {
 					sendAndLogResponse(response);
 				}
 				break;
-			case "2":
+			case "2"://send list of autos for client to select then send the selected auto object to client to configure for Total price
 				// System.out.println("Checking AutoList");
-				if (!isAutoListEmpty()) {
+				if (!isAutoListEmpty()) { //fleet is not empty
 					response = "Sending Auto List...";
 					sendAndLogResponse(response);
-					sendAutoList(objOut);
+					sendAutoList(objOut);//send list of autos for client to select
 					String autoID = "";
 					try {
 						if ((autoID = strIn.readLine()) != null) {
-							sendAutoObject(autoID, objOut);
+							sendAutoObject(autoID, objOut); //send auto object to client to configure for Total price
 						}
 					} catch (IOException e) {
 						response = "Error: Cannot receive Auto ID!";
 						sendAndLogResponse(response);
 					}
-				} else {
+				} else {//send msg to ask for 
 					response = "Error: No Auto to configure. Please Upload new Auto 1st!";
 					sendAndLogResponse(response);
 				}
 				break;
-			case "0":
+			case "0"://client exits
 				response = "Bye!";
 				sendAndLogResponse(response);
-				return;
+				return;//get out of this method to stop the current thread
 			default:
 				response = "We received \"" + request
 						+ "\". That's not we really do here... Enter 1 for Menu, 0 to Exit.";

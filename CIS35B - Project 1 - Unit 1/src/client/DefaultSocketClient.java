@@ -49,7 +49,7 @@ public class DefaultSocketClient extends Thread implements SocketClientInterface
 	}
 
 	public synchronized void handleSession() {
-		ClientHelper ch = new ClientHelper(strOut, strIn, objOut, objIn);
+		ClientHelper ch = new ClientHelper(strOut, strIn, objOut, objIn);//pass IO objects to helper
 		if (DEBUG)
 			System.out.println("Start handling session with " + strHost + ":" + iPort);
 		try {

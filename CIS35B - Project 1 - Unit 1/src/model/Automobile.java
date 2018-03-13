@@ -156,6 +156,10 @@ public class Automobile implements Serializable {
 		return total;
 	}
 	
+	/**
+	 * 
+	 * @return an ArrayList of Option names
+	 */
 	public String[] getOptionSetList() {
 		String[] opsetList = new String[opset.size()];
 		for (int i = 0; i < opset.size(); i++) {
@@ -164,6 +168,10 @@ public class Automobile implements Serializable {
 		return opsetList;
 	}
 	
+	/**
+	 * 
+	 * @return an ArrayList of Option values
+	 */
 	public String[] getOptionList(String setName) throws AutoException {
 		return opset.get(findOptionSet(setName)).getOptionList();
 	}

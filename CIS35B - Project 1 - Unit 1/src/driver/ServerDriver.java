@@ -19,8 +19,7 @@ public class ServerDriver implements SocketClientConstants {
 			System.exit(1);
 		}
 
-		//Server is always ON
-		while (true) {
+		while (true) {//Server is always ON
 			try {
 				clientSocket = serverSocket.accept();
 				DefaultSocketServer serverThread = new DefaultSocketServer(clientSocket);

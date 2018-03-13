@@ -94,7 +94,7 @@ public class FileIO {
 
 	/**
 	 * @param autoObject:
-	 *            Automotive object to be serialized
+	 *            Automobile object to be serialized
 	 * @param filename:
 	 *            destination serialized file
 	 */
@@ -109,7 +109,7 @@ public class FileIO {
 	}
 
 	/**
-	 * Take a serialized Automotive file and read into an Auto object
+	 * Take a serialized Automobile file and read into an Auto object
 	 * 
 	 * @param filename:
 	 *            the serialized file

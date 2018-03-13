@@ -1,13 +1,6 @@
 package client;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.util.Properties;
+import java.io.*;
 
 import exception.AutoException;
 import model.Automobile;
@@ -33,68 +26,75 @@ public class ClientHelper implements SocketClientConstants {
 		objIn = oIn;
 	}
 
+	/**
+	 * Print main menu
+	 */
 	public void displayMainMenu() {
 		System.out.println(main_menu);
 	}
 
+	/**
+	 * 
+	 * @throws IOException if cannot receive or send data
+	 */
 	public void processRequest() throws IOException {
-		boolean waiting_for_input = false;
+		boolean waiting_for_input = false; //indicate if user is required to input something thru console 
 		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 		String fromServer;
 		String fromUser;
-		while ((fromServer = strIn.readLine()) != null) {
+		while ((fromServer = strIn.readLine()) != null) {//listen to receive msg from server
 			System.out.println("Server: " + fromServer);
 			if (fromServer.equals("Bye!"))
-				break;
+				break;//get out of this method and close connection
 			else {
 				waiting_for_input = true;
 				menu = MAINMENU;
 			}
-			while (waiting_for_input) {
+			while (waiting_for_input) {//user need to input based on menu
 				if (menu == MAINMENU) {
 					displayMainMenu();
 					fromUser = stdIn.readLine();
-					if (fromUser.equals("1")) {
+					if (fromUser.equals("1")) {//go to Menu of Uploading new car
 						strOut.println(fromUser);
 						menu = UPLOAD;
-					} else if (fromUser.equals("2")) {
+					} else if (fromUser.equals("2")) {//go to Menu of Configuring car if server's fleet is not empty
 						strOut.println(fromUser);
 						fromServer = strIn.readLine();
 						System.out.println("Server: " + fromServer);
-						if (fromServer.equals("Error: No Auto to configure. Please Upload new Auto 1st!")) {
+						if (fromServer.equals("Error: No Auto to configure. Please Upload new Auto 1st!")) {//server's fleet is empty, go back to main menu
 							menu = MAINMENU;
-						} else
+						} else//go to Configure menu
 							menu = CONFIGURE;
-					} else if (fromUser.equals("0")) {
-						strOut.println(fromUser);
-						waiting_for_input = false;
+					} else if (fromUser.equals("0")) {//user wants to exit
+						strOut.println(fromUser);//let the server know to close session
+						waiting_for_input = false;//no need for further input from user
 					}
-				} else if (menu == UPLOAD) {
+				} else if (menu == UPLOAD) {//Upload menu
 					System.out.println(upload_menu);
 					fromUser = stdIn.readLine();
 					CarModelOptionsIO io = new CarModelOptionsIO();
-					if (io.sendAutoFromPropFile("src/AutoDataFiles/" + fromUser, objOut)) {
+					if (io.sendAutoFromPropFile("src/AutoDataFiles/" + fromUser, objOut)) {//if successfully sent Properties object
 						waiting_for_input = false;
-						menu = MAINMENU;
+						menu = MAINMENU;//go back to main menu after receiving server's msg
 					} else {
-						waiting_for_input = true;
+						waiting_for_input = true;//loop back to Upload menu until a correct Properties object is sent
 					}
-				} else if (menu == CONFIGURE) {
+				} else if (menu == CONFIGURE) {//Configure menu
 					SelectCarOption sc = new SelectCarOption();
 					try {
-						String[] autoList = (String[]) objIn.readObject();
-						sc.displayAutoList(autoList);
+						String[] autoList = (String[]) objIn.readObject();//receive list of cars from server
+						sc.displayAutoList(autoList);//display list of car with number to select
 						try {
-							strOut.println(sc.selectAuto(autoList));
+							strOut.println(sc.selectAuto(autoList));//send selected auto object to server
 						} catch (IOException e) {
 							if (DEBUG)
 								System.out.println("Error: Cannot select Auto!");
 						}
 						Automobile selectedAuto = (Automobile) objIn.readObject();
-						sc.configureAuto(selectedAuto);
+						sc.configureAuto(selectedAuto);//display list of options and user selects option choice
 
 						try {
-							System.out.println("$$$\nTotal = " + selectedAuto.getTotalPrice() + "\n$$$\n");
+							System.out.println("$$$\nTotal = " + selectedAuto.getTotalPrice() + "\n$$$\n");//calculate total when all options are configured
 						} catch (AutoException e) {
 							if (DEBUG)
 								System.out.println("Error: Cannot calculate Total for " + selectedAuto.getAutoID());
@@ -107,7 +107,7 @@ public class ClientHelper implements SocketClientConstants {
 							System.out.println("Error: Cannot receive Auto List!");
 					}
 					menu = MAINMENU;
-					waiting_for_input = true;
+					waiting_for_input = true;//go back to main menu and wait for user input
 				}
 			}
 		}

@@ -6,6 +6,12 @@ import java.io.ObjectOutputStream;
 import java.util.Properties;
 
 public class CarModelOptionsIO {
+	/**
+	 * Read a file and parse it into Properties object, then send this object to server
+	 * @param filename .prop file path
+	 * @param out output stream to server
+	 * @return true if Properties object is sent
+	 */
 	public boolean sendAutoFromPropFile(String filename, ObjectOutputStream out) {
 		Properties props = new Properties();
 		FileInputStream in = null;
@@ -26,12 +32,16 @@ public class CarModelOptionsIO {
 		}
 	}
 
-	public void sendEmptyAutoProp(ObjectOutputStream out) {
-		Properties props = new Properties();
-		try {
-			out.writeObject(props);
-		} catch (IOException e) {
-			System.err.println("Error: Cannot send Auto properties to Server!");
-		}
-	}
+//	/**
+//	 * A backup method to 
+//	 * @param out
+//	 */
+//	public void sendEmptyAutoProp(ObjectOutputStream out) {
+//		Properties props = new Properties();
+//		try {
+//			out.writeObject(props);
+//		} catch (IOException e) {
+//			System.err.println("Error: Cannot send Auto properties to Server!");
+//		}
+//	}
 }

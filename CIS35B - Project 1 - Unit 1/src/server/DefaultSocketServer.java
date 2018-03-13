@@ -11,7 +11,6 @@ public class DefaultSocketServer extends Thread implements SocketClientInterface
 	private ObjectOutputStream objOut;
 	private ObjectInputStream objIn;
 	private Socket sock;
-	boolean handshaked = false;
 	private boolean running = true;
 
 	public DefaultSocketServer(Socket s) {
@@ -32,7 +31,7 @@ public class DefaultSocketServer extends Thread implements SocketClientInterface
 	 */
 	public void stopThread() {
 		if (DEBUG)
-			System.out.println("Stopping Thread... exit...");
+			System.out.println("Ending connection to " + this.getName());
 		running = false;
 	}
 
@@ -51,6 +50,7 @@ public class DefaultSocketServer extends Thread implements SocketClientInterface
 	}
 
 	public synchronized void handleSession() {
+		// pass the IO objects to the helper
 		ServerHelper sh = new ServerHelper(strOut, strIn, objOut, objIn);
 		if (DEBUG)
 			System.out.println("Start handling session with " + this.getName());

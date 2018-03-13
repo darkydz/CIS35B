@@ -16,10 +16,16 @@ public class SelectCarOption implements SocketClientConstants{
 
 	}
 	
+	/**
+	 * Display list of autos with number for user to select
+	 * @param autoList
+	 * @return selected Auto ID
+	 * @throws IOException
+	 */
 	public String selectAuto(String[] autoList) throws IOException{
 		String fromUser = stdIn.readLine();
 		int configure_option_1 = Integer.parseInt(fromUser);
-		while (configure_option_1 == 0 || configure_option_1 > autoList.length) {
+		while (configure_option_1 == 0 || configure_option_1 > autoList.length) {//loop until user select the appropriate option
 			displayAutoList(autoList);
 			fromUser = stdIn.readLine();
 			configure_option_1 = Integer.parseInt(fromUser);
@@ -27,10 +33,17 @@ public class SelectCarOption implements SocketClientConstants{
 		return autoList[(configure_option_1 - 1)];
 	}
 	
+	/**
+	 * Display list of option values with number for user to select
+	 * @param opList
+	 * @param setName
+	 * @return selected option
+	 * @throws IOException
+	 */
 	public String selectOption(String[] opList, String setName) throws IOException{
 		String fromUser = stdIn.readLine();
 		int configure_option_2 = Integer.parseInt(fromUser);
-		while (configure_option_2 == 0 || configure_option_2 > opList.length) {
+		while (configure_option_2 == 0 || configure_option_2 > opList.length) {//loop until user select the appropriate option
 			displayOptionList(opList, setName);
 			fromUser = stdIn.readLine();
 			configure_option_2 = Integer.parseInt(fromUser);
@@ -38,6 +51,10 @@ public class SelectCarOption implements SocketClientConstants{
 		return opList[(configure_option_2 - 1)];
 	}
 	
+	/**
+	 * Display options from auto to options for user to select	
+	 * @param selectedAuto
+	 */
 	public void configureAuto(Automobile selectedAuto) {
 		displayAutoInfo(selectedAuto);
 		String[] setList = selectedAuto.getOptionSetList();
@@ -53,7 +70,7 @@ public class SelectCarOption implements SocketClientConstants{
 			displayOptionList(opList, setName);
 
 			try {
-				selectedAuto.setOptionChoice(setName, selectOption(opList, setName));
+				selectedAuto.setOptionChoice(setName, selectOption(opList, setName));//set choice when user selects the appropriate option
 			} catch (AutoException e) {
 				if (DEBUG)
 					System.out.println("Error: Cannot set Option Choice for " + setName);
@@ -64,10 +81,19 @@ public class SelectCarOption implements SocketClientConstants{
 		}
 	}
 
+	/**
+	 * Print auto info
+	 * @param auto
+	 */
 	public void displayAutoInfo(Automobile auto) {
 		auto.print();
 	}
 
+	/**
+	 * Print list of option values with number for user to select
+	 * @param optionList
+	 * @param setName
+	 */
 	public void displayOptionList(String[] optionList, String setName) {
 		System.out.println("Please Select an Option for " + setName);
 		for (int i = 0; i < optionList.length; i++)
