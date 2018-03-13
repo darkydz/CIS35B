@@ -98,7 +98,7 @@ public class FileIO {
 	 * @param filename:
 	 *            destination serialized file
 	 */
-	public void serializeAuto(Automotive autoObject, String filename) {
+	public void serializeAuto(Automobile autoObject, String filename) {
 		try {
 			ObjectOutputStream ost = new ObjectOutputStream(new FileOutputStream(filename));
 			ost.writeObject(autoObject);
@@ -115,10 +115,10 @@ public class FileIO {
 	 *            the serialized file
 	 * @return Auto object
 	 */
-	public Automotive deserializeAuto(String filename) {
+	public Automobile deserializeAuto(String filename) {
 		try {
 			ObjectInputStream ist = new ObjectInputStream(new FileInputStream(filename));
-			Automotive autoObject = (Automotive) ist.readObject();
+			Automobile autoObject = (Automobile) ist.readObject();
 			ist.close();
 			return autoObject;
 		} catch (Exception e) {
