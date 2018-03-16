@@ -1,0 +1,14 @@
+Make=Toyota
+Model=Prius
+Year=2018
+BasePrice=25000
+Option1=Transmission
+Option1Value1=Manual
+Option1Price1=0
+Option1Value2=Automatic
+Option1Price2=100
+Option2=Brakes
+Option2Value1=Regular
+Option2Price1=0
+Option2Value2=ABS
+Option2Price2=1000
