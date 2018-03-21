@@ -80,6 +80,7 @@ public class ServerHelper extends ProxyAutomobile {
 	public void sendAutoObject(String autoID, ObjectOutputStream out) {
 		try {
 			out.writeObject(autos.getAuto(autoID));
+//			System.out.println("Sending \""+autoID+"\" to Client!");
 		} catch (IOException e) {
 			System.err.println("Error: Cannot send Auto Object to Client!");
 		} catch (AutoException e) {
@@ -107,6 +108,19 @@ public class ServerHelper extends ProxyAutomobile {
 	public void sendAndLogResponse(String response) {
 		strOut.println(response);
 		displayServerResponse(response);
+	}
+	
+	public void getAuto() {
+		String response = "";
+		String autoID = "";
+		try {
+			if ((autoID = strIn.readLine()) != null) {
+				sendAutoObject(autoID, objOut); //send auto object to client to configure for Total price
+			}
+		} catch (IOException e) {
+			response = "Error: Cannot receive Auto ID!";
+			sendAndLogResponse(response);
+		}
 	}
 
 	/**
@@ -146,15 +160,7 @@ public class ServerHelper extends ProxyAutomobile {
 					response = "Sending Auto List...";
 					sendAndLogResponse(response);
 					sendAutoList(objOut);//send list of autos for client to select
-					String autoID = "";
-					try {
-						if ((autoID = strIn.readLine()) != null) {
-							sendAutoObject(autoID, objOut); //send auto object to client to configure for Total price
-						}
-					} catch (IOException e) {
-						response = "Error: Cannot receive Auto ID!";
-						sendAndLogResponse(response);
-					}
+					getAuto();
 				} else {//send msg to ask for 
 					response = "Error: No Auto to configure. Please Upload new Auto 1st!";
 					sendAndLogResponse(response);
@@ -164,6 +170,21 @@ public class ServerHelper extends ProxyAutomobile {
 				response = "Bye!";
 				sendAndLogResponse(response);
 				return;//get out of this method to stop the current thread
+			case "GET_AUTO":
+				response = "What's the Auto ID?";
+				sendAndLogResponse(response);
+				getAuto();
+				break;
+			case "GET_AUTO_LIST":
+				if (!isAutoListEmpty()) { //fleet is not empty
+					response = "Sending Auto List...";
+					sendAndLogResponse(response);
+					sendAutoList(objOut);//send list of autos for client to select
+				} else {//send msg to ask for 
+					response = "Error: No Auto to configure. Please Upload new Auto 1st!";
+					sendAndLogResponse(response);
+				}
+				break;
 			default:
 				response = "We received \"" + request
 						+ "\". That's not we really do here... Enter 1 for Menu, 0 to Exit.";

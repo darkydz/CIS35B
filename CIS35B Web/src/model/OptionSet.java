@@ -263,5 +263,9 @@ public class OptionSet implements Serializable {
 		return sb.toString();
 	}
 
+	public float getOptionPrice(String opName) throws AutoException {
+		return opt.get(findOption(opName)).getPrice();
+	}
+
 	
 }

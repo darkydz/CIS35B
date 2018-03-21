@@ -176,6 +176,15 @@ public class Automobile implements Serializable {
 		return opset.get(findOptionSet(setName)).getOptionList();
 	}
 	
+	public float getOptionPrice(String setName, String opName) {
+		try {
+			return opset.get(findOptionSet(setName)).getOptionPrice(opName);
+		} catch (AutoException e) {
+			e.fix(18);
+		}
+		return 0;
+	}
+	
 	/**
 	 * @param n: new name of Auto
 	 */
@@ -252,7 +261,7 @@ public class Automobile implements Serializable {
 	 * Search for OptionSet by its name
 	 * @param setName: name of OptionSet
 	 * @return current index, if OptionSet exists. Otherwise, -1
-	 * @throws AutoException will always throw 201 regardless of what error it catches from upstream
+	 * @throws AutoException will always throw 18 regardless of what error it catches from upstream
 	 */
 	public int findOptionSet(String setName) throws AutoException{
 		for (int i = 0; i < opset.size(); i++) {
