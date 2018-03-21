@@ -77,27 +77,28 @@ public class Page2 extends HttpServlet implements SocketClientConstants {
 			html.append("<input type=\"hidden\" name=\"basePrice\" value=\"" + selectedAuto.getBasePrice() + "\">");
 			html.append("<table>");
 			String[] opSetList = selectedAuto.getOptionSetList();
+			html.append("<input type=\"hidden\" name=\"opSetCount\" value=\"" + opSetList.length + "\">");
 			for (int i = 0; i < opSetList.length; i++) {
 				html.append("<tr>");
-				html.append("<td>" + opSetList[i] + "</td><td><select name=\"" + opSetList[i] + "\">");
-				try {
-					String[] opList = selectedAuto.getOptionList(opSetList[i]);
-					for (int j = 0; j < opList.length; j++) {
-						html.append("<option value=\"" + opList[j] + "_"
-								+ selectedAuto.getOptionPrice(opSetList[i], opList[j]) + "\">" + opList[j]
-								+ "</option>");
-						// html.append("<input type=\"hidden\" name=\"" + opList[j] + "\" value=\""
-						// + selectedAuto.getOptionPrice(opSetList[i], opList[j]) + "\">");
-					}
-					html.append("</select></td></tr>");
-				} catch (AutoException e) {
-					html = new StringBuilder("Error2! Please restart!");
+				html.append("<td><input name=\"option_"+i+"\" value=\"" + opSetList[i] + "\" readonly></td><td><select name=\"" + opSetList[i] + "\">");
+				String[] opList = selectedAuto.getOptionList(opSetList[i]);
+				for (int j = 0; j < opList.length; j++) {
+					html.append("<option value=\"" + opList[j] + "_"
+							+ selectedAuto.getOptionPrice(opSetList[i], opList[j]) + "\">" + opList[j]
+							+ "</option>");
+					// html.append("<input type=\"hidden\" name=\"" + opList[j] + "\" value=\""
+					// + selectedAuto.getOptionPrice(opSetList[i], opList[j]) + "\">");
 				}
+				html.append("</select></td></tr>");
+				
 			}
 			html.append("</table><input type = \"submit\" value = \"Get Quote\"/></form>");
 			html.append("</body></html>");
 		} catch (ClassNotFoundException e) {
 			html = new StringBuilder("Error1! Please restart!");
+		}
+		catch (AutoException e) {
+			html = new StringBuilder("Error2! Please restart!");
 		}
 		out.println(html.toString());
 		sock.close();
