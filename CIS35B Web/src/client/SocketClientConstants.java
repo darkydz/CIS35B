@@ -6,4 +6,5 @@ public interface SocketClientConstants {
 	int iSMTP_PORT = 25;
 	boolean DEBUG =true;
 	String hostIP = "localhost";
+	String dispatcherURL = "ConfigureCar";
 }
