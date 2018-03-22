@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import exception.AutoException;
 import model.Automobile;
 
-public class ClientHelper implements SocketClientConstants {
+public class ClientHelper implements SocketClientConstants, AutoWebConfig {
 	private BufferedReader strIn;
 	private PrintWriter strOut;
 	private ObjectOutputStream objOut;
@@ -38,26 +38,33 @@ public class ClientHelper implements SocketClientConstants {
 		System.out.println(main_menu);
 	}
 
+	/**
+	 * 
+	 * @return page 1 HTML
+	 * @throws IOException
+	 */
 	public String getSelectAutoPage() throws IOException {
-		StringBuilder html = new StringBuilder();
 
-		String fromServer = strIn.readLine();
-		if (DEBUG)
-			System.out.println("Server Acknowledges: " + fromServer);
-		strOut.println("GET_AUTO_LIST");
-		fromServer = strIn.readLine();
-		if (DEBUG)
-			System.out.println("Server: " + fromServer);
+		/* Handshake with Server */
+		String fromServer = strIn.readLine();// receive Ack from Server: What can we do for you?
+		// if (DEBUG)
+		// System.out.println("Server Acknowledges: " + fromServer);
+		strOut.println("GET_AUTO_LIST");// request auto list from Server
+		fromServer = strIn.readLine();// receive Ack from Server: Sending Auto List...
+		// if (DEBUG)
+		// System.out.println("Server: " + fromServer);
+
+		StringBuilder html = new StringBuilder();
 		html.append("<!DOCTYPE html>\n" + "<html>\n" + "<head><title>Car Configuration</title></head>\n" + "<body>\n");
 		if (fromServer.equals("Error: No Auto to configure. Please Upload new Auto 1st!")) {// server's fleet is empty,
 																							// go back to main menu
 			html.append("<p>No Auto to configure. Please check back later!</p>\n");
 		} else// go to Configure menu
 		{
-			html.append("<h1>Car Configuration</h1>\n" + "<p>Please select an auto below to configure:</p>\n"
-					+ "<form action ='" + dispatcherURL + "' method=\"POST\">"
-					+ "<input type=\"hidden\" name=\"forward2\" value=\"ConfigureCar2\">"
-					+ "<select name=\"autoList\">");
+			html.append("<h1>Car Configuration</h1>\n" + "<p>Please select an auto below to configure:</p>\n");
+			html.append("<form action ='" + dispatcherURL + "' method=\"POST\">");
+			html.append("<input type=\"hidden\" name=\"forward2\" value=\"ConfigureCar2\">");
+			html.append("<select name=\"autoList\">");
 			try {
 				if (DEBUG)
 					System.out.println("Waiting for AutoList");
@@ -77,25 +84,37 @@ public class ClientHelper implements SocketClientConstants {
 		html.append("</body></html>");
 		return html.toString();
 	}
-
+	
+	/**
+	 * 
+	 * @param autoID Selected Auto
+	 * @return page 2 HTML
+	 * @throws IOException
+	 */
 	public String getConfigurePage(String autoID) throws IOException {
-		StringBuilder html = new StringBuilder();
-		String fromServer = strIn.readLine();
-		if (DEBUG)
-			System.out.println("Server Acknowledges: " + fromServer);
 
-		html.append("<!DOCTYPE html><html><head><title>Car Configuration</title></head><body>\n");
+		/* Handshake with Server */
+		String fromServer = strIn.readLine();// receive Ack from Server: What can we do for you?
+		// if (DEBUG)
+		// System.out.println("Server Acknowledges: " + fromServer);
 
 		strOut.println("GET_AUTO");// tell Server to wait for Auto ID
-		fromServer = strIn.readLine();
-		if (DEBUG)
-			System.out.println("Server: " + fromServer);
-		strOut.println(autoID);
+		fromServer = strIn.readLine();// receive another Ack from Server: What's the Auto ID?
+		// if (DEBUG)
+		// System.out.println("Server: " + fromServer);
+		strOut.println(autoID);// request auto object with this autoID from Server
+
+		StringBuilder html = new StringBuilder();
 		Automobile selectedAuto = null;
 		try {
-			selectedAuto = (Automobile) objIn.readObject();
+			selectedAuto = (Automobile) objIn.readObject(); // receive Auto Object from Server
+			html.append("<!DOCTYPE html><html><head><title>Car Configuration</title></head><body>\n");
+			/*
+			 * Generate HTML to hold all the necessary values of Auto to send to next Page
+			 */
 			html.append("<h1>Car Configuration: " + autoID + "</h1><p>Please select options below:</p>");
-			html.append("<form action ='" + dispatcherURL + "' method=\"POST\"><input type=\"hidden\" name=\"forward2\" value=\"ConfigureCar3\">");
+			html.append("<form action ='" + dispatcherURL
+					+ "' method=\"POST\"><input type=\"hidden\" name=\"forward2\" value=\"ConfigureCar3\">");
 			html.append("<input type=\"hidden\" name=\"autoID\" value=\"" + autoID + "\">");
 			html.append("<input type=\"hidden\" name=\"basePrice\" value=\"" + selectedAuto.getBasePrice() + "\">");
 			html.append("<table>");
@@ -120,15 +139,22 @@ public class ClientHelper implements SocketClientConstants {
 		} catch (AutoException e) {
 			html = new StringBuilder("Error2! Please restart!");
 		}
-
 		return html.toString();
 	}
 
+	/**
+	 * 
+	 * @param request Request sent from previous page
+	 * @return page 3 HTML
+	 */
 	public String getQuotePage(HttpServletRequest request) {
 		StringBuilder html = new StringBuilder();
 		html.append("<!DOCTYPE html><html><head><title>Car Configuration</title></head><body>");
+		
+		/*CSS Style in this page*/
 		html.append("<style>" + "table, td, th {" + "border: 1px solid black;" + "border-collapse: collapse;"
 				+ "padding: 5px;" + "}" + "</style>");
+		
 		html.append("<p>Below is you quote:</p>");
 		float basePrice = Float.parseFloat(request.getParameter("basePrice"));
 		String autoID = request.getParameter("autoID");

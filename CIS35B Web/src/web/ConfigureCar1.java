@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import client.AutoWebConfig;
 import client.ClientHelper;
 import client.SocketClientConstants;
 
@@ -52,9 +53,8 @@ public class ConfigureCar1 extends HttpServlet implements SocketClientConstants 
 			objIn = new ObjectInputStream(sock.getInputStream());
 			
 			PrintWriter out = response.getWriter();
-			ClientHelper ch = new ClientHelper(strOut, strIn, objOut, objIn);
-			String html = ch.getSelectAutoPage();
-			out.println(html);
+			AutoWebConfig ch = new ClientHelper(strOut, strIn, objOut, objIn);
+			out.println(ch.getSelectAutoPage());
 			sock.close();
 		}
 	}

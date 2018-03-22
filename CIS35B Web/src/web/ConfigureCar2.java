@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import client.ClientHelper;
-
-import client.SocketClientConstants;
+import client.*;
 
 /**
  * Servlet implementation class Page2
@@ -47,7 +45,7 @@ public class ConfigureCar2 extends HttpServlet implements SocketClientConstants 
 
 		PrintWriter out = response.getWriter();
 		String autoID = request.getParameter("autoList");
-		ClientHelper ch = new ClientHelper(strOut, strIn, objOut, objIn);
+		AutoWebConfig ch = new ClientHelper(strOut, strIn, objOut, objIn);
 		out.println(ch.getConfigurePage(autoID));
 		sock.close();
 	}

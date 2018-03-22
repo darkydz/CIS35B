@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import client.ClientHelper;
+import client.*;
 
 
 /**
@@ -34,7 +33,7 @@ public class ConfigureCar3 extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		ClientHelper ch = new ClientHelper();
+		AutoWebConfig ch = new ClientHelper();
 		out.println(ch.getQuotePage(request));
 	}
 
