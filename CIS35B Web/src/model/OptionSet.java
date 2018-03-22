@@ -144,6 +144,10 @@ public class OptionSet implements Serializable {
 		return opList;
 	}
 	
+	public float getOptionPrice(String opName) throws AutoException {
+		return opt.get(findOption(opName)).getPrice();
+	}
+	
 	/**
 	 * @param n: new name of OptionSet 
 	 */
@@ -261,10 +265,6 @@ public class OptionSet implements Serializable {
 			sb.append(opt.get(i).print());
 		}
 		return sb.toString();
-	}
-
-	public float getOptionPrice(String opName) throws AutoException {
-		return opt.get(findOption(opName)).getPrice();
 	}
 
 	
